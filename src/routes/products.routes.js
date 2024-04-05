@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addProduct, getProducts } from "../controllers/products.controller.js";
+import { addProduct, deleteProduct, getProducts, updateProduct } from "../controllers/products.controller.js";
 
 const router = Router()
 
@@ -8,5 +8,12 @@ router.get("/products/get", getProducts)
 
 // Crear un producto (añadirlo a la BD)
 router.post('/products/create', addProduct)
+
+// Eliminar un producto
+router.delete('/products/delete/:id', deleteProduct)
+
+// Actualizar un producto
+router.put('/products/update/:id', updateProduct)
+
 
 export default router
