@@ -1,10 +1,12 @@
 import express from 'express'
 import morgan from 'morgan'
+import dotenv from 'dotenv'
+import { createClient } from '@supabase/supabase-js'
 import chatRoutes from './routes/chat.routes.js'
 import authRoutes from './routes/auth.routes.js'
 
+dotenv.config();
 const app = express()
-
 
 //Middlewares
 app.use(morgan('dev'))
@@ -25,5 +27,8 @@ app.use((err, req, res, send, next) => {
         message: err.message
     })
 })
+
+// Supabase
+export const client = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_API_KEY)
 
 export default app
