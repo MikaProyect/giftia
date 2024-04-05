@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import app, { client } from "./app.js"
+import app, { supabase } from "./app.js"
 
 dotenv.config();
 
