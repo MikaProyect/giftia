@@ -3,12 +3,21 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Giftia">
+	<body>
+		<header>
+		<h2 class="logo"> ****LOGO****</h2> <!--Falta añadir LOGO-->
+		<nav class="navegador">
+			<a href="/chat/">Ir al Chat</a> 
+			<a href="/adminPages/products/">As admin</a>
+			<a href="/adminPages/products/">As user</a>
+			<a href="/login/">Iniciar Sesión</a>
+		</nav>
+		</header>
+	</body>
+
 	<main>
-		<a href="/chat/">Go to Chat</a>
 		<p>Go to admin as</p>
 		<ul>
-			<li><a href="/adminPages/products/">As admin</a></li>
-			<li><a href="/adminPages/products/">As user</a></li>
 		</ul>
 	</main>
 </Layout>
@@ -22,5 +31,37 @@ import Layout from "../layouts/Layout.astro";
 		color: white;
 		font-size: 20px;
 		line-height: 1.6;
+	}
+	body {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+		background-color: #2F31A4;
+	}
+	header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		padding: 20px 100px;
+		background: #8094F9;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		z-index: 99;
+	}
+	.logo {
+		font-size: 2em;
+		color: #eef3ff;
+		user-select: none;
+	}
+	.navegador{ /* Configuración de todo el NavBar */
+		position: relative;
+		font-size: 1.1em;
+		color: #fff; /* Todos los colores #fff estan por definir. */
+		text-decoration: none;
+		font-weight: 500;
+		margin-left: 40px;
 	}
 </style>
