@@ -1,5 +1,6 @@
 import express from 'express'
 import morgan from 'morgan'
+import cors from 'cors'
 import dotenv from 'dotenv'
 import { createClient } from '@supabase/supabase-js'
 import chatRoutes from './routes/chat.routes.js'
@@ -10,6 +11,9 @@ dotenv.config();
 const app = express()
 
 //Middlewares
+app.use(cors({
+    origin: 'http://localhost:4321/'
+}))
 app.use(morgan('dev'))
 app.use(express.json())
 
