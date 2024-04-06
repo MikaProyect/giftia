@@ -131,6 +131,24 @@ import Layout from "../layouts/Layout.astro";
         color: #ffffff;
         border: none;
         margin-top: 72vh;
+        margin-left: 2vh;
     }
+
+    .pedir_gift:hover
+    {
+        cursor: pointer;
+        color: #909090;
+        animation: zoomInOut 1s infinite alternate; /* Puedes ajustar la duración y el número de repeticiones según tu preferencia */
+
+    }
+
+    @keyframes zoomInOut {
+    0% {
+    transform: scale(1);
+     }
+    100% {
+    transform: scale(1.2); 
+  }
+}
 
 </style>
