@@ -3,13 +3,135 @@ import Layout from "../layouts/Layout.astro";
 
 ---
 <Layout title="Chat">
-
-    <h1>Welcome to the chat</h1>
+    <script  type = "module"  src = "https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" > </script > 
+    <script  nomodule  src = "https://unpkg .com/ionicons@7.1.0/dist/ionicons/ionicons.js" > </script >
     
+    <div class="cont-com">
+        <div class="izq"> <!--Contenedor del lado izquierdo-->
+
+            <img class="logok" src="../../public/logo_karina.png" alt="logo">
+            <!--<h1 class="titulo">Bienvenido!</h1> Titulo principal-->
+
+            <li><a class="CT">Cuenta</a></li>
+            <li><a class="SL">Salir</a></li>
+        </div>
+
+        <div class="der"> <!--Contenedor del lado derecho-->
+            <div class="msgpre">
+                <p class="text">¡Hola! Hoy te ayudaré a encontrar el regalo perfecto. Puedes escribir las preferencias siguiendo este ejemplo: Color, edad, deporte y dinero disponible.</p>
+            </div>
+
+            <div class="chat-input"> <!--Contenedor para la sección en donde escribe el usuario-->
+                <input type="text" class="chat" placeholder="Solicita tus regalos aquí...">
+                <button type="submit" class="pedir_gift"><ion-icon name="navigate-circle-outline"></ion-icon></button>
+            </div>
+        </div>
+    </div>
 </Layout>
 
-    <style>
-        h1 {
-            color: blue;
-        }
-    </style>
+<style>
+
+    .cont-com {
+        position: absolute;
+        width: 100%; /*ancho*/
+        height: 100%; /*altura*/
+        background-color: #1a1a4c; /*color de fondo*/
+        z-index: 1; /* es para que esté detrás de otros elementos */
+        top: 0; /*estará pegado al borde superior*/
+    }  
+
+    .izq {
+        position: absolute;
+        width: calc(13% - 40px); /* 13% - 20px de cada lado */
+        height: calc(100% - 40px); /* 100% - 20px de arriba y abajo */
+        background-color: #a4bafd; /*color de fondo*/
+        z-index: 2; /* es para que esté sobre .cont-com */
+        top: 20px; /* mueve 20px desde el borde superior */
+        left: 20px; /* mueve 20px desde el borde izquierdo */
+        border-radius: 10px; /* redondea las esquinas */
+        border: 20px solid transparent; /* crea el borde de 20px */
+        display: flex;
+        flex-direction: column; /* alinea los elementos verticalmente */
+        justify-content: flex-start; /* alinea los elementos al principio */
+        align-items: center; /* alinea los elementos al centro horizontalmente */
+    }
+
+    .der {
+        position: absolute;
+        width: calc(87% - 40px); /* 87% - 20px de cada lado */
+        height: 100%;
+        background-color: #1a1a4c;
+        z-index: 1; /* Asegura que esté detrás de otros elementos */
+        left: calc(13% + 20px); /* Posición desde el borde izquierdo */
+        border-radius: 10px; /* redondea las esquinas */
+        border: 20px solid transparent; /* crea el borde de 20px */
+    }
+
+    .logok {
+        width: 40%;
+        max-width: 250px;
+        min-width: 150px;
+        display: block;
+        position: relative; /* Cambiamos la posición a relativa */
+        margin-top: -10px; /* Agregamos un margen superior */
+    }
+
+    .titulo {
+        text-align: center;
+        margin-top: 10%;
+        color: white;
+    }
+
+    .CT,
+    .SL {
+        text-align: center;
+        list-style-type: none;
+        color: white;
+        margin: 10px 0; /* Agregamos un margen entre los elementos */
+    }
+    
+
+    .msgpre {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        background-color: #a4bafd ;
+        border-radius: 2vh;
+        width: 50%;
+        height: 10vh;
+        padding: 4vh;    
+    }
+
+    .text {
+        color: black;
+    } 
+
+    .chat { 
+        width: 100%;
+        padding: 20px; /* Espaciado interior para el borde inferior */
+        box-sizing: border-box; /* Incluimos el relleno en el ancho total */
+        background-color: #ffffff; /*.fondo blanco*/
+        border-radius: 10px; /* Redondear esquinas */
+        margin-top: 70vh; /* Espaciado superior para separarlo del borde superior */
+    }
+
+    .chat-input
+    {
+        display:flex;
+        border: 25px solid transparent;
+        position: relative;
+
+    }
+    .pedir_gift 
+    {
+        width: 7vh;
+        height: 7vh;
+        font-size: 6vh;
+        background-color: transparent;
+        color: #ffffff;
+        border: none;
+        margin-top: 72vh;
+
+    }
+
+</style>
