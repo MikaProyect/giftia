@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
 ---
 
 <Layout title="Giftia">
@@ -20,13 +21,13 @@ import Layout from "../layouts/Layout.astro";
 
             <div class="form-boxlogin"> <!--Formulario del Login -->
             	<h2>Inicio de Sesión</h2>
-            	<form action="#">
+            	<form action="#" id="loginForm">
                 	<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
-                    	<input type="email" required>
+                    	<input type="email" id="loginEmail" required>
                     	<label>Correo</label>
                 	</div>
                 	<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
-                    	<input type="password" required>
+                    	<input type="password" id="loginPassword" required>
                     	<label>Contraseña</label>
                 	</div>
                 	<div class="recordar-olvido"> <!--Botón de recordar al usuario y olvido contraseña -->
@@ -42,17 +43,17 @@ import Layout from "../layouts/Layout.astro";
 			</div>
 			<div class="form-boxregistro"> <!--Formulario del Registro -->
             	<h2>Registro</h2>
-            	<form action="#">
+            	<form action="#" id="registerForm">
 					<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
-                    	<input type="text" required>
+                    	<input type="text" id="registerUser" required>
                     	<label>Usuario</label>
                 	</div>
                 	<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
-                    	<input type="email" required>
+                    	<input type="email" id="registerEmail" required>
                     	<label>Correo</label>
                 	</div>
                 	<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
-                    	<input type="password" required>
+                    	<input type="password" id="registerPass" required>
                     	<label>Contraseña</label>
                 	</div>
                 	<div class="recordar-olvido"> <!--Botón de recordar al usuario y olvido contraseña -->
@@ -71,6 +72,53 @@ import Layout from "../layouts/Layout.astro";
 		<script src="../scripts/scriptlogin.js"></script>
 		<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 		<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+		<script>
+			const loginForm = document.querySelector('#loginForm')
+			const registerForm = document.querySelector('#registerForm')
+
+
+			loginForm.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				const email = loginForm['loginEmail'].value;
+				const password = loginForm['loginPassword'].value;
+
+				const res = await fetch('http://localhost:3000/api/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ 
+						user: email,
+						password: password
+					})
+				})
+				const data = await res.json()
+				console.log(data)
+			})
+
+			registerForm.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				const user = registerForm['registerUser'].value;
+				const email = registerForm['registerEmail'].value;
+				const password = registerForm['registerPass'].value;
+
+				const res = await fetch('http://localhost:3000/api/register', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ 
+						user: email,
+						password: password
+					})
+				})
+				const data = await res.json()
+				console.log(data)
+			})
+
+		</script>
+
 	</body>
 	</main>
 </Layout>
