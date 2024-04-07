@@ -1,0 +1,360 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Gestión de Productos">
+  <body>
+    <header>
+      <div class="header__logo">
+        <img src="/logo_karina.png" alt="Logo Giftia" />
+      </div>
+
+      <ul class="header__prod">
+        <li>
+          <a href="GiftiaFront/src/pages/adminPages/gest-prod.astro"
+            >Productos</a
+          >
+        </li>
+      </ul>
+    </header>
+    <h1>Productos</h1>
+    <button id="btn-abrir-agrpr" class="BotonAgrPr">Agregar Productos</button>
+    <table class="default">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Vendedor</th>
+        <th>Enlace</th>
+        <th></th>
+      </tr>
+
+      <tr>
+        <td>504</td>
+        <td>RAQUETA DE TENIS BABOLAT EAGLE</td>
+        <td>40990</td>
+        <td>Paris</td>
+        <td
+          ><a
+            href="https://www.falabella.com/falabella-cl/product/116971455/RAQUETA-DE-TENIS-BABOLAT-EAGLE-GRIP-3/116971456"
+            >Link hacia la tienda</a
+          ></td
+        >
+        <td>
+          <button type="button" class="editPr" id="btn-abrir-editpr-1"
+            >Editar</button
+          >
+          <button type="button" onclick="alert('Producto eliminado')"
+            >Eliminar</button
+          >
+        </td>
+      </tr>
+
+      <tr>
+        <td>529</td>
+        <td>Botella Keep 600ml</td>
+        <td>4990</td>
+        <td>Jumbo</td>
+        <td
+          ><a
+            href="https://www.jumbo.cl/botella-keep-metalica-600-ml-surtido-keep-1623346/p"
+            >Link hacia la tienda</a
+          ></td
+        >
+        <td>
+          <button type="button" class="editPr" id="btn-abrir-editpr-2"
+            >Editar</button
+          >
+          <button type="button" onclick="alert('Producto eliminado')"
+            >Eliminar</button
+          >
+        </td>
+      </tr>
+
+      <tr>
+        <td>572</td>
+        <td>Aves de Chile: Colores al vuelo (tapa dura)</td>
+        <td>39990</td>
+        <td>Bosque Chileno</td>
+        <td
+          ><a
+            href="https://bosquechileno.cl/products/aves-de-chile-colores-al-vuelo-tapa-dura"
+            >Link hacia la tienda</a
+          ></td
+        >
+        <td>
+          <button type="button" class="editPr" id="btn-abrir-editpr-3"
+            >Editar</button
+          >
+          <button type="button" onclick="alert('Producto eliminado')"
+            >Eliminar</button
+          >
+        </td>
+      </tr>
+    </table>
+
+    <dialog id="modal-editar">
+      <form id="EditProductos">
+        <h1 class="tituloEditPr">Editar Productos</h1>
+
+        <label for="id" class="subtAEP">ID:</label>
+        <input type="text" placeholder="845" />
+        <br />
+        <label for="nombre" class="subtAEP">Nombre:</label>
+        <input type="text" placeholder="Vela aromática" />
+        <br />
+        <label for="Precio" class="subtAEP">Precio:</label>
+        <input type="number" placeholder="4990" />
+        <br />
+        <label for="vendedor" class="subtAEP">Vendedor:</label>
+        <input type="email" placeholder="Tiendita de velas" />
+        <br />
+        <label for="link" class="subtAEP">Link de la tienda:</label>
+        <input type="url" placeholder="https..." />
+
+        <br /><br />
+
+        <button>Guardar</button>
+        <button id="btn-cerrar-editpr">Cerrar</button>
+      </form>
+    </dialog>
+
+    <dialog id="modal-agregar">
+      <form id="AgrProductos">
+        <h1 class="tituloEditPr">Agregar Productos</h1>
+
+        <label for="id" class="subtAEP">ID:</label>
+        <input type="text" placeholder="845" />
+        <br />
+        <label for="nombre" class="subtAEP">Nombre:</label>
+        <input type="text" placeholder="Vela aromática" />
+        <br />
+        <label for="Precio" class="subtAEP">Precio:</label>
+        <input type="number" placeholder="4990" />
+        <br />
+        <label for="vendedor" class="subtAEP">Vendedor:</label>
+        <input type="email" placeholder="Tiendita de velas" />
+        <br />
+        <label for="link" class="subtAEP">Link de la tienda:</label>
+        <input type="url" placeholder="https..." />
+        <br /><br />
+
+        <button>Guardar</button>
+        <button id="btn-cerrar-agrpr">Cerrar</button>
+      </form>
+    </dialog>
+
+    <script>
+      const btnAbrirModalAgr = document.querySelector("#btn-abrir-agrpr");
+      const btnAbrirModalEdit1 = document.querySelector("#btn-abrir-editpr-1");
+      const btnAbrirModalEdit2 = document.querySelector("#btn-abrir-editpr-2");
+      const btnAbrirModalEdit3 = document.querySelector("#btn-abrir-editpr-3");
+      const btnCerrarModalEdit = document.querySelector("#btn-cerrar-editpr");
+      const btnCerrarModalAgr = document.querySelector("#btn-cerrar-agrpr");
+
+      const modalEditar = document.querySelector("#modal-editar");
+      const modalAgregar = document.querySelector("#modal-agregar");
+
+      btnAbrirModalAgr.addEventListener("click", () => {
+        modalAgregar.showModal();
+      });
+
+      btnAbrirModalEdit1.addEventListener("click", () => {
+        modalEditar.showModal();
+      });
+
+      btnAbrirModalEdit2.addEventListener("click", () => {
+        modalEditar.showModal();
+      });
+
+      btnAbrirModalEdit3.addEventListener("click", () => {
+        modalEditar.showModal();
+      });
+
+      btnCerrarModalAgr.addEventListener("click", () => {
+        modalAgregar.close();
+      });
+
+      btnCerrarModalEdit.addEventListener("click", () => {
+        modalEditar.close();
+      });
+    </script>
+  </body>
+</Layout>
+
+<style>
+  body {
+    background-size: cover;
+    background-color: #a4bafd;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinea el contenido en la parte superior */
+    height: 100vh;
+    margin: 0;
+    font-family: "Anton", sans-serif;
+    font-family: "Rajdhani", sans-serif;
+  }
+
+  h1 {
+    color: rgb(0, 0, 0);
+    margin-top: 20px; /* Ajusta el margen según sea necesario */
+    margin-left: 10px;
+    position: absolute; /* Utiliza "absolute" para posicionar de forma absoluta */
+    top: 100px; /* Ajusta según tus necesidades */
+    left: 5px; /* Ajusta según tus necesidades */
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 600px; /* Establece un ancho máximo para la tabla */
+    margin: auto; /* Centra la tabla en el contenedor */
+    background-color: #fff; /* Color de fondo de la tabla */
+  }
+
+  th,
+  td {
+    border: 1px solid #ddd; /* Borde de las celdas */
+    padding: 8px; /* Espaciado interno de las celdas */
+    text-align: left;
+  }
+
+  th {
+    background-color: #4446e7; /* Color de fondo del encabezado */
+    color: white; /* Color del texto del encabezado */
+  }
+
+  .BotonAgrPr {
+    margin-top: 20px;
+    margin-left: 10px;
+    position: absolute;
+    top: 100px;
+    left: 1100px;
+    font-family: "Rajdhani", sans-serif;
+    border-radius: 8px;
+    font-size: 20px;
+    border-color: rgb(72, 110, 233);
+    padding: 3px;
+  }
+
+  button {
+    color: rgb(0, 0, 0);
+    border-color: rgb(72, 75, 233);
+    border-radius: 7px;
+    margin-top: 5px;
+    padding: 2px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Hace que el header esté fijo en la parte superior de la pantalla */
+    top: 0; /* Lo posiciona en la parte superior */
+    height: 100px;
+    width: 100vw;
+    background-color: #3333339d; /* Puedes cambiar esto a tu color de fondo deseado */
+    color: white; /* Puedes cambiar esto a tu color de texto deseado */
+    z-index: 1000;
+  }
+
+  header .header__logo {
+    margin-left: 50px;
+    height: 90px;
+    width: 100px;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+
+  header .header__logo img {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+  } /*Propiedades para que la img ocupe toda la forma del contenedor y no se salga de ella.*/
+
+  header .header__prod {
+    display: flex;
+    padding-right: 30px;
+  } /*Aquí está guardado las opciones */
+
+  header .header__prod li {
+    padding: 10px;
+    list-style-type: none;
+    font-family: "Rajdhani", sans-serif;
+  } /*Se edita el estilo del contenido de la lista.*/
+
+  header .header__prod li a {
+    font-size: 18px;
+    text-decoration: none;
+    color: white;
+  } /*Se edita el estilo del contenido del link*/
+
+  header .header__prod li a::after {
+    content: "";
+    width: 0;
+    height: 2px;
+    background: var(--dark-pink);
+    display: block;
+    transition: 0.1s linear;
+  } /*Se edita para animacion de la rayita debajo. P1.*/
+
+  header .header__prod li a:hover::after {
+    width: 100%;
+  } /*Se edita para animacion de la rayita debajo. P2.*/
+
+  header .header__prod .header__prod--login {
+    border-left: 3px solid white;
+  } /*la única linea blanca que hay.*/
+
+  #modal-editar {
+    width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+  }
+
+  #modal-agregar {
+    width: 400px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+  }
+
+  .tituloEditPr {
+    text-align: center;
+    color: #000000;
+    position: static;
+  }
+
+  .tituloAgrPR {
+    text-align: center;
+    color: #000000;
+    position: static;
+  }
+
+  .subtAEP {
+    /* Subtitulos del formulario de Agregar y Editar Usuario */
+    display: block;
+    margin-top: 10px;
+    color: #000000;
+    font-weight: bold;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button:hover {
+    background-color: rgba(16, 48, 192, 0.37);
+  }
+</style>

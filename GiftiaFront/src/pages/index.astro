@@ -3,24 +3,27 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Giftia">
-	<main>
-		<a href="/chat/">Go to Chat</a>
-		<p>Go to admin as</p>
-		<ul>
-			<li><a href="/adminPages/products/">As admin</a></li>
-			<li><a href="/adminPages/products/">As user</a></li>
-		</ul>
-	</main>
+  <main>
+    <a href="/chat/">Go to Chat</a>
+    <p>Go to admin as</p>
+    <ul>
+      <li><a href="/adminPages/products/">As admin</a></li>
+      <li>
+        <a href="/adminPages/gest-prod/">Gestion Prod Admin</a>
+      </li>
+      <li><a href="/adminPages/products/">As user</a></li>
+    </ul>
+  </main>
 </Layout>
 
 <style>
-	main {
-		margin: auto;
-		padding: 1rem;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-		color: white;
-		font-size: 20px;
-		line-height: 1.6;
-	}
+  main {
+    margin: auto;
+    padding: 1rem;
+    width: 800px;
+    max-width: calc(100% - 2rem);
+    color: white;
+    font-size: 20px;
+    line-height: 1.6;
+  }
 </style>
