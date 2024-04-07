@@ -3,17 +3,20 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Chat">
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <div class="cont-com">
+
         <div class="izq"> <!--Contenedor del lado izquierdo-->
-            <img class="logok" src="/img/logo_karina.png" alt="logo"> <!--REVISAR -->
+            <img class="logok" src="../img/logo_karina.png" alt="logo"> <!--REVISAR -->
             <li><a class="CT">Cuenta</a></li>
             <li><a class="SL">Salir</a></li>
         </div>
 
         <div class="der"> <!--Contenedor del lado derecho-->
+
             <div class="msgpre">
                 <p class="text">¡Hola! Hoy te ayudaré a encontrar el regalo perfecto. Puedes escribir las preferencias siguiendo este ejemplo: Color, edad, deporte y dinero disponible.</p>
             </div>
@@ -21,20 +24,23 @@ import Layout from "../layouts/Layout.astro";
             <div class="chat-input"> <!--Contenedor para la sección en donde escribe el usuario-->
                 <input type="text" class="chat" placeholder="Solicita tus regalos aquí...">
                 <button type="submit" onclick="enviarMensaje(); MandarAlServidor();" class="pedir_gift"><ion-icon name="navigate-circle-outline"></ion-icon></button>
-                
-                <div id="usser">
-                    <p class="parrafo"></p>
-                </div> <!--se enviará el msg aquí-->
             </div>
         </div>
     </div>
 
     <script is:inline> //esto significa que será destinado para que se ejecute inline
+        
+        //se crea una funcion para que el usuario envie un mensaje y se muestre en front
         function enviarMensaje() {  //se define la función enviarMensaje
             const message = document.querySelector(".chat").value;
-            document.querySelector(".parrafo").innerHTML = message;
+            const chat = document.querySelector(".chat-input")
+            const newdiv = document.createElement("div") //se está creando un nuevo div llamado newdiv
+            newdiv.className = "msguser" //se le agrega una clase a newdiv
+            newdiv.innerHTML = "<p>"+message+"</p>" //inserta un nuevo parrafo del usuario a newdiv
+            chat.appendChild(newdiv) // se inserta newdiv en chat-input
         }
 
+        //Funcion que espera interaccion del usuario para obtener respuesta (asincrona)
         async function MandarAlServidor() { //funcion asincrona
             const user = document.querySelector(".chat").value;
             const response = await fetch('http://localhost:3000/api/chat/send', {
@@ -45,7 +51,13 @@ import Layout from "../layouts/Layout.astro";
                 },
             });
             const data = await response.json();
-            console.log(data);
+
+            //En esta seccion se crea una seccion en donde se haga visible en front la respuesta de la IA
+            const chat = document.querySelector(".chat-input")
+            const newdiv = document.createElement("div") //se está creando un nuevo div llamado newdiv
+            newdiv.className = "msgbot" //se le agrega una clase a newdiv
+            newdiv.innerHTML = "<p>"+data.message+"</p>" //inserta un nuevo parrafo del bot a newdiv
+            chat.appendChild(newdiv) // se inserta newdiv en chat-input
         }
     </script>
     
@@ -176,9 +188,6 @@ import Layout from "../layouts/Layout.astro";
     transform: scale(1.2); 
     }}
 
-    #usser {
-        background-color: #8094f9;
-        width: 150px;
-    }
+
 
 </style>
