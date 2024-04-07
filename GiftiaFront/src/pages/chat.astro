@@ -34,12 +34,24 @@ import Layout from "../layouts/Layout.astro";
         function enviarMensaje() {  //se define la función enviarMensaje
             const message = document.querySelector(".chat").value;
             const chat = document.querySelector(".chat-input")
-            const newdiv = document.createElement("div") //se está creando un nuevo div llamado newdiv
-            newdiv.className = "msguser" //se le agrega una clase a newdiv
-            newdiv.innerHTML = "<p>"+message+"</p>" //inserta un nuevo parrafo del usuario a newdiv
-            chat.appendChild(newdiv) // se inserta newdiv en chat-input
-        }
+            const newDiv = document.createElement("div") //se está creando un nuevo div llamado newdiv
+            newDiv.className = "msguser" //se le agrega una clase a newdiv
+            newDiv.innerHTML = "<p>"+message+"</p>" //inserta un nuevo parrafo del usuario a newdiv
+            
+            newDiv.style.color = "black";
+            newDiv.style.backgroundColor = "#8094f9";
+            newDiv.style.borderRadius = "10px"; // Redondear las esquinas
+            newDiv.style.padding = "10px"; // Espaciado interior
+            newDiv.style.marginBottom = "10px"; // Espaciado entre mensajes
+            newDiv.style.maxWidth = "70%"; // Ancho máximo
+            newDiv.style.clear = "both"; // Limpiar el float para que se posicione debajo
+            newDiv.style.overflow = "auto"; // Para manejar correctamente el float
+            newDiv.style.position = "relative"; // Posición relativa para alinear la imagen
+            newDiv.style.display = "flex";
 
+            chat.appendChild(newDiv) // se inserta newdiv en chat-input
+        }
+        
         //Funcion que espera interaccion del usuario para obtener respuesta (asincrona)
         async function MandarAlServidor() { //funcion asincrona
             const user = document.querySelector(".chat").value;
@@ -56,16 +68,25 @@ import Layout from "../layouts/Layout.astro";
             const chat = document.querySelector(".chat-input")
             const newdiv = document.createElement("div") //se está creando un nuevo div llamado newdiv
             newdiv.className = "msgbot" //se le agrega una clase a newdiv
-            newdiv.innerHTML = "<p>"+data.message+"</p>" //inserta un nuevo parrafo del bot a newdiv
+            newdiv.innerHTML = "<p>"+"Hola, soy GIFTIA"+"</p>" //inserta un nuevo parrafo del bot a newdiv
+            
+            newdiv.style.color = "black";
+            newdiv.style.backgroundColor = "#a4bafd";
+            newdiv.style.borderRadius = "10px"; // Redondear las esquinas
+            newdiv.style.padding = "10px"; // Espaciado interior
+            newdiv.style.marginBottom = "10px"; // Espaciado entre mensajes
+            newdiv.style.maxWidth = "70%"; // Ancho máximo
+            newdiv.style.clear = "both"; // Limpiar el float para que se posicione debajo
+            newdiv.style.overflow = "auto"; // Para manejar correctamente el float
+            newdiv.style.position = "relative"; // Posición relativa para alinear la imagen
+
+            
             chat.appendChild(newdiv) // se inserta newdiv en chat-input
         }
+
     </script>
     
-    <script type="module">
-        
-    </script>
 </Layout>
-
 
 <style>
 
@@ -132,7 +153,7 @@ import Layout from "../layouts/Layout.astro";
         display: flex;
         justify-content: flex-end;
         align-items: flex-end;
-        background-color: #c6d6ff ;
+        background-color: #a4bafd ;
         border-radius: 2vh;
         width: 50%;
         height: 10vh;
@@ -177,7 +198,6 @@ import Layout from "../layouts/Layout.astro";
         cursor: pointer;
         color: #909090;
         animation: zoomInOut 1s infinite alternate; /* Puedes ajustar la duración y el número de repeticiones según tu preferencia */
-
     }
 
     @keyframes zoomInOut {
@@ -188,6 +208,28 @@ import Layout from "../layouts/Layout.astro";
     transform: scale(1.2); 
     }}
 
+    .msguser {
+        background-color: #10150c; /* Color de fondo para mensajes del usuario */
+        color: #333; /* Color de texto para mensajes del usuario */
+        border-radius: 10px; /* Redondear las esquinas */
+        padding: 10px; /* Espaciado interior */
+        margin-bottom: 10px; /* Espaciado entre mensajes */
+        max-width: 70%; /* Ancho máximo para los mensajes del usuario */
+        clear: both; /* Limpiar el float para que se posicione debajo */
+        overflow: auto; /* Para manejar correctamente el float */
+        position: relative; /* Posición relativa para alinear la imagen */
+    }
 
+    .msgbot {
+        background-color: #333; /* Color de fondo para mensajes del bot */
+        color: #333; /* Color de texto para mensajes del bot */
+        border-radius: 10px; /* Redondear las esquinas */
+        padding: 10px; /* Espaciado interior */
+        margin-bottom: 10px; /* Espaciado entre mensajes */
+        max-width: 70%; /* Ancho máximo para los mensajes del bot */
+        clear: both; /* Limpiar el float para que se posicione debajo */
+        overflow: auto; /* Para manejar correctamente el float */
+        position: relative; /* Posición relativa para alinear la imagen */
+    }
 
 </style>
