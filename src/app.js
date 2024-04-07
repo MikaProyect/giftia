@@ -12,7 +12,7 @@ const app = express()
 
 //Middlewares
 app.use(cors({
-    origin: 'http://localhost:4321/'
+    origin: 'http://localhost:4321'
 }))
 app.use(morgan('dev'))
 app.use(express.json())

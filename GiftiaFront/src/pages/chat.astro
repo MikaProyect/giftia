@@ -39,10 +39,10 @@ import Layout from "../layouts/Layout.astro";
             const user = document.querySelector(".chat").value;
             const response = await fetch('http://localhost:3000/api/chat/send', {
                 method: 'POST',
+                body: JSON.stringify({userMessage: user}),
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({userMessage: user}),
             });
             const data = await response.json();
             console.log(data);
