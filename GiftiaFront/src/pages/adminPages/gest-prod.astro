@@ -152,8 +152,12 @@ import Layout from "../../layouts/Layout.astro";
       const btnCerrarModalEdit = document.querySelector("#btn-cerrar-editpr");
       const btnCerrarModalAgr = document.querySelector("#btn-cerrar-agrpr");
 
-      const modalEditar = document.querySelector("#modal-editar");
-      const modalAgregar = document.querySelector("#modal-agregar");
+      const modalAgregar = document.querySelector(
+        "#modal-agregar"
+      ) as HTMLDialogElement;
+      const modalEditar = document.querySelector(
+        "#modal-editar"
+      ) as HTMLDialogElement;
 
       btnAbrirModalAgr.addEventListener("click", () => {
         modalAgregar.showModal();

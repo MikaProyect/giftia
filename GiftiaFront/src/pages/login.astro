@@ -1,0 +1,333 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+---
+
+<Layout title="Giftia">
+    <main>
+	<body>
+		<header>
+		<h2 class="logo"> ****LOGO****</h2> <!--Falta añadir LOGO-->
+		<nav class="navegador">
+			<a href="/chat/">Ir al Chat</a> 
+			<a href="/adminPages/products/">As admin</a>
+			<a href="/adminPages/products/">As user</a>
+			<button class="btnLogin-main">Iniciar Sesión</button>
+		</nav>
+		</header>
+        <div class="agrupador"> <!-- Contenedor del Formulario Login -->
+			<span class="icono-cerrar"><ion-icon name="close-outline"></ion-icon>
+			</span>
+
+            <div class="form-boxlogin"> <!--Formulario del Login -->
+            	<h2>Inicio de Sesión</h2>
+            	<form action="#" id="loginForm">
+                	<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
+                    	<input type="email" id="loginEmail" required>
+                    	<label>Correo</label>
+                	</div>
+                	<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
+                    	<input type="password" id="loginPassword" required>
+                    	<label>Contraseña</label>
+                	</div>
+                	<div class="recordar-olvido"> <!--Botón de recordar al usuario y olvido contraseña -->
+                    	<label><input type="checkbox">
+                    	Recordarme</label>
+                    	<a href="#"> Olvidé mi contraseña </a> <!--Botón sin link de caida todavía --> 
+                	</div>
+                	<button type="submit" class="btn-login0">Ingresar</button>
+                	<div class="inicio-registro">
+                   	 <p>No estas registrado? <a href="#" class="link-registro">Registrarme</a></p>
+                	</div>    
+            	</form>
+			</div>
+			<div class="form-boxregistro"> <!--Formulario del Registro -->
+            	<h2>Registro</h2>
+            	<form action="#" id="registerForm">
+					<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
+                    	<input type="text" id="registerUser" required>
+                    	<label>Usuario</label>
+                	</div>
+                	<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
+                    	<input type="email" id="registerEmail" required>
+                    	<label>Correo</label>
+                	</div>
+                	<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
+                    	<input type="password" id="registerPass" required>
+                    	<label>Contraseña</label>
+                	</div>
+                	<div class="recordar-olvido"> <!--Botón de recordar al usuario y olvido contraseña -->
+                    	<label><input type="checkbox">
+                    	Acepto los terminos y condiciones</label>
+                	</div>
+                	<button type="submit" class="btn-login0">Registrarme</button>
+                	<div class="inicio-registro">
+                   	 <p>Ya tienes una cuenta? <a href="/login/" class="link-login">Iniciar Sesión</a></p>
+                	</div>    
+            	</form>
+			</div>
+			
+			
+        </div>
+		<script src="../scripts/scriptlogin.js"></script>
+		<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+		<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+		<script>
+			const loginForm = document.querySelector('#loginForm')
+			const registerForm = document.querySelector('#registerForm')
+
+
+			loginForm.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				const email = loginForm['loginEmail'].value;
+				const password = loginForm['loginPassword'].value;
+
+				const res = await fetch('http://localhost:3000/api/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ 
+						user: email,
+						password: password
+					})
+				})
+				const data = await res.json()
+				console.log(data)
+			})
+
+			registerForm.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				const user = registerForm['registerUser'].value;
+				const email = registerForm['registerEmail'].value;
+				const password = registerForm['registerPass'].value;
+
+				const res = await fetch('http://localhost:3000/api/register', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ 
+						user: email,
+						password: password
+					})
+				})
+				const data = await res.json()
+				console.log(data)
+			})
+
+		</script>
+
+	</body>
+	</main>
+</Layout>
+
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-family:sans-serif; /* Definir font a utilizar */
+	}
+	main {
+		margin: auto;
+		padding: 1rem;
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		color: white;
+		font-size: 20px;
+		line-height: 1.6;
+	}
+	body {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+		background-color: #898ad8;
+	}
+	header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		padding: 20px 100px;
+		background: #8094F9;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		z-index: 99;
+	}
+	.logo {
+		font-size: 2em;
+		color: #eef3ff;
+		user-select: none;
+	}
+	.navegador{ /* Configuración de todo el NavBar */
+		position: relative;
+		font-size: 1.1em;
+		color: #fff; /* Todos los colores #fff estan por definir. */
+		text-decoration: none;
+		font-weight: 500;
+		margin-left: 40px;
+	}
+	.navegador .btnLogin-main{ /* Para el botón de Iniciar Sesión */
+		width: 130px;
+		height: 50px;
+		background: transparent;
+		border: 2px solid #fff;
+		outline: none;
+		border-radius: 6px;
+		cursor: pointer;
+		font-size: 1.1em;
+		color: #fff; /* Todos los colores #fff estan por definir. */
+		font-weight: 500;
+		margin-left: 40px;
+		transition: .5s;
+	}
+	.navegador .btnLogin-main:hover{
+		background: #fff; /* Todos los colores #fff estan por definir. */
+		color: #4444CF;
+	}
+	.agrupador { /*Contenedor de los form */
+		position: relative;
+		width: 400px;
+		height: 440px;
+		background: transparent;
+		border: 2px solid rgba(255, 255, 255, .5); /* Borde blanco */
+		border-radius: 20px;
+		backdrop-filter: blur(20px);
+		box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+		transition:height:.2s ease;
+	}
+
+	.agrupador.activo {
+		height: 520px;
+	}
+	.agrupador .form-boxlogin{ /*contenedor inicio de sesión */
+		width: 100%;
+		padding: 40px;
+	}
+	.agrupador .form-boxlogin{
+		transition: transform: .18s ease;
+		transform: translateX(0);
+	}
+	.agrupador.activo .form-boxlogin{
+		transition: none;
+		transform: translateX(-400px);
+	}
+
+	.agrupador .form-boxregistro { /*Contenedor Registro */
+		position: absolute;
+		transform: translateX(400px); /* Se añade el translate para mover ambos forms de lugar y ocultar uno */
+	}
+	.agrupador.activo .form-boxregistro{
+		position: absolute;
+		transition: none;
+		transform: translateX(0px);
+	}
+
+	.agrupador .icono-cerrar { /*para la X de la esquinita */
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 45px;
+		height: 45px;
+		background: #E5E8FA;
+		font-size:2em;
+		color: #162938;
+		display: center;
+		justify-content:center;
+		align-items:center;
+		border-bottom-left-radius: 20px;
+		cursor:pointer;
+		z-index:1;
+	}
+	.form-boxlogin h2{
+		font-size:2em;
+		color: #fff;
+		text-align: center;
+	}
+	.caja-inputs{
+		position: relative;
+		width: 100%;
+		height: 50px;
+		border-bottom: 2px solid #162938;
+		margin: 30px 0;
+	}
+	.caja-inputs label{
+		position: absolute;
+		top: 50%;
+		left: 5px;
+		transform: translateY(-50%); 
+		font-size: 1em;
+		font-weight:500;
+		pointer-events: none;
+		transition: .5s;
+	}
+	.caja-inputs input:focus~label,
+	.caja-inputs input:valid~label{ 
+		top: -5px; /*Eleva el texto cuando el usuario va a ingresar su correo o contraseña */
+	}
+	.caja-inputs input {
+		width: 100%;
+		height: 100%;
+		background: transparent;
+		border: none;
+		outline: none;
+		font-size: 1em;
+		color: #fff;
+		font-weight:600;
+		padding: 0 35px 0 5px;
+	}
+	.recordar-olvido { /* Para el mensaje de recordarme y olvido de contraseña */
+		font-size:.9em;
+		color: #fff;
+		font-weight:500;
+		margin: -15px 0 15px;
+		display: flex;
+		justify-content:space-between;
+	}
+	.recordar-olvido label input{ /*Para el checkbox*/
+		accent-color: #162938;
+		margin-right: 3px;
+	}
+	.recordar-olvido a { /*texto que dice "olvidé mi contraseña" */
+		color: #fff;
+		text-decoration:none;
+	}
+	.recordar-olvido a:hover { /*para que cuando se pase el mouse encima del texto, se subraye */
+		text-decoration: underline; 
+	}
+	.btn-login0{ /* boton de inicio de sesión */
+		width: 100%;
+		height: 45px;
+		background: #E5E8FA;
+		border: none;
+		outline: none;
+		border-radius: 6px;
+		cursor: pointer;
+		font-size: 1em;
+		color: #898ad8;
+		font-weight:500;
+	}
+	.inicio-registro{ /* No tienes cuenta? */
+		font-size:.9em;
+		color: #fff;
+		text-align: center;
+		font-weight: 500;
+		margin: 25px 0 10px;
+	}
+	.inicio-registro p a { /*texto para "Registrarme" */
+		color: #fff;
+		text-decoration:none;
+		font-weight:600;
+	}
+	.inicio-registro p a:hover{
+		text-decoration:underline;
+	}
+

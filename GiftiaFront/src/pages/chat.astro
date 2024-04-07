@@ -1,17 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
 ---
+
 <Layout title="Chat">
-    <script  type = "module"  src = "https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" > </script > 
-    <script  nomodule  src = "https://unpkg .com/ionicons@7.1.0/dist/ionicons/ionicons.js" > </script >
-    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
     <div class="cont-com">
         <div class="izq"> <!--Contenedor del lado izquierdo-->
-
-            <img class="logok" src="../../public/logo_karina.png" alt="logo">
-            <!--<h1 class="titulo">Bienvenido!</h1> Titulo principal-->
-
+            <img class="logok" src="/img/logo_karina.png" alt="logo"> <!--REVISAR -->
             <li><a class="CT">Cuenta</a></li>
             <li><a class="SL">Salir</a></li>
         </div>
@@ -23,11 +20,40 @@ import Layout from "../layouts/Layout.astro";
 
             <div class="chat-input"> <!--Contenedor para la sección en donde escribe el usuario-->
                 <input type="text" class="chat" placeholder="Solicita tus regalos aquí...">
-                <button type="submit" class="pedir_gift"><ion-icon name="navigate-circle-outline"></ion-icon></button>
+                <button type="submit" onclick="enviarMensaje(); MandarAlServidor();" class="pedir_gift"><ion-icon name="navigate-circle-outline"></ion-icon></button>
+                
+                <div id="usser">
+                    <p class="parrafo"></p>
+                </div> <!--se enviará el msg aquí-->
             </div>
         </div>
     </div>
+
+    <script is:inline> //esto significa que será destinado para que se ejecute inline
+        function enviarMensaje() {  //se define la función enviarMensaje
+            const message = document.querySelector(".chat").value;
+            document.querySelector(".parrafo").innerHTML = message;
+        }
+
+        async function MandarAlServidor() { //funcion asincrona
+            const user = document.querySelector(".chat").value;
+            const response = await fetch('http://localhost:3000/api/chat/send', {
+                method: 'POST',
+                body: JSON.stringify({userMessage: user}),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.json();
+            console.log(data);
+        }
+    </script>
+    
+    <script type="module">
+        
+    </script>
 </Layout>
+
 
 <style>
 
@@ -94,7 +120,7 @@ import Layout from "../layouts/Layout.astro";
         display: flex;
         justify-content: flex-end;
         align-items: flex-end;
-        background-color: #a4bafd ;
+        background-color: #c6d6ff ;
         border-radius: 2vh;
         width: 50%;
         height: 10vh;
@@ -145,10 +171,14 @@ import Layout from "../layouts/Layout.astro";
     @keyframes zoomInOut {
     0% {
     transform: scale(1);
-     }
+    }
     100% {
     transform: scale(1.2); 
-  }
-}
+    }}
+
+    #usser {
+        background-color: #8094f9;
+        width: 150px;
+    }
 
 </style>
