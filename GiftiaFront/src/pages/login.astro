@@ -10,8 +10,8 @@ import Layout from "../layouts/Layout.astro";
 		<h2 class="logo"> ****LOGO****</h2> <!--Falta añadir LOGO-->
 		<nav class="navegador">
 			<a href="/chat/">Ir al Chat</a> 
-			<a href="/adminPages/products/">As admin</a>
-			<a href="/adminPages/products/">As user</a>
+			<!-- <a href="/adminPages/products/">As admin</a>
+			<a href="/adminPages/products/">As user</a> -->
 			<button class="btnLogin-main">Iniciar Sesión</button>
 		</nav>
 		</header>
@@ -109,7 +109,8 @@ import Layout from "../layouts/Layout.astro";
 						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify({ 
-						user: email,
+						username: user,
+						email: email,
 						password: password
 					})
 				})

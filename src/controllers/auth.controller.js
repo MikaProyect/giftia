@@ -25,15 +25,23 @@ export const loginController = async (req, res) => {
 
 export const registerController = async (req, res) => {
 
-    const { user, password } = req.body
+    const { username, email, password } = req.body
 
     try {
         const result = await supabase.auth.signUp({
-            email: user,
+            email: email,
             password: password,
-            userType: 'comun'
         })
-        res.status(201).json({ message: result });
+
+        const userBDAdded = await supabase.from('users').insert({
+            id: result.data.user.id,
+            username: username,
+            email: email,
+            userType: 0,
+        })
+        console.log(userBDAdded)
+
+        res.status(201).json({ message: result.data.user });
 
     } catch (error) {
         console.log(error)
