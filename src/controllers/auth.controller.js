@@ -55,5 +55,21 @@ export const logoutController = (req, res) => {
 
 export const profileController = (req, res) => {
     res.send("Perfil del usuario")
-    
+
+}
+
+export const stateController = async (req, res) => {
+
+    const { userId } = req.body
+
+    try {
+        const result = await supabase.from('users').select('userType').eq('id', userId)
+        console.log(result)
+        res.status(201).json({ message: result.data[0] });
+
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({ message: "ERROOOR" });
+    }
+
 }
