@@ -16,24 +16,30 @@ const openai = new OpenAI({
 
 export const sendMessage = async (req, res) => {
 
-    const { userMessage } = req.body
-    conversation.push({ role: 'user', content: userMessage })
+    const { conversationUser } = req.body
+    console.log(conversationUser)
+    console.log("TEST: ", conversationUser[1])
+    // conversation.push({ role: 'user', content: userMessage })
+    const botMessage = { role: 'assistant', content: "Este es un testeo de gpt" }
 
-    try {
-        const response = await openai.chat.completions.create({
-            model: 'gpt-4-0125-preview',
-            messages: conversation,
-            stop: null,
-        });
 
-        const botMessage = response.choices[0].message.content
+    res.status(200).json({ message: botMessage });
 
-        conversation.push({ role: 'assistant', content: botMessage })
-        console.log(conversation)
-        res.status(200).json({ message: botMessage });
+    // try {
+    //     const response = await openai.chat.completions.create({
+    //         model: 'gpt-4',
+    //         messages: conversation,
+    //         stop: null,
+    //     });
 
-    } catch (err) {
-        console.log(err)
-        res.status(400).json({ message: 'Error en GPT api' })
-    }
+    //     const botMessage = response.choices[0].message.content
+
+    //     conversation.push({ role: 'assistant', content: botMessage })
+    //     console.log(conversation)
+    //     res.status(200).json({ message: botMessage });
+
+    // } catch (err) {
+    //     console.log(err)
+    //     res.status(400).json({ message: 'Error en GPT api' })
+    // }
 }
