@@ -6,91 +6,93 @@ import Layout from "../../layouts/Layout.astro";
   <body>
     <header>
       <div class="header__logo">
-        <img src="/logo_karina.png" alt="Logo Giftia" />
+        <img src="/img/logo_karina.png" alt="Logo Giftia" />
       </div>
 
       <ul class="header__prod">
         <li>
-          <a href="GiftiaFront/src/pages/adminPages/gest-prod.astro"
-            >Productos</a
-          >
+          <a href="./">Productos</a>
         </li>
       </ul>
     </header>
     <h1>Productos</h1>
     <button id="btn-abrir-agrpr" class="BotonAgrPr">Agregar Productos</button>
     <table class="default">
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Precio</th>
-        <th>Vendedor</th>
-        <th>Enlace</th>
-        <th></th>
-      </tr>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Vendedor</th>
+          <th>Enlace</th>
+          <th></th>
+        </tr>
+      </thead>
 
-      <tr>
-        <td>504</td>
-        <td>RAQUETA DE TENIS BABOLAT EAGLE</td>
-        <td>40990</td>
-        <td>Paris</td>
-        <td
-          ><a
-            href="https://www.falabella.com/falabella-cl/product/116971455/RAQUETA-DE-TENIS-BABOLAT-EAGLE-GRIP-3/116971456"
-            >Link hacia la tienda</a
-          ></td
-        >
-        <td>
-          <button type="button" class="editPr" id="btn-abrir-editpr-1"
-            >Editar</button
+      <tbody class="product-cont">
+        <tr>
+          <td>504</td>
+          <td>RAQUETA DE TENIS BABOLAT EAGLE</td>
+          <td>40990</td>
+          <td>Paris</td>
+          <td
+            ><a
+              href="https://www.falabella.com/falabella-cl/product/116971455/RAQUETA-DE-TENIS-BABOLAT-EAGLE-GRIP-3/116971456"
+              >Link hacia la tienda</a
+            ></td
           >
-          <button type="button" onclick="alert('Producto eliminado')"
-            >Eliminar</button
-          >
-        </td>
-      </tr>
+          <td>
+            <button type="button" class="editPr" id="btn-abrir-editpr-1"
+              >Editar</button
+            >
+            <button type="button" onclick="alert('Producto eliminado')"
+              >Eliminar</button
+            >
+          </td>
+        </tr>
 
-      <tr>
-        <td>529</td>
-        <td>Botella Keep 600ml</td>
-        <td>4990</td>
-        <td>Jumbo</td>
-        <td
-          ><a
-            href="https://www.jumbo.cl/botella-keep-metalica-600-ml-surtido-keep-1623346/p"
-            >Link hacia la tienda</a
-          ></td
-        >
-        <td>
-          <button type="button" class="editPr" id="btn-abrir-editpr-2"
-            >Editar</button
+        <tr>
+          <td>529</td>
+          <td>Botella Keep 600ml</td>
+          <td>4990</td>
+          <td>Jumbo</td>
+          <td
+            ><a
+              href="https://www.jumbo.cl/botella-keep-metalica-600-ml-surtido-keep-1623346/p"
+              >Link hacia la tienda</a
+            ></td
           >
-          <button type="button" onclick="alert('Producto eliminado')"
-            >Eliminar</button
-          >
-        </td>
-      </tr>
+          <td>
+            <button type="button" class="editPr" id="btn-abrir-editpr-2"
+              >Editar</button
+            >
+            <button type="button" onclick="alert('Producto eliminado')"
+              >Eliminar</button
+            >
+          </td>
+        </tr>
 
-      <tr>
-        <td>572</td>
-        <td>Aves de Chile: Colores al vuelo (tapa dura)</td>
-        <td>39990</td>
-        <td>Bosque Chileno</td>
-        <td
-          ><a
-            href="https://bosquechileno.cl/products/aves-de-chile-colores-al-vuelo-tapa-dura"
-            >Link hacia la tienda</a
-          ></td
-        >
-        <td>
-          <button type="button" class="editPr" id="btn-abrir-editpr-3"
-            >Editar</button
+        <tr>
+          <td>572</td>
+          <td>Aves de Chile: Colores al vuelo (tapa dura)</td>
+          <td>39990</td>
+          <td>Bosque Chileno</td>
+          <td
+            ><a
+              href="https://bosquechileno.cl/products/aves-de-chile-colores-al-vuelo-tapa-dura"
+              >Link hacia la tienda</a
+            ></td
           >
-          <button type="button" onclick="alert('Producto eliminado')"
-            >Eliminar</button
-          >
-        </td>
-      </tr>
+          <td>
+            <button type="button" class="editPr" id="btn-abrir-editpr-3"
+              >Editar</button
+            >
+            <button type="button" onclick="alert('Producto eliminado')"
+              >Eliminar</button
+            >
+          </td>
+        </tr>
+      </tbody>
     </table>
 
     <dialog id="modal-editar">
@@ -153,10 +155,10 @@ import Layout from "../../layouts/Layout.astro";
       const btnCerrarModalAgr = document.querySelector("#btn-cerrar-agrpr");
 
       const modalAgregar = document.querySelector(
-        "#modal-agregar"
+        "#modal-agregar",
       ) as HTMLDialogElement;
       const modalEditar = document.querySelector(
-        "#modal-editar"
+        "#modal-editar",
       ) as HTMLDialogElement;
 
       btnAbrirModalAgr.addEventListener("click", () => {

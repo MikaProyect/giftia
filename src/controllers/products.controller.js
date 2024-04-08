@@ -4,13 +4,10 @@ export const getProducts = async (req, res) => {
     try {
         const result = await supabase.from('products').select('*')
         res.status(201).json({ message: result.data });
-
-
     } catch (error) {
         console.log(error)
         res.status(400).json({ message: 'Error en Supabase api' })
     }
-
 }
 
 export const addProduct = async (req, res) => {
