@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { ProductsTable } from "../../components/ProdcuctsTable/ProductsTable";
 ---
 
 <Layout title="Gestión de Productos">
@@ -16,84 +17,8 @@ import Layout from "../../layouts/Layout.astro";
       </ul>
     </header>
     <h1>Productos</h1>
-    <button id="btn-abrir-agrpr" class="BotonAgrPr">Agregar Productos</button>
-    <table class="default">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Precio</th>
-          <th>Vendedor</th>
-          <th>Enlace</th>
-          <th></th>
-        </tr>
-      </thead>
 
-      <tbody class="product-cont">
-        <tr>
-          <td>504</td>
-          <td>RAQUETA DE TENIS BABOLAT EAGLE</td>
-          <td>40990</td>
-          <td>Paris</td>
-          <td
-            ><a
-              href="https://www.falabella.com/falabella-cl/product/116971455/RAQUETA-DE-TENIS-BABOLAT-EAGLE-GRIP-3/116971456"
-              >Link hacia la tienda</a
-            ></td
-          >
-          <td>
-            <button type="button" class="editPr" id="btn-abrir-editpr-1"
-              >Editar</button
-            >
-            <button type="button" onclick="alert('Producto eliminado')"
-              >Eliminar</button
-            >
-          </td>
-        </tr>
-
-        <tr>
-          <td>529</td>
-          <td>Botella Keep 600ml</td>
-          <td>4990</td>
-          <td>Jumbo</td>
-          <td
-            ><a
-              href="https://www.jumbo.cl/botella-keep-metalica-600-ml-surtido-keep-1623346/p"
-              >Link hacia la tienda</a
-            ></td
-          >
-          <td>
-            <button type="button" class="editPr" id="btn-abrir-editpr-2"
-              >Editar</button
-            >
-            <button type="button" onclick="alert('Producto eliminado')"
-              >Eliminar</button
-            >
-          </td>
-        </tr>
-
-        <tr>
-          <td>572</td>
-          <td>Aves de Chile: Colores al vuelo (tapa dura)</td>
-          <td>39990</td>
-          <td>Bosque Chileno</td>
-          <td
-            ><a
-              href="https://bosquechileno.cl/products/aves-de-chile-colores-al-vuelo-tapa-dura"
-              >Link hacia la tienda</a
-            ></td
-          >
-          <td>
-            <button type="button" class="editPr" id="btn-abrir-editpr-3"
-              >Editar</button
-            >
-            <button type="button" onclick="alert('Producto eliminado')"
-              >Eliminar</button
-            >
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <ProductsTable client:visible />
 
     <dialog id="modal-editar">
       <form id="EditProductos">
@@ -109,7 +34,7 @@ import Layout from "../../layouts/Layout.astro";
         <input type="number" placeholder="4990" />
         <br />
         <label for="vendedor" class="subtAEP">Vendedor:</label>
-        <input type="email" placeholder="Tiendita de velas" />
+        <input type="text" placeholder="Tiendita de velas" />
         <br />
         <label for="link" class="subtAEP">Link de la tienda:</label>
         <input type="url" placeholder="https..." />
@@ -146,45 +71,6 @@ import Layout from "../../layouts/Layout.astro";
       </form>
     </dialog>
 
-    <script>
-      const btnAbrirModalAgr = document.querySelector("#btn-abrir-agrpr");
-      const btnAbrirModalEdit1 = document.querySelector("#btn-abrir-editpr-1");
-      const btnAbrirModalEdit2 = document.querySelector("#btn-abrir-editpr-2");
-      const btnAbrirModalEdit3 = document.querySelector("#btn-abrir-editpr-3");
-      const btnCerrarModalEdit = document.querySelector("#btn-cerrar-editpr");
-      const btnCerrarModalAgr = document.querySelector("#btn-cerrar-agrpr");
-
-      const modalAgregar = document.querySelector(
-        "#modal-agregar",
-      ) as HTMLDialogElement;
-      const modalEditar = document.querySelector(
-        "#modal-editar",
-      ) as HTMLDialogElement;
-
-      btnAbrirModalAgr.addEventListener("click", () => {
-        modalAgregar.showModal();
-      });
-
-      btnAbrirModalEdit1.addEventListener("click", () => {
-        modalEditar.showModal();
-      });
-
-      btnAbrirModalEdit2.addEventListener("click", () => {
-        modalEditar.showModal();
-      });
-
-      btnAbrirModalEdit3.addEventListener("click", () => {
-        modalEditar.showModal();
-      });
-
-      btnCerrarModalAgr.addEventListener("click", () => {
-        modalAgregar.close();
-      });
-
-      btnCerrarModalEdit.addEventListener("click", () => {
-        modalEditar.close();
-      });
-    </script>
   </body>
 </Layout>
 
@@ -211,39 +97,6 @@ import Layout from "../../layouts/Layout.astro";
     left: 5px; /* Ajusta según tus necesidades */
   }
 
-  table {
-    border-collapse: collapse;
-    width: 80%;
-    max-width: 600px; /* Establece un ancho máximo para la tabla */
-    margin: auto; /* Centra la tabla en el contenedor */
-    background-color: #fff; /* Color de fondo de la tabla */
-  }
-
-  th,
-  td {
-    border: 1px solid #ddd; /* Borde de las celdas */
-    padding: 8px; /* Espaciado interno de las celdas */
-    text-align: left;
-  }
-
-  th {
-    background-color: #4446e7; /* Color de fondo del encabezado */
-    color: white; /* Color del texto del encabezado */
-  }
-
-  .BotonAgrPr {
-    margin-top: 20px;
-    margin-left: 10px;
-    position: absolute;
-    top: 100px;
-    left: 1100px;
-    font-family: "Rajdhani", sans-serif;
-    border-radius: 8px;
-    font-size: 20px;
-    border-color: rgb(72, 110, 233);
-    padding: 3px;
-  }
-
   button {
     color: rgb(0, 0, 0);
     border-color: rgb(72, 75, 233);
@@ -251,6 +104,7 @@ import Layout from "../../layouts/Layout.astro";
     margin-top: 5px;
     padding: 2px;
   }
+
   header {
     display: flex;
     justify-content: space-between;

@@ -1,0 +1,59 @@
+table {
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 600px;
+    /* Establece un ancho máximo para la tabla */
+    margin-bottom: 30px;
+    /* Centra la tabla en el contenedor */
+    background-color: #fff;
+    /* Color de fondo de la tabla */
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    /* Borde de las celdas */
+    padding: 8px;
+    /* Espaciado interno de las celdas */
+    text-align: left;
+}
+
+th {
+    background-color: #4446e7;
+    /* Color de fondo del encabezado */
+    color: white;
+    /* Color del texto del encabezado */
+}
+
+.BotonAgrPr {
+    margin-top: 20px;
+    margin-left: 10px;
+    position: absolute;
+    top: 100px;
+    left: 1100px;
+    font-family: "Rajdhani", sans-serif;
+    border-radius: 8px;
+    font-size: 20px;
+    border-color: rgb(72, 110, 233);
+    padding: 3px;
+}
+
+button {
+    color: rgb(0, 0, 0);
+    border-color: rgb(72, 75, 233);
+    border-radius: 7px;
+    margin-top: 5px;
+    padding: 2px;
+}
+
+button:hover {
+    background-color: rgba(16, 48, 192, 0.37);
+}
+
+.allCont {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    flex-direction: column;
+    height: 100%;
+}

@@ -10,8 +10,8 @@ import Layout from "../layouts/Layout.astro";
 		<h2 class="logo"> ****LOGO****</h2> <!--Falta añadir LOGO-->
 		<nav class="navegador">
 			<a href="/chat/">Ir al Chat</a> 
-			<a href="/adminPages/products/">As admin</a>
-			<a href="/adminPages/products/">As user</a>
+			<!-- <a href="/adminPages/products/">As admin</a>
+			<a href="/adminPages/products/">As user</a> -->
 			<button class="btnLogin-main">Iniciar Sesión</button>
 		</nav>
 		</header>
@@ -103,18 +103,43 @@ import Layout from "../layouts/Layout.astro";
 				const email = registerForm['registerEmail'].value;
 				const password = registerForm['registerPass'].value;
 
-				const res = await fetch('http://localhost:3000/api/register', {
+
+				try {
+					const res = await fetch('http://localhost:3000/api/register', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify({ 
-						user: email,
+						username: user,
+						email: email,
 						password: password
 					})
 				})
 				const data = await res.json()
-				console.log(data)
+				localStorage.setItem('idTest', data.message.id)
+
+				const result = await fetch('http://localhost:3000/api/user/state', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ 
+						userId: data.message.id
+					})
+				})
+				const dataVerif = await result.json()
+				
+				console.log(dataVerif.message.userType)
+				localStorage.setItem('userType', dataVerif.message.userType)
+				console.log(data.message.id)
+				if(dataVerif.message.userType === 0){
+					window.location.href = "/chat"
+				}
+
+				} catch (error) {
+					console.log(error)
+				}
 			})
 
 		</script>

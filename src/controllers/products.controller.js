@@ -12,14 +12,16 @@ export const getProducts = async (req, res) => {
 
 export const addProduct = async (req, res) => {
 
-    const { tipoProducto, nombre, tag, precio } = req.body
+    const { id, tipoProducto, nombre, tag, precio, vendedor, link } = req.body
 
     try {
         const result = await supabase.from('products').insert({
             tipo: tipoProducto,
             name: nombre,
             tags: tag,
-            price: precio
+            price: precio,
+            seller: vendedor,
+            link: link
         }).select()
 
         res.status(201).json({ message: result.data });
