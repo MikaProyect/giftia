@@ -95,6 +95,30 @@ import Layout from "../layouts/Layout.astro";
 				})
 				const data = await res.json()
 				console.log(data)
+				localStorage.setItem('idTest', data.message.id)
+
+				const result = await fetch('http://localhost:3000/api/user/state', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ 
+						userId: data.message.id
+					})
+				})
+				const dataVerif = await result.json()
+
+				console.log(dataVerif.message.userType)
+				localStorage.setItem('userType', dataVerif.message.userType)
+				console.log(data.message.id)
+				if(dataVerif.message.userType === 1){
+					window.location.href = "/"
+				}
+				if (dataVerif.message.userType === 0) {
+					window.location.href = "/chat"
+				} else {
+					console.log("erroor")
+				}
 			})
 
 			registerForm.addEventListener('submit', async (e) => {
