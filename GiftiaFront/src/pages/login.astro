@@ -7,7 +7,7 @@ import Layout from "../layouts/Layout.astro";
     <main>
 	<body>
 		<header>
-		<h2 class="logo"> ****LOGO****</h2> <!--Falta añadir LOGO-->
+			<img src="/img/logo_karina.png" alt="logo" class="logo" />
 		<nav class="navegador">
 			<a href="/chat/">Ir al Chat</a> 
 			<!-- <a href="/adminPages/products/">As admin</a>
@@ -95,6 +95,43 @@ import Layout from "../layouts/Layout.astro";
 				})
 				const data = await res.json()
 				console.log(data)
+
+				if (localStorage.getItem('idTest')  === null) {
+					localStorage.setItem('idTest', data.message.id)
+				} else if (localStorage.getItem('idTest')  !== null ) {
+					localStorage.removeItem('idTest')
+					localStorage.setItem('idTest', data.message.id)
+				}
+
+				const result = await fetch('http://localhost:3000/api/user/state', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ 
+						userId: data.message.id
+					})
+				})
+				const dataVerif = await result.json()
+
+				console.log(dataVerif.message.userType)
+
+				if (localStorage.getItem('userType')  === null) {
+					localStorage.setItem('userType', dataVerif.message.userType)
+				} else if (localStorage.getItem('userType')  !== null ) {
+					localStorage.removeItem('userType')
+					localStorage.setItem('userType', dataVerif.message.userType)
+				}
+
+				console.log(data.message.id)
+				if(dataVerif.message.userType === 1){
+					window.location.href = "/"
+				}
+				if (dataVerif.message.userType === 0) {
+					window.location.href = "/chat"
+				} else {
+					console.log("erroor")
+				}
 			})
 
 			registerForm.addEventListener('submit', async (e) => {
@@ -117,7 +154,13 @@ import Layout from "../layouts/Layout.astro";
 					})
 				})
 				const data = await res.json()
-				localStorage.setItem('idTest', data.message.id)
+				
+				if (localStorage.getItem('idTest')  === null) {
+					localStorage.setItem('idTest', data.message.id)
+				} else if (localStorage.getItem('idTest')  !== null ) {
+					localStorage.removeItem('idTest')
+					localStorage.setItem('idTest', data.message.id)
+				}
 
 				const result = await fetch('http://localhost:3000/api/user/state', {
 					method: 'POST',
@@ -131,7 +174,12 @@ import Layout from "../layouts/Layout.astro";
 				const dataVerif = await result.json()
 				
 				console.log(dataVerif.message.userType)
-				localStorage.setItem('userType', dataVerif.message.userType)
+				if (localStorage.getItem('userType')  === null) {
+					localStorage.setItem('userType', dataVerif.message.userType)
+				} else if (localStorage.getItem('userType')  !== null ) {
+					localStorage.removeItem('userType')
+					localStorage.setItem('userType', dataVerif.message.userType)
+				}
 				console.log(data.message.id)
 				if(dataVerif.message.userType === 0){
 					window.location.href = "/chat"
@@ -183,11 +231,15 @@ import Layout from "../layouts/Layout.astro";
 		align-items: center;
 		z-index: 99;
 	}
+
 	.logo {
 		font-size: 2em;
 		color: #eef3ff;
-		user-select: none;
-	}
+		width: 40%;
+		max-width: 90px;
+		min-width: 20px;
+  	}
+
 	.navegador{ /* Configuración de todo el NavBar */
 		position: relative;
 		font-size: 1.1em;
