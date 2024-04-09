@@ -5,7 +5,7 @@ import Layout from "../layouts/Layout.astro";
 <Layout title="Giftia">
   <body>
     <header>
-      <h2 class="logo">****LOGO****</h2>
+      <img src="/img/logo_karina.png" alt="logo" class="logo" />
       <!--Falta añadir LOGO-->
       <nav class="navegador">
         <a href="/chat/">Ir al Chat</a>
@@ -15,8 +15,7 @@ import Layout from "../layouts/Layout.astro";
     </header>
   </body>
 
-  <main>
-  </main>
+  <main></main>
 </Layout>
 
 <style>
@@ -48,10 +47,13 @@ import Layout from "../layouts/Layout.astro";
     align-items: center;
     z-index: 99;
   }
+
   .logo {
     font-size: 2em;
     color: #eef3ff;
-    user-select: none;
+    width: 40%;
+    max-width: 90px;
+    min-width: 20px;
   }
   .navegador {
     /* Configuración de todo el NavBar */

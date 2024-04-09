@@ -106,7 +106,10 @@ import Layout from "../layouts/Layout.astro";
                 "http://localhost:3000/api/chat/send",
                 {
                     method: "POST",
-                    body: JSON.stringify({ conversationUser: conversation }),
+                    body: JSON.stringify({
+                        message: conversation,
+                        user: localStorage.getItem("idTest"),
+                    }),
                     headers: {
                         "Content-Type": "application/json",
                     },

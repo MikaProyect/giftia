@@ -95,7 +95,13 @@ import Layout from "../layouts/Layout.astro";
 				})
 				const data = await res.json()
 				console.log(data)
-				localStorage.setItem('idTest', data.message.id)
+
+				if (localStorage.getItem('idTest')  === null) {
+					localStorage.setItem('idTest', data.message.id)
+				} else if (localStorage.getItem('idTest')  !== null ) {
+					localStorage.removeItem('idTest')
+					localStorage.setItem('idTest', data.message.id)
+				}
 
 				const result = await fetch('http://localhost:3000/api/user/state', {
 					method: 'POST',
@@ -109,7 +115,14 @@ import Layout from "../layouts/Layout.astro";
 				const dataVerif = await result.json()
 
 				console.log(dataVerif.message.userType)
-				localStorage.setItem('userType', dataVerif.message.userType)
+
+				if (localStorage.getItem('userType')  === null) {
+					localStorage.setItem('userType', dataVerif.message.userType)
+				} else if (localStorage.getItem('userType')  !== null ) {
+					localStorage.removeItem('userType')
+					localStorage.setItem('userType', dataVerif.message.userType)
+				}
+
 				console.log(data.message.id)
 				if(dataVerif.message.userType === 1){
 					window.location.href = "/"
@@ -141,7 +154,13 @@ import Layout from "../layouts/Layout.astro";
 					})
 				})
 				const data = await res.json()
-				localStorage.setItem('idTest', data.message.id)
+				
+				if (localStorage.getItem('idTest')  === null) {
+					localStorage.setItem('idTest', data.message.id)
+				} else if (localStorage.getItem('idTest')  !== null ) {
+					localStorage.removeItem('idTest')
+					localStorage.setItem('idTest', data.message.id)
+				}
 
 				const result = await fetch('http://localhost:3000/api/user/state', {
 					method: 'POST',
@@ -155,7 +174,12 @@ import Layout from "../layouts/Layout.astro";
 				const dataVerif = await result.json()
 				
 				console.log(dataVerif.message.userType)
-				localStorage.setItem('userType', dataVerif.message.userType)
+				if (localStorage.getItem('userType')  === null) {
+					localStorage.setItem('userType', dataVerif.message.userType)
+				} else if (localStorage.getItem('userType')  !== null ) {
+					localStorage.removeItem('userType')
+					localStorage.setItem('userType', dataVerif.message.userType)
+				}
 				console.log(data.message.id)
 				if(dataVerif.message.userType === 0){
 					window.location.href = "/chat"
