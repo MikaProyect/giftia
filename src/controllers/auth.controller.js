@@ -25,15 +25,23 @@ export const loginController = async (req, res) => {
 
 export const registerController = async (req, res) => {
 
-    const { user, password } = req.body
+    const { username, email, password } = req.body
 
     try {
         const result = await supabase.auth.signUp({
-            email: user,
+            email: email,
             password: password,
-            userType: 'comun'
         })
-        res.status(201).json({ message: result });
+
+        const userBDAdded = await supabase.from('users').insert({
+            id: result.data.user.id,
+            username: username,
+            email: email,
+            userType: 0,
+        })
+        console.log(userBDAdded)
+
+        res.status(201).json({ message: result.data.user });
 
     } catch (error) {
         console.log(error)
@@ -47,5 +55,21 @@ export const logoutController = (req, res) => {
 
 export const profileController = (req, res) => {
     res.send("Perfil del usuario")
-    
+
+}
+
+export const stateController = async (req, res) => {
+
+    const { userId } = req.body
+
+    try {
+        const result = await supabase.from('users').select('userType').eq('id', userId)
+        console.log(result)
+        res.status(201).json({ message: result.data[0] });
+
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({ message: "ERROOOR" });
+    }
+
 }
