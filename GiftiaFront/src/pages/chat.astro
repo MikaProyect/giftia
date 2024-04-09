@@ -40,7 +40,7 @@ import Layout from "../layouts/Layout.astro";
 
             <div class="chat-input">
                 <!--Contenedor para la sección en donde escribe el usuario-->
-                <innnput
+                <input
                     type="text"
                     class="chat"
                     placeholder="Solicita tus regalos aquí..."
@@ -104,10 +104,10 @@ import Layout from "../layouts/Layout.astro";
                 },
             );
             const data = await response.json();
-            console.log(data.message.content);
+            console.log(data.message);
             conversation.push({
                 role: "assistant",
-                content: data.message.content,
+                content: data.message,
             });
             console.log(conversation);
 
@@ -115,7 +115,7 @@ import Layout from "../layouts/Layout.astro";
             const chat = document.querySelector(".testDiv");
             const newdiv = document.createElement("div"); //se está creando un nuevo div llamado newdiv
             newdiv.className = "msgbot"; //se le agrega una clase a newdiv
-            newdiv.innerHTML = "<p>" + data.message.content + "</p>"; //inserta un nuevo parrafo del bot a newdiv
+            newdiv.innerHTML = "<p>" + data.message + "</p>"; //inserta un nuevo parrafo del bot a newdiv
 
             newdiv.style.color = "black";
             newdiv.style.backgroundColor = "#a4bafd";
