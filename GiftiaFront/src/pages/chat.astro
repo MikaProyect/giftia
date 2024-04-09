@@ -3,40 +3,44 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Chat">
+
     <script
         type="module"
         src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
     ></script>
+
     <script
         nomodule
         src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
 
-    <div class="cont-com">
-        <div class="izq">
-            <!--Contenedor del lado izquierdo-->
+    <div class="cont-com"> <!--Contenedor completo para el fondo-->
+
+        <div class="izq"> <!--Contenedor del lado izquierdo-->
             <img class="logok" src="../img/logo_karina.png" alt="logo" />
-            <!--REVISAR -->
+            
+            <!--PENDIENTE-->
             <li><a class="CT">Cuenta</a></li>
             <li><a class="SL">Salir</a></li>
+            <li><a class="OP">Comentarios</a></li>
         </div>
 
-        <div class="der">
-            <!--Contenedor del lado derecho-->
+        <div class="der"> <!--Contenedor del lado derecho-->
 
-            <div class="chatBubbles">
-                <p class="text">
-                    ¡Hola! Hoy te ayudaré a encontrar el regalo perfecto. Puedes
-                    escribir las preferencias siguiendo este ejemplo: Color,
-                    edad, deporte y dinero disponible.
-                </p>
-            </div>
             <div class="testDiv">
-            </div>
+
+                <div class="chatBubbles">
+                    <p class="text">
+                        ¡Hola, soy Giftia! Hoy te ayudaré a encontrar el regalo perfecto. Puedes
+                        escribir las preferencias siguiendo este ejemplo: Color,
+                        edad, deporte y dinero disponible.
+                    </p>
+                </div>   
+            </div>   
 
             <div class="chat-input">
                 <!--Contenedor para la sección en donde escribe el usuario-->
-                <input
+                <innnput
                     type="text"
                     class="chat"
                     placeholder="Solicita tus regalos aquí..."
@@ -46,15 +50,17 @@ import Layout from "../layouts/Layout.astro";
                     onclick="enviarMensaje(); MandarAlServidor();"
                     class="pedir_gift"
                     ><ion-icon name="navigate-circle-outline"
-                    ></ion-icon></button
-                >
+                    ></ion-icon>
+                </button>
             </div>
+
         </div>
     </div>
 
-    <script is:inline>
-        //esto significa que será destinado para que se ejecute inline
+    <script is:inline> //esto significa que será destinado para que se ejecute inline
+
         let conversation = [];
+        
         //se crea una funcion para que el usuario envie un mensaje y se muestre en front
         function enviarMensaje() {
             //se define la función enviarMensaje
@@ -69,10 +75,12 @@ import Layout from "../layouts/Layout.astro";
 
             newDiv.style.color = "black";
             newDiv.style.backgroundColor = "#8094f9";
+            newDiv.style.textAlign = "rigth";
+            newDiv.style.marginLeft = "auto";
             newDiv.style.borderRadius = "10px"; // Redondear las esquinas
             newDiv.style.padding = "10px"; // Espaciado interior
             newDiv.style.marginBottom = "10px"; // Espaciado entre mensajes
-            newDiv.style.maxWidth = "70%"; // Ancho máximo
+            newDiv.style.maxWidth = "90%"; // Ancho máximo
             newDiv.style.clear = "both"; // Limpiar el float para que se posicione debajo
             newDiv.style.overflow = "auto"; // Para manejar correctamente el float
             newDiv.style.position = "relative"; // Posición relativa para alinear la imagen
@@ -111,13 +119,17 @@ import Layout from "../layouts/Layout.astro";
 
             newdiv.style.color = "black";
             newdiv.style.backgroundColor = "#a4bafd";
+            newdiv.style.textAlign = "left";
+            newdiv.style.marginRight = "auto";
             newdiv.style.borderRadius = "10px"; // Redondear las esquinas
             newdiv.style.padding = "10px"; // Espaciado interior
             newdiv.style.marginBottom = "10px"; // Espaciado entre mensajes
-            newdiv.style.maxWidth = "70%"; // Ancho máximo
+            newdiv.style.maxWidth = "90%"; // Ancho máximo
             newdiv.style.clear = "both"; // Limpiar el float para que se posicione debajo
             newdiv.style.overflow = "auto"; // Para manejar correctamente el float
             newdiv.style.position = "relative"; // Posición relativa para alinear la imagen
+
+            
 
             chat.appendChild(newdiv); // se inserta newdiv en chat-input
         }
@@ -125,10 +137,17 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <style>
+
     .testDiv {
-        height: 75%;
-        width: 100%;
+        height: calc(100% - 110px); /* Ajusta la altura para dejar espacio para los mensajes */
+        width: 95%;
         margin-top: 5px;
+        margin-left: 10px;
+        margin-right: 80px;
+        overflow-y: auto; /* Agrega desplazamiento vertical si es necesario */
+        scrollbar-color: transparent transparent; /*color de la barra de desplazamiento */
+        scrollbar-width: thin; /*ancho de la barra de desplazamiento */
+        font-size: 17px;
     }
 
     .cont-com {
@@ -169,8 +188,8 @@ import Layout from "../layouts/Layout.astro";
 
     .logok {
         width: 40%;
-        max-width: 250px;
-        min-width: 150px;
+        max-width: 230px;
+        min-width: 130px;
         display: block;
         position: relative; /* Cambiamos la posición a relativa */
         margin-top: -10px; /* Agregamos un margen superior */
@@ -183,7 +202,8 @@ import Layout from "../layouts/Layout.astro";
     }
 
     .CT,
-    .SL {
+    .SL,
+    .OP {
         text-align: center;
         list-style-type: none;
         color: white;
@@ -193,13 +213,11 @@ import Layout from "../layouts/Layout.astro";
     .chatBubbles {
         display: flex;
         flex-direction: column;
-        /* justify-content: flex-end;
-        align-items: flex-end; */
         background-color: #a4bafd;
         border-radius: 2vh;
-        width: 50%;
-        height: 10vh;
-        padding: 4vh;
+        width: 90%;
+        padding: 1vh;
+        margin-bottom: 10px;
     }
 
     .text {
@@ -208,11 +226,13 @@ import Layout from "../layouts/Layout.astro";
 
     .chat {
         width: 80%;
-        padding: 20px; /* Espaciado interior para el borde inferior */
+        padding: 10px; /* Espaciado interior para el borde inferior */
         box-sizing: border-box; /* Incluimos el relleno en el ancho total */
-        background-color: #ffffff; /*.fondo blanco*/
+        background-color: #ffffff; /*fondo blanco*/
         border-radius: 10px; /* Redondear esquinas */
         height: 80px;
+        margin-left: 10px;
+        margin-top: 10px;
     }
 
     .chat-input {
@@ -226,13 +246,14 @@ import Layout from "../layouts/Layout.astro";
     }
 
     .pedir_gift {
-        width: 7vh;
-        height: 7vh;
+        width: 8vh;
+        height: 12vh;
         font-size: 6vh;
         background-color: transparent;
         color: #ffffff;
         border: none;
         margin-left: 2vh;
+        margin-top: 10px;
     }
 
     .pedir_gift:hover {
@@ -250,27 +271,5 @@ import Layout from "../layouts/Layout.astro";
         }
     }
 
-    .msguser {
-        background-color: #10150c; /* Color de fondo para mensajes del usuario */
-        color: #333; /* Color de texto para mensajes del usuario */
-        border-radius: 10px; /* Redondear las esquinas */
-        padding: 10px; /* Espaciado interior */
-        margin-bottom: 10px; /* Espaciado entre mensajes */
-        max-width: 70%; /* Ancho máximo para los mensajes del usuario */
-        clear: both; /* Limpiar el float para que se posicione debajo */
-        overflow: auto; /* Para manejar correctamente el float */
-        position: relative; /* Posición relativa para alinear la imagen */
-    }
 
-    .msgbot {
-        background-color: #333; /* Color de fondo para mensajes del bot */
-        color: #333; /* Color de texto para mensajes del bot */
-        border-radius: 10px; /* Redondear las esquinas */
-        padding: 10px; /* Espaciado interior */
-        margin-bottom: 10px; /* Espaciado entre mensajes */
-        max-width: 70%; /* Ancho máximo para los mensajes del bot */
-        clear: both; /* Limpiar el float para que se posicione debajo */
-        overflow: auto; /* Para manejar correctamente el float */
-        position: relative; /* Posición relativa para alinear la imagen */
-    }
 </style>
