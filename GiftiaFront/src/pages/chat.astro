@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Chat">
-
     <script
         type="module"
         src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -14,33 +13,44 @@ import Layout from "../layouts/Layout.astro";
         src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
 
-    <div class="cont-com"> <!--Contenedor completo para el fondo-->
+    <div class="cont-com">
+        <!--Contenedor completo para el fondo-->
 
-        <div class="izq"> <!--Contenedor del lado izquierdo-->
+        <div class="izq">
+            <!--Contenedor del lado izquierdo-->
             <img class="logok" src="../img/logo_karina.png" alt="logo" />
-            
+
             <!--PENDIENTE-->
             <li><a class="CT">Cuenta</a></li>
             <li><a class="SL">Salir</a></li>
             <li><a class="OP">Comentarios</a></li>
         </div>
 
-        <div class="der"> <!--Contenedor del lado derecho-->
+        <div class="der">
+            <!--Contenedor del lado derecho-->
 
             <div class="testDiv">
-
                 <div class="chatBubbles">
+                    <div class="loadership_YAAYI">
+                        <div></div><div></div><div></div>
+                    </div>
+                    <!--Animacion -->
+
                     <p class="text">
-                        ¡Hola, soy Giftia! Hoy te ayudaré a encontrar el regalo perfecto. Puedes
-                        escribir las preferencias siguiendo este ejemplo: Color,
-                        edad, deporte y dinero disponible.
+                        ¡Hola! Soy Giftia, tu asistente personal para encontrar
+                        el regalo perfecto. Puedes proporcionarme información
+                        siguiendo este ejemplo: <strong
+                            >Color, edad, deporte y dinero disponible</strong
+                        >. Estoy aquí para hacer que tu experiencia de compra de
+                        regalos sea fácil, emocionante y completamente libre de
+                        estrés.
                     </p>
-                </div>   
-            </div>   
+                </div>
+            </div>
 
             <div class="chat-input">
                 <!--Contenedor para la sección en donde escribe el usuario-->
-                <innnput
+                <input
                     type="text"
                     class="chat"
                     placeholder="Solicita tus regalos aquí..."
@@ -49,18 +59,17 @@ import Layout from "../layouts/Layout.astro";
                     type="submit"
                     onclick="enviarMensaje(); MandarAlServidor();"
                     class="pedir_gift"
-                    ><ion-icon name="navigate-circle-outline"
-                    ></ion-icon>
+                    ><ion-icon name="navigate-circle-outline"></ion-icon>
                 </button>
             </div>
-
         </div>
     </div>
 
-    <script is:inline> //esto significa que será destinado para que se ejecute inline
+    <script is:inline>
+        //esto significa que será destinado para que se ejecute inline
 
         let conversation = [];
-        
+
         //se crea una funcion para que el usuario envie un mensaje y se muestre en front
         function enviarMensaje() {
             //se define la función enviarMensaje
@@ -104,10 +113,10 @@ import Layout from "../layouts/Layout.astro";
                 },
             );
             const data = await response.json();
-            console.log(data.message.content);
+            console.log(data.message);
             conversation.push({
                 role: "assistant",
-                content: data.message.content,
+                content: data.message,
             });
             console.log(conversation);
 
@@ -115,7 +124,7 @@ import Layout from "../layouts/Layout.astro";
             const chat = document.querySelector(".testDiv");
             const newdiv = document.createElement("div"); //se está creando un nuevo div llamado newdiv
             newdiv.className = "msgbot"; //se le agrega una clase a newdiv
-            newdiv.innerHTML = "<p>" + data.message.content + "</p>"; //inserta un nuevo parrafo del bot a newdiv
+            newdiv.innerHTML = "<p>" + data.message + "</p>"; //inserta un nuevo parrafo del bot a newdiv
 
             newdiv.style.color = "black";
             newdiv.style.backgroundColor = "#a4bafd";
@@ -129,17 +138,31 @@ import Layout from "../layouts/Layout.astro";
             newdiv.style.overflow = "auto"; // Para manejar correctamente el float
             newdiv.style.position = "relative"; // Posición relativa para alinear la imagen
 
-            
-
             chat.appendChild(newdiv); // se inserta newdiv en chat-input
         }
+    </script>
+
+    <!--script para la animacion-->
+    <script is:inline>
+        const animation = document.querySelector(".loadership_YAAYI");
+        const text = document.querySelector(".text");
+        const bubble = document.querySelector(".chatBubbles");
+        text.textContent = ""; //se agrega un "mensaje vacio"
+        bubble.style.backgroundColor = "#1a1a4c";
+        setTimeout(() => {
+            animation.style.display = "none";
+            text.textContent =
+                "¡Hola! Soy Giftia, tu asistente personal para encontrar el regalo perfecto. Puedes proporcionarme información siguiendo este ejemplo: Color, edad, deporte y dinero disponible. Estoy aquí para hacer que tu experiencia de compra de regalos sea fácil, emocionante y completamente libre de estrés.";
+            bubble.style.backgroundColor = "#a4bafd";
+        }, 3000);
     </script>
 </Layout>
 
 <style>
-
     .testDiv {
-        height: calc(100% - 110px); /* Ajusta la altura para dejar espacio para los mensajes */
+        height: calc(
+            100% - 110px
+        ); /* Ajusta la altura para dejar espacio para los mensajes */
         width: 95%;
         margin-top: 5px;
         margin-left: 10px;
@@ -271,5 +294,55 @@ import Layout from "../layouts/Layout.astro";
         }
     }
 
+    .loadership_YAAYI {
+        display: flex;
+        position: relative;
+        width: 52px;
+        height: 28px;
+    }
 
+    .loadership_YAAYI div {
+        position: absolute;
+        top: 18px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ffffff;
+        animation: loadership_YAAYI_bounce 1.79s infinite;
+        animation-timing-function: linear;
+    }
+
+    .loadership_YAAYI div:nth-child(1) {
+        animation-delay: 0s;
+        left: 0px;
+    }
+
+    .loadership_YAAYI div:nth-child(2) {
+        animation-delay: 0.33s;
+        left: 21px;
+    }
+
+    .loadership_YAAYI div:nth-child(3) {
+        animation-delay: 0.66s;
+        left: 42px;
+    }
+
+    @keyframes loadership_YAAYI_bounce {
+        0%,
+        11.061452513966481%,
+        27.6536312849162%,
+        44.245810055865924%,
+        55.3072625698324%,
+        100% {
+            transform: translateY(0);
+        }
+
+        22.122905027932962% {
+            transform: translateY(-18px);
+        }
+
+        33.184357541899445% {
+            transform: translateY(-7.2px);
+        }
+    }
 </style>

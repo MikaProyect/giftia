@@ -1,0 +1,38 @@
+.edit-product-form {
+  width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.tituloEditPr {
+  text-align: center;
+  color: #000000;
+  position: static;
+}
+
+.tituloAgrPR {
+  text-align: center;
+  color: #000000;
+  position: static;
+}
+
+.subtAEP {
+  /* Subtitulos del formulario de Agregar y Editar Usuario */
+  display: block;
+  margin-top: 10px;
+  color: #000000;
+  font-weight: bold;
+}
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
