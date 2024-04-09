@@ -95,10 +95,19 @@ function ProductsTable() {
           </tbody>
         </table>
         <div>
-          {visible && <EditProducts idProd={idSelect} />}
           {createVisible && <CreateProducts />}
-          {visible && <button onClick={() => onClose()}>Cerrar</button>}
-          {createVisible && <button onClick={() => onClose()}>Cerrar</button>}
+          {visible && <EditProducts idProd={idSelect} />}
+
+          {createVisible && (
+            <button className="agre-cerrar" onClick={() => onClose()}>
+              Cerrar
+            </button>
+          )}
+          {visible && (
+            <button className="edit-cerrar" onClick={() => onClose()}>
+              Cerrar
+            </button>
+          )}
         </div>
       </div>
     </>

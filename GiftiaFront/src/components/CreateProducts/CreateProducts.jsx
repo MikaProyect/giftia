@@ -60,7 +60,7 @@ function CreateProducts() {
             type="text"
             id="tipo"
             name="tipo"
-            placeholder="Teanología"
+            placeholder="Tecnología"
             value={formData.tipo}
             onChange={handleInputChange}
           />
@@ -117,7 +117,7 @@ function CreateProducts() {
         <div className="form-group">
           <label htmlFor="link">Link de la tienda:</label>
           <input
-            type="text"
+            type="url"
             id="link"
             name="link"
             placeholder="https://..."

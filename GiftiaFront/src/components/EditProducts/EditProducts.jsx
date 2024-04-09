@@ -121,7 +121,7 @@ function EditProducts({ idProd }) {
         <div className="form-group">
           <label htmlFor="link">Link de la tienda:</label>
           <input
-            type="text"
+            type="url"
             id="link"
             name="link"
             placeholder="https://..."
