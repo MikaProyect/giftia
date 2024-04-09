@@ -7,7 +7,7 @@ import Layout from "../layouts/Layout.astro";
     <main>
 	<body>
 		<header>
-		<h2 class="logo"> ****LOGO****</h2> <!--Falta añadir LOGO-->
+			<img src="/img/logo_karina.png" alt="logo" class="logo" />
 		<nav class="navegador">
 			<a href="/chat/">Ir al Chat</a> 
 			<!-- <a href="/adminPages/products/">As admin</a>
@@ -231,11 +231,15 @@ import Layout from "../layouts/Layout.astro";
 		align-items: center;
 		z-index: 99;
 	}
+
 	.logo {
 		font-size: 2em;
 		color: #eef3ff;
-		user-select: none;
-	}
+		width: 40%;
+		max-width: 90px;
+		min-width: 20px;
+  	}
+
 	.navegador{ /* Configuración de todo el NavBar */
 		position: relative;
 		font-size: 1.1em;
