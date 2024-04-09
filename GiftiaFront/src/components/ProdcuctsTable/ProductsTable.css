@@ -7,6 +7,7 @@ table {
     /* Centra la tabla en el contenedor */
     background-color: #fff;
     /* Color de fondo de la tabla */
+    margin-top: 30px;
 }
 
 th,
