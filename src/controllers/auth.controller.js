@@ -31,6 +31,11 @@ export const registerController = async (req, res) => {
         const result = await supabase.auth.signUp({
             email: email,
             password: password,
+            options: {
+                data: {
+                    display_name: username
+                }
+            }
         })
 
         const userBDAdded = await supabase.from('users').insert({
@@ -49,8 +54,14 @@ export const registerController = async (req, res) => {
     }
 }
 
-export const logoutController = (req, res) => {
-    res.send("Cerrando sesion...")
+export const logoutController = async (req, res) => {
+    try {
+        const { error } = await supabase.auth.signOut()
+        console.log(error)
+        res.status(500).json({ error })
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export const profileController = (req, res) => {
@@ -72,4 +83,11 @@ export const stateController = async (req, res) => {
         res.status(400).json({ message: "ERROOOR" });
     }
 
+}
+
+export const userStatus = async (req, res) => {
+    const user = await supabase.auth.getSession();
+
+    console.log(user)
+    res.status(200).json({ user })
 }

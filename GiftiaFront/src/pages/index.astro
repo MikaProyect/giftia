@@ -1,67 +1,89 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+// const isUser = "test"
+
+// if (isUser !== null) {
+//   window.location.href = "/chat"
+// }
 ---
 
 <Layout title="Giftia">
-  <body>
-    <header>
+  <!-- <header>
       <img src="/img/logo_karina.png" alt="logo" class="logo" />
-      <!--Falta añadir LOGO-->
       <nav class="navegador">
         <a href="/chat/">Ir al Chat</a>
         <a href="/adminPages/gest-prod/">Gestion Prod Admin</a>
         <a href="/login/">Iniciar Sesión</a>
       </nav>
-    </header>
-  </body>
-
-  <main></main>
+    </header> -->
+  <div class="welcome-cont">
+    <div class="welcome-header">
+      <img src="/img/logo_karina.png" alt="logo" class="logo" />
+      <h1 class="welcome-title">Bienvenido a Giftia</h1>
+    </div>
+    <div class="loginBtn-container">
+      <a href="/login" class="login-link">Iniciar sesión</a>
+    </div>
+  </div>
 </Layout>
 
 <style>
-  main {
-    margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
-    color: white;
-    font-size: 20px;
-    line-height: 1.6;
-  }
   body {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #2f31a4;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
   }
-  header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px 100px;
-    background: #8094f9;
+
+  .welcome-cont {
+    background-color: #a4bafd;
+    width: 750px;
+    height: 500px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 99;
+    justify-content: space-between; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    flex-direction: column;
+    padding: 4rem 0;
+
+    border-radius: 3rem;
+    border: 2px solid #ffb2d5;
+  }
+
+  .welcome-header {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    flex-direction: column;
+  }
+
+  .welcome-title {
+    font-size: 3rem;
   }
 
   .logo {
-    font-size: 2em;
-    color: #eef3ff;
-    width: 40%;
-    max-width: 90px;
-    min-width: 20px;
+    width: 35%;
   }
-  .navegador {
-    /* Configuración de todo el NavBar */
-    position: relative;
-    font-size: 1.1em;
-    color: #fff; /* Todos los colores #fff estan por definir. */
+
+  .login-link {
+    display: flex; /* Utiliza flexbox */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    color: black;
     text-decoration: none;
-    font-weight: 500;
-    margin-left: 40px;
+    background-color: #ffb2d5;
+    font-size: 1.5rem;
+    border-radius: 0.6rem;
+
+    width: 10rem;
+    height: 3.5rem;
+
+    cursor: pointer;
+    transition: 0.1s;
+  }
+
+  .login-link:active {
+    transform: scale(0.9);
+    background-color: #be869f;
+    transition: 0.1s;
   }
 </style>
