@@ -1,18 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
-// const isUser = "test"
+const res = await fetch("http://localhost:3000/api/user/status");
+const resJson = await res.json();
+const userSession = resJson.message.session;
 
-// if (isUser !== null) {
-//   window.location.href = "/chat"
-// }
+if (userSession !== null) {
+  return Astro.redirect("/chat");
+}
 ---
 
 <Layout title="Giftia">
   <div class="welcome-cont">
     <div class="welcome-header">
       <img src="/img/logo_karina.png" alt="logo" class="logo" />
-      <h1 class="welcome-title">Bienvenido a Giftia</h1>
+      <h1 class="welcome-title">Bienvenido a GIFTIA!</h1>
     </div>
     <div class="loginBtn-container">
       <a href="/login" class="login-link">Iniciar sesión</a>
@@ -53,6 +55,7 @@ import Layout from "../layouts/Layout.astro";
   }
 
   .welcome-title {
+    font-weight: 400;
     font-size: 3rem;
   }
 
@@ -70,7 +73,7 @@ import Layout from "../layouts/Layout.astro";
     font-size: 1.5rem;
     border-radius: 0.6rem;
 
-    width: 10rem;
+    width: 12rem;
     height: 3.5rem;
 
     cursor: pointer;

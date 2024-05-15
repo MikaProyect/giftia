@@ -1,6 +1,30 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { ProductsTable } from "../../components/ProdcuctsTable/ProductsTable";
+
+const res = await fetch("http://localhost:3000/api/user/status");
+const resJson = await res.json();
+const userSession = resJson.message.session;
+
+const result = await fetch("http://localhost:3000/api/admin/verif", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    userId: userSession.user.id,
+  }),
+});
+const userType = await result.json();
+
+if (userSession === null) {
+  return Astro.redirect("/");
+}
+
+if (userType.message === "noAdmin") {
+  console.log(userType);
+  return Astro.redirect("/chat");
+}
 ---
 
 <Layout title="Gestión  de Productos">

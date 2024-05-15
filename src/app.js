@@ -7,12 +7,12 @@ import chatRoutes from './routes/chat.routes.js'
 import authRoutes from './routes/auth.routes.js'
 import productsRoutes from './routes/products.routes.js'
 
-dotenv.config();
+dotenv.config()
 const app = express()
 
-//Middlewares
+// Middlewares
 app.use(cors({
-    origin: 'http://localhost:4321'
+  origin: 'http://localhost:4321'
 }))
 app.use(morgan('dev'))
 app.use(express.json())
@@ -23,15 +23,15 @@ app.use('/api', chatRoutes)
 app.use('/api', productsRoutes)
 
 app.get('/', (req, res) => {
-    res.json({ message: "Welcome to Giftia API" })
+  res.json({ message: 'Welcome to Giftia API' })
 })
 
 // Esto es un manejador de errores, en coso de que algo falla, se manda un JSON con el tipo de error.
 app.use((err, req, res, send, next) => {
-    res.status(500).json({
-        status: "error",
-        message: err.message
-    })
+  res.status(500).json({
+    status: 'error',
+    message: err.message
+  })
 })
 
 // Supabase

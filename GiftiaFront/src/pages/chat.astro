@@ -1,5 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const res = await fetch("http://localhost:3000/api/user/status");
+const resJson = await res.json();
+const userSession = resJson.message.session;
+
+if (userSession === null) {
+  return Astro.redirect("/");
+}
 ---
 
 <Layout title="Chat">

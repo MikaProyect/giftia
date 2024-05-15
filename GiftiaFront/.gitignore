@@ -17,5 +17,7 @@ pnpm-debug.log*
 .env
 .env.production
 
-# macOS-specific files
-.DS_Store
+# Files
+prettierignore
+GiftiaFront/eslintrc.cjs
+GiftiaFront/prettierrc.mjs

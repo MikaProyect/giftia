@@ -1,57 +1,57 @@
-import React, { useState } from "react";
-import "./modal-ag-ed.css";
+import { useState } from 'react'
+import './modal-ag-ed.css'
 
-function EditProducts({ idProd }) {
+function EditProducts ({ idProd }) {
   const [formData, setFormData] = useState({
-    tipo: "",
-    nombre: "",
-    precio: "",
-    tag: "",
-    vendedor: "",
-    link: "",
-  });
+    tipo: '',
+    nombre: '',
+    precio: '',
+    tag: '',
+    vendedor: '',
+    link: ''
+  })
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData({
       ...formData,
-      [name]: value,
-    });
-  };
+      [name]: value
+    })
+  }
 
   const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData); // Aquí puedes hacer lo que quieras con los datos almacenados
-    const { nombre, tag, precio, vendedor, link, tipo } = formData;
-    console.log(nombre);
+    e.preventDefault()
+    console.log(formData) // Aquí puedes hacer lo que quieras con los datos almacenados
+    const { nombre, tag, precio, vendedor, link, tipo } = formData
+    console.log(nombre)
     const editProduct = async () => {
       try {
         const res = await fetch(
           `http://localhost:3000/api/products/update/${idProd}`,
           {
-            method: "PUT",
+            method: 'PUT',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              tipo: tipo,
+              tipo,
               name: nombre,
               tags: tag,
               price: precio,
               seller: vendedor,
-              link: link,
-            }),
+              link
+            })
           }
-        );
-        const data = await res.json();
-        console.log(data);
+        )
+        const data = await res.json()
+        console.log(data)
       } catch (error) {
-        console.log("Error en actualizar", error);
+        console.log('Error en actualizar', error)
       }
-    };
+    }
 
-    editProduct();
-  };
+    editProduct()
+  }
 
   return (
     <div className="edit-product-form">
@@ -135,7 +135,7 @@ function EditProducts({ idProd }) {
         </div>
       </form>
     </div>
-  );
+  )
 }
 
-export { EditProducts };
+export { EditProducts }

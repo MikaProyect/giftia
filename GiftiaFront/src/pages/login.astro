@@ -1,6 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 
+const res = await fetch("http://localhost:3000/api/user/status")
+const resJson = await res.json()
+const userSession = resJson.message.session
+
+if (userSession !== null) {
+  return Astro.redirect('/chat')
+}
 ---
 
 <Layout title="Giftia">
@@ -102,8 +109,8 @@ import Layout from "../layouts/Layout.astro";
 					localStorage.removeItem('idTest')
 					localStorage.setItem('idTest', data.message.id)
 				}
-
-				const result = await fetch('http://localhost:3000/api/user/state', {
+				// Se verifica que el user logeado es admin o no para redirigirlo.
+				const result = await fetch('http://localhost:3000/api/admin/verif', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
@@ -112,26 +119,24 @@ import Layout from "../layouts/Layout.astro";
 						userId: data.message.id
 					})
 				})
-				const dataVerif = await result.json()
-
-				console.log(dataVerif.message.userType)
+				const userType = await result.json()
 
 				if (localStorage.getItem('userType')  === null) {
-					localStorage.setItem('userType', dataVerif.message.userType)
+					localStorage.setItem('userType', userType.message)
 				} else if (localStorage.getItem('userType')  !== null ) {
 					localStorage.removeItem('userType')
-					localStorage.setItem('userType', dataVerif.message.userType)
+					localStorage.setItem('userType', userType.message)
 				}
 
-				console.log(data.message.id)
-				if(dataVerif.message.userType === 1){
-					window.location.href = "/"
+				if(userType.message === "isAdmin"){
+					window.location.href = "/adminPages/gest-prod"
 				}
-				if (dataVerif.message.userType === 0) {
+				if (userType.message === "noAdmin") {
 					window.location.href = "/chat"
 				} else {
-					console.log("erroor")
+					console.log("An error has ocurred")
 				}
+				// Fin proceso
 			})
 
 			registerForm.addEventListener('submit', async (e) => {
@@ -162,7 +167,7 @@ import Layout from "../layouts/Layout.astro";
 					localStorage.setItem('idTest', data.message.id)
 				}
 
-				const result = await fetch('http://localhost:3000/api/user/state', {
+				const result = await fetch('http://localhost:3000/api/admin/verif', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
@@ -171,19 +176,22 @@ import Layout from "../layouts/Layout.astro";
 						userId: data.message.id
 					})
 				})
-				const dataVerif = await result.json()
-				
-				console.log(dataVerif.message.userType)
+				const userType = await result.json()
+
 				if (localStorage.getItem('userType')  === null) {
-					localStorage.setItem('userType', dataVerif.message.userType)
+					localStorage.setItem('userType', userType.message)
 				} else if (localStorage.getItem('userType')  !== null ) {
 					localStorage.removeItem('userType')
-					localStorage.setItem('userType', dataVerif.message.userType)
+					localStorage.setItem('userType', userType.message)
 				}
-				console.log(data.message.id)
-				if(dataVerif.message.userType === 0){
-					window.location.href = "/chat"
+
+				if (localStorage.getItem('userType')  === null) {
+					localStorage.setItem('userType', userType.message)
+				} else if (localStorage.getItem('userType')  !== null ) {
+					localStorage.removeItem('userType')
+					localStorage.setItem('userType', userType.message)
 				}
+				window.location.href = "/chat"
 
 				} catch (error) {
 					console.log(error)
