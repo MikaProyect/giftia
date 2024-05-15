@@ -17,6 +17,8 @@ td {
     padding: 8px;
     /* Espaciado interno de las celdas */
     text-align: left;
+    max-width: 300px;
+    overflow: hidden;
 }
 
 th {
@@ -56,8 +58,8 @@ button:hover {
     justify-content: center; /* Centrar horizontalmente */
     align-items: center; /* Centrar verticalmente */
     flex-direction: column;
-    
-     
-    
 }
 
+.close-button {
+    margin-bottom: 30px;
+}

@@ -85,7 +85,9 @@ function ProductsTable() {
                 <td>{prod.price}</td>
                 <td>{prod.tags}</td>
                 <td>{prod.seller}</td>
-                <td>{prod.link}</td>
+                <td>
+                  <a href={prod.link}>{prod.link}</a>
+                </td>
                 <td>
                   <button onClick={() => onEdit(prod)}>Editar</button>
                   <button onClick={() => onDelete(prod.id)}>Eliminar</button>
@@ -99,12 +101,18 @@ function ProductsTable() {
           {visible && <EditProducts idProd={idSelect} />}
 
           {createVisible && (
-            <button className="agre-cerrar" onClick={() => onClose()}>
+            <button
+              className="agre-cerrar close-button"
+              onClick={() => onClose()}
+            >
               Cerrar
             </button>
           )}
           {visible && (
-            <button className="edit-cerrar" onClick={() => onClose()}>
+            <button
+              className="edit-cerrar close-button"
+              onClick={() => onClose()}
+            >
               Cerrar
             </button>
           )}
