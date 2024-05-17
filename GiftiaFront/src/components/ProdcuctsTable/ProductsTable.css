@@ -18,6 +18,8 @@ td {
     padding: 8px;
     /* Espaciado interno de las celdas */
     text-align: left;
+    max-width: 300px;
+    overflow: hidden;
 }
 
 th {
@@ -59,7 +61,14 @@ button:hover {
     align-items: center;
     /* Centrar verticalmente */
     flex-direction: column;
+<<<<<<< HEAD
+}
+
+.close-button {
+    margin-bottom: 30px;
+=======
 
 
 
+>>>>>>> d699974aed01c61da7882430dfc3dcc19c21c8f8
 }
