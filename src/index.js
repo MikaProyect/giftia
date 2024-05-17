@@ -1,9 +1,10 @@
 import dotenv from 'dotenv'
-import app, { supabase } from "./app.js"
+// eslint-disable-next-line no-unused-vars
+import app, { supabase } from './app.js'
 
-dotenv.config();
+dotenv.config()
 
 const PORT = process.env.PORT
 
 app.listen(PORT)
-console.log("Server on port", PORT)
+console.log('Server on port', PORT)

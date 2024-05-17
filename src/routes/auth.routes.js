@@ -1,5 +1,5 @@
-import { Router } from "express";
-import { loginController, logoutController, profileController, registerController, stateController, userStatus } from "../controllers/auth.controller.js";
+import { Router } from 'express'
+import { loginController, logoutController, profileController, registerController, adminVerif, userStatus } from '../controllers/auth.controller.js'
 
 const router = Router()
 
@@ -11,7 +11,7 @@ router.post('/logout', logoutController)
 
 router.get('/profile', profileController)
 
-router.post('/user/state', stateController)
+router.post('/admin/verif', adminVerif)
 
 router.get('/user/status', userStatus)
 
