@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react'
-import { EditProducts } from '../EditProducts/EditProducts'
-import { CreateProducts } from '../CreateProducts/CreateProducts'
-import './ProductsTable.css'
+import { useEffect, useState } from "react";
+import { EditProducts } from "../EditProducts/EditProducts";
+import { CreateProducts } from "../CreateProducts/CreateProducts";
+import "./ProductsTable.css";
 
-function ProductsTable () {
-  const [products, setProducts] = useState([])
-  const [idSelect, setIdSelect] = useState()
-  const [visible, setVisible] = useState(false)
-  const [createVisible, setCreateVisible] = useState(false)
+function ProductsTable() {
+  const [products, setProducts] = useState([]);
+  const [idSelect, setIdSelect] = useState();
+  const [visible, setVisible] = useState(false);
+  const [createVisible, setCreateVisible] = useState(false);
 
   const onEdit = (data) => {
-    setIdSelect(data.id)
-    setVisible(true)
-  }
+    setIdSelect(data.id);
+    setVisible(true);
+  };
 
   const onClose = () => {
-    setVisible(false)
-    setCreateVisible(false)
-  }
+    setVisible(false);
+    setCreateVisible(false);
+  };
 
   const onDelete = async (id) => {
     try {
@@ -25,33 +25,33 @@ function ProductsTable () {
       const res = await fetch(
         `http://localhost:3000/api/products/delete/${id}`,
         {
-          method: 'DELETE'
+          method: "DELETE",
         }
-      )
-      const updatedProducts = products.filter((prod) => prod.id !== id)
-      setProducts(updatedProducts)
+      );
+      const updatedProducts = products.filter((prod) => prod.id !== id);
+      setProducts(updatedProducts);
     } catch (error) {
-      console.error('Error fetching products:', error)
+      console.error("Error fetching products:", error);
     }
-  }
+  };
 
   const onCreate = () => {
-    setCreateVisible(true)
-  }
+    setCreateVisible(true);
+  };
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/products/get')
-        const data = await res.json()
-        setProducts(data.message)
+        const res = await fetch("http://localhost:3000/api/products/get");
+        const data = await res.json();
+        setProducts(data.message);
       } catch (error) {
-        console.error('Error fetching products:', error)
+        console.error("Error fetching products:", error);
       }
-    }
+    };
 
-    getProducts()
-  }, [])
+    getProducts();
+  }, []);
 
   return (
     <>
@@ -86,10 +86,16 @@ function ProductsTable () {
                 <td>{prod.price}</td>
                 <td>{prod.tags}</td>
                 <td>{prod.seller}</td>
-                <td>{prod.link}</td>
                 <td>
-                  <button onClick={() => onEdit(prod)}>Editar</button>
-                  <button onClick={() => onDelete(prod.id)}>Eliminar</button>
+                  <a href={prod.link}>{prod.link}</a>
+                </td>
+                <td>
+                  <button className="editeli" onClick={() => onEdit(prod)}>
+                    Editar
+                  </button>
+                  <button className="editeli" onClick={() => onDelete(prod.id)}>
+                    Eliminar
+                  </button>
                 </td>
               </tr>
             ))}
@@ -100,19 +106,25 @@ function ProductsTable () {
           {visible && <EditProducts idProd={idSelect} />}
 
           {createVisible && (
-            <button className="agre-cerrar" onClick={() => onClose()}>
+            <button
+              className="agre-cerrar close-button"
+              onClick={() => onClose()}
+            >
               Cerrar
             </button>
           )}
           {visible && (
-            <button className="edit-cerrar" onClick={() => onClose()}>
+            <button
+              className="edit-cerrar close-button"
+              onClick={() => onClose()}
+            >
               Cerrar
             </button>
           )}
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export { ProductsTable }
+export { ProductsTable };
