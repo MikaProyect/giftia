@@ -1,18 +1,20 @@
 import { Router } from 'express'
 import { loginController, logoutController, profileController, registerController, adminVerif, userStatus } from '../controllers/auth.controller.js'
+import { validateSchema } from '../middlewares/validator.middleware.js'
+import { loginSchema, registerSchema } from '../schemas/auth.schema.js'
 
 const router = Router()
 
-router.post('/login', loginController)
+router.post('/login', validateSchema(loginSchema), loginController)
 
-router.post('/register', registerController)
+router.post('/register', validateSchema(registerSchema), registerController)
 
 router.post('/logout', logoutController)
 
 router.get('/profile', profileController)
 
-router.post('/admin/verif', adminVerif)
-
 router.get('/user/status', userStatus)
+
+router.post('/admin/verif', adminVerif)
 
 export default router
