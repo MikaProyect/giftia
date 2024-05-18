@@ -30,16 +30,17 @@ th {
 }
 
 .BotonAgrPr {
-    margin-top: 20px;
+    margin-top: 12px;
     margin-left: 10px;
     position: absolute;
     top: 100px;
     left: 1100px;
-    font-family: "Rajdhani", sans-serif;
     border-radius: 8px;
     font-size: 20px;
-    border-color: rgb(72, 110, 233);
-    padding: 3px;
+    border-color: rgb(163, 233, 72);
+    padding: 4px;
+    background-color: #ffffff;
+    border:3px solid;
 }
 
 .editeli {
@@ -61,14 +62,8 @@ button:hover {
     align-items: center;
     /* Centrar verticalmente */
     flex-direction: column;
-<<<<<<< HEAD
 }
 
 .close-button {
     margin-bottom: 30px;
-=======
-
-
-
->>>>>>> d699974aed01c61da7882430dfc3dcc19c21c8f8
 }
