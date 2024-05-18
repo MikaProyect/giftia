@@ -6,6 +6,10 @@ const res = await fetch("http://localhost:3000/api/user/status");
 const resJson = await res.json();
 const userSession = resJson.message.session;
 
+if (userSession === null) {
+  return Astro.redirect("/");
+}
+
 const result = await fetch("http://localhost:3000/api/admin/verif", {
   method: "POST",
   headers: {
@@ -17,9 +21,7 @@ const result = await fetch("http://localhost:3000/api/admin/verif", {
 });
 const userType = await result.json();
 
-if (userSession === null) {
-  return Astro.redirect("/");
-}
+
 
 if (userType.message === "noAdmin") {
   console.log(userType);

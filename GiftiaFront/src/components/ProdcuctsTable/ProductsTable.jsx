@@ -50,7 +50,7 @@ function ProductsTable() {
       }
     };
 
-    getProducts();
+    getProducts()
   }, []);
 
   return (
@@ -73,6 +73,7 @@ function ProductsTable() {
               <th>Tags</th>
               <th>Vendedor</th>
               <th>Enlace</th>
+              <th>Imagen</th>
               <th></th>
             </tr>
           </thead>
@@ -89,6 +90,7 @@ function ProductsTable() {
                 <td>
                   <a href={prod.link}>{prod.link}</a>
                 </td>
+                <td><img src={prod.url} alt="imagen" /></td>
                 <td>
                   <button className="editeli" onClick={() => onEdit(prod)}>
                     Editar
