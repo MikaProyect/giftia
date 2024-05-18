@@ -2,7 +2,6 @@ import { Router } from 'express'
 import { addProduct, deleteProduct, getProducts, updateProduct } from '../controllers/products.controller.js'
 
 const router = Router()
-
 // Ver todos los productos existentes
 router.get('/products/get', getProducts)
 
