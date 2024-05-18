@@ -104,6 +104,7 @@ if (userSession === null) {
             newDiv.style.overflow = "auto"; // Para manejar correctamente el float
             newDiv.style.position = "relative"; // Posición relativa para alinear la imagen
             newDiv.style.display = "flex";
+            newDiv.style.border = "2px solid #ffb2d5";
 
             chat.appendChild(newDiv); // se inserta newdiv en chat-input
         }
@@ -150,6 +151,7 @@ if (userSession === null) {
             newdiv.style.clear = "both"; // Limpiar el float para que se posicione debajo
             newdiv.style.overflow = "auto"; // Para manejar correctamente el float
             newdiv.style.position = "relative"; // Posición relativa para alinear la imagen
+            newdiv.style.border = "2px solid #ffb2d5";
 
             chat.appendChild(newdiv); // se inserta newdiv en chat-input
         }
@@ -166,7 +168,8 @@ if (userSession === null) {
             animation.style.display = "none";
             text.textContent =
                 "¡Hola! Soy Giftia, tu asistente personal para encontrar el regalo perfecto. Puedes proporcionarme información siguiendo este ejemplo: Color, edad, deporte y dinero disponible. Estoy aquí para hacer que tu experiencia de compra de regalos sea fácil, emocionante y completamente libre de estrés.";
-            bubble.style.backgroundColor = "#ffb2d5";
+            bubble.style.backgroundColor = "#a4bafd"; 
+            bubble.style.border = "2px solid #ffb2d5";
         }, 3000);
     </script>
 </Layout>
