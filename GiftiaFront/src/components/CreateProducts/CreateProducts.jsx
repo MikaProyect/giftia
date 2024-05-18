@@ -7,46 +7,55 @@ function CreateProducts () {
     precio: '',
     tag: '',
     vendedor: '',
-    link: ''
+    link: '',
+    file: '',
+    fileName: ''
   })
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData({
-      ...formData,
-      [name]: value
-    })
-  }
+    const { name, value, files } = e.target;
+    if (files) {
+      const file = files[0];
+      setFormData({
+        ...formData,
+        [name]: file,  // Almacenar el archivo en el estado
+        fileName: file.name
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
+  };
 
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log(formData) // Aquí puedes hacer lo que quieras con los datos almacenados
-    const { nombre, tag, precio, vendedor, link, tipo } = formData
-    console.log(nombre)
-    const editProduct = async () => {
+    const { nombre, tag, precio, vendedor, link, tipo, file, fileName } = formData
+
+    const formDataToSend = new FormData()
+    formDataToSend.append('tipoProducto', tipo)
+    formDataToSend.append('nombre', nombre)
+    formDataToSend.append('tag', tag)
+    formDataToSend.append('precio', precio)
+    formDataToSend.append('vendedor', vendedor)
+    formDataToSend.append('link', link)
+    formDataToSend.append('file', file)
+
+    const createProduct = async () => {
       try {
         const res = await fetch('http://localhost:3000/api/products/create', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            tipoProducto: tipo,
-            nombre,
-            tag,
-            precio,
-            vendedor,
-            link
-          })
+          body: formDataToSend
         })
         const data = await res.json()
         console.log(data)
       } catch (error) {
-        console.log('Error en actualizar', error)
+        console.log('Error en crear', error)
       }
     }
 
-    editProduct()
+    createProduct()
   }
 
   return (
@@ -124,6 +133,11 @@ function CreateProducts () {
             value={formData.link}
             onChange={handleInputChange}
           />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="file">Imagen</label>
+          <input type="file" id="file" name='file' onChange={handleInputChange} />
         </div>
 
         <div className="form-group">

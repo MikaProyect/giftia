@@ -1,12 +1,12 @@
 import { supabase } from '../app.js'
 
 export const loginController = async (req, res) => {
-  const { user, password } = req.body
-  console.log(user, password)
+  const { email, password } = req.body
+  console.log(email, password)
 
   try {
     const result = await supabase.auth.signInWithPassword({
-      email: user,
+      email,
       password
     })
 

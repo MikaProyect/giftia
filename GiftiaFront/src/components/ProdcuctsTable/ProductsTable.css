@@ -18,6 +18,8 @@ td {
     padding: 8px;
     /* Espaciado interno de las celdas */
     text-align: left;
+    max-width: 300px;
+    overflow: hidden;
 }
 
 th {
@@ -40,7 +42,7 @@ th {
     padding: 3px;
 }
 
-button {
+.editeli {
     color: rgb(0, 0, 0);
     border-color: rgb(72, 75, 233);
     border-radius: 7px;
@@ -59,7 +61,8 @@ button:hover {
     align-items: center;
     /* Centrar verticalmente */
     flex-direction: column;
+}
 
-
-
+.close-button {
+    margin-bottom: 30px;
 }
