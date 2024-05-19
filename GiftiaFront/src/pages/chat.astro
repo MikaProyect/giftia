@@ -30,9 +30,9 @@ if (userSession === null) {
 
             <!--PENDIENTE-->
             <ul>
-                <li><a class="CT" href=""><ion-icon name="person-circle-outline"></ion-icon></a></li>
-                <li><a class="OP" href=""><ion-icon name="heart-circle-outline"></ion-icon></a></li>
-                <li><a class="SL" href=""><ion-icon name="exit-outline"></ion-icon></a></li>
+                <li><a class="CT" href=""><ion-icon name="person-circle-outline" title="Mi cuenta"></ion-icon></a></li>
+                <li><a class="OP" href=""><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
+                <li><a class="SL" href=""><ion-icon name="exit-outline" title="Salir"></ion-icon></a></li>
             </ul>
         </div>
 
@@ -212,6 +212,7 @@ if (userSession === null) {
         flex-direction: column; /* alinea los elementos verticalmente */
         justify-content: flex-start; /* alinea los elementos al principio */
         align-items: center; /* alinea los elementos al centro horizontalmente */
+        border: 1px solid #ffb2d5;
     }
 
     .der {
@@ -231,7 +232,7 @@ if (userSession === null) {
         min-width: 130px;
         display: block;
         position: relative; /* Cambiamos la posición a relativa */
-        margin-top: -10px; /* Agregamos un margen superior */
+        margin-top: 10px; /* Agregamos un margen superior */
     }
 
     .titulo {

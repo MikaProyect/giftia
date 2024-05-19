@@ -4,4 +4,223 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="Reclamos y Sugerencias">
 
+    <!--Barra de navegacion izquierda-->
+    <script
+        type="module"
+        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+
+    <script
+        nomodule
+        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <div class="izq">
+        <!--Contenedor del lado izquierdo-->
+        <img class="logok" src="../img/logo_karina.png" alt="logo" />
+
+        <!--PENDIENTE-->
+        <ul>
+            <li><a class="CT" href=""><ion-icon name="person-circle-outline" title="Mi cuenta"></ion-icon></a></li>
+            <li><a class="OP" href=""><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
+            <li><a class="SL" href=""><ion-icon name="exit-outline" title="Salir"></ion-icon></a></li>
+        </ul>
+    </div>
+
+    <h1 class="titulo-inicial">Reclamos y Sugerencias</h1>
+    
+    <!--Acordeon de seleccion derecha-->
+    <div class="seleccion-izq">
+        <div class="accordion">
+            <div class="accordion-item">
+            <div class="accordion-header">Selecciona una de las opciones <ion-icon name="chevron-down-outline" class="flechita"></ion-icon></div>
+            <div class="accordion-content">
+                <button>Reclamo</button>
+            </div>
+            <div class="accordion-content">
+                <button>Sugerencia</button>
+            </div>
+            </div>
+
+            <div class="accordion-item" id="">
+            <div class="accordion-header">¿Con qué tiene relación tu reclamo? <ion-icon name="chevron-down-outline" class="flechita"></ion-icon></div>
+            <div class="accordion-content">
+                <button>Uno o varios de los links no funcionan.</button>
+            </div>
+            <div class="accordion-content">
+                <button>Los precios no se ajustaron a mi presupuesto.</button>
+            </div>
+            <div class="accordion-content">
+                <button>La página no funciona correctamente.</button>
+            </div>
+            <div class="accordion-content">
+                <button>Los regalos no tienen relación con lo que solicité.</button>
+            </div>
+            <div class="accordion-content">
+                <button>Otro</button>
+            </div>
+            </div>
+            
+        </div>
+        
+        <div class="cont-texto">
+            <textarea class="texto" name="formulario" id="form" maxlength="600" placeholder="Escribenos aquí..."></textarea>
+        </div>
+    </div>
+
 </Layout>
+
+<script>
+    document.addEventListener("DOMContentLoaded",function(){ //Esto hace que el documento esté pendiente a los eventos
+        const acordion = document.querySelectorAll(".accordion-header")
+        acordion.forEach(header=>{
+            header.addEventListener("click",()=>{
+                const acordionItem = header.parentElement as HTMLFormElement
+                const acordionContent = acordionItem.querySelectorAll(".accordion-content") as HTMLFormElement
+                acordionContent.forEach(content =>{
+                    content.style.display = content.style.display === "block"?"none":"block"
+                })   
+            })
+        })
+    }) 
+
+</script>
+
+<style>
+    .izq {
+        position: absolute;
+        width: calc(13% - 40px); /* 13% - 20px de cada lado */
+        height: calc(100% - 40px); /* 100% - 20px de arriba y abajo */
+        background-color: #a4bafd; /*color de fondo*/
+        z-index: 2; /* es para que esté sobre .cont-com */
+        top: 20px; /* mueve 20px desde el borde superior */
+        left: 20px; /* mueve 20px desde el borde izquierdo */ 
+        border-radius: 10px; /* redondea las esquinas */
+        border: 20px solid transparent; /* crea el borde de 20px */
+        display: flex;
+        flex-direction: column; /* alinea los elementos verticalmente */
+        justify-content: flex-start; /* alinea los elementos al principio */
+        align-items: center; /* alinea los elementos al centro horizontalmente */
+        border: 1px solid #ffb2d5;
+    }
+
+    .logok {
+        width: 40%;
+        max-width: 230px;
+        min-width: 130px;
+        display: block;
+        position: relative; /* Cambiamos la posición a relativa */
+        margin-top: 10px; /* Agregamos un margen superior */
+    }
+
+    .CT,
+    .SL,
+    .OP {
+        text-align: center;
+        list-style-type: none;
+        color: white;
+        margin: 10px 0; /* Agregamos un margen entre los elementos */
+        font-size: 45px;
+        color: #000;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    ul {
+        margin-top: 45vh;
+    }
+
+    .titulo-inicial {
+        font-size: 30px;
+        position: absolute;
+        left: 90vh;
+        top: 3vh;
+        color: #ffb2d5;
+    }
+
+    .flechita {
+        position: absolute;
+        font-size: 21px;
+        left: 94%;
+        
+    }
+
+    .seleccion-izq {
+        position: absolute;
+        left: 31%; /* Ajusta según el espacio que desees desde la izquierda */
+        right: 21%; /* Ajusta según el espacio que desees desde la derecha */
+        height: 88%;
+        border-radius: 10px; /* Redondea las esquinas */
+        top: 12vh;
+    }
+
+    .accordion {
+        border: 1px solid #ffb2d5;
+    }
+
+    .accordion-item {
+        border-bottom: 1px solid #ffb2d5;
+        padding: 10px;
+    }
+
+    .accordion-header {
+        display: block;
+        padding: 5px;
+        background-color: #a4bafd;
+        cursor: pointer;
+    }
+
+    .accordion-content {
+        padding: 5px;
+        display: none;
+        background-color: rgba(255, 255, 255, 0.299); /* Color de fondo blanco con opacidad */
+        backdrop-filter: blur(10px); /* Aplica un desenfoque de 10 píxeles */
+        border-radius: 10px; /* Esquinas redondeadas */
+        margin-bottom: 8px; /* Añade espacio entre las opciones */
+        margin-top: 8px; /* Añade espacio en la parte superior para moverlo hacia abajo */
+        box-sizing: border-box; /* Asegura que el padding y el borde estén incluidos en el tamaño total */
+    }
+
+    .accordion-item input[type="radio"] {
+        display: none;
+    }
+
+    .accordion-item input[type="radio"]:checked ~ .accordion-content {
+        display: block;
+    }
+
+    .texto {
+        resize: none;
+        padding: 10px;
+        border: 2px solid #ffb2d5;
+        border-radius: 15px;
+        width: 100%;
+        height: 180px !important; 
+    }
+
+    .cont-texto {
+        margin-top: 3vh;
+        
+    }
+
+</style>
+
+<!--Al pasar con el cursos arriba del panel izquierdo, debe aparecer una texto
+flotante que diga para que es cada baton ✔--> 
+
+<!--falta poner que las opciones sean obligatorias de responder (todas)-->
+
+<!--agregas la flechita hacia abajo en cada uno de los desplegables + el boton de enviar-->
+
+<!--agregar las opciones para cuando aprete sugerencia, y que dependiendo de lo que escoja
+en la primera opcion aparezca una u otra -->
+
+<!--ver como quedaria con la imagen de fondo, pero que se mantenga el degrade de colores -->
+
+<!--Al apretar enviar debe salir otra pagina (me gustaria que fuese una ventana flotante en el medio
+y que el fondo se difumine) que diga "tu solicutud será antendidalo más pronto posible", como con 
+una barra que se vaya cargando y cuando llegue al final te regrese al chat-->
+
+<!--Falta todo el backend con la bd y esas cosas -->
