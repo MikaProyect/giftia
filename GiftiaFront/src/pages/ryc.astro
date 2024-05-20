@@ -96,8 +96,6 @@ import Layout from "../layouts/Layout.astro";
         </div>
 
     </body>
-    
-
 </Layout>
 
 <script>
@@ -204,33 +202,38 @@ import Layout from "../layouts/Layout.astro";
 <!--Filtro para las malas palabras en el cuadro de texto-->
 <script>
     fetch('/words.json')
-  .then(response => response.json())
-  .then(data => {
-    const forbiddenWords = data.data
-    const button = document.querySelector('.button-enviar') as HTMLFormElement
-    const areatext = document.getElementById('form') as HTMLTextAreaElement
-    const errorMessage = document.querySelector('.error-message') as HTMLElement
-    button.addEventListener('click', function (event) {
-      // Detiene el envío del formulario al principio
-      event.preventDefault()
-      const words = (areatext.value + ' ').split(/\b/)
-      let hasForbiddenWord = false
-      for (const word of words) {
-        if (forbiddenWords.includes(word)) {
-          // Si se encuentra una palabra prohibida, muestra un mensaje de error
-          errorMessage.textContent = 'Por favor, evita usar lenguaje ofensivo en tu testimonio.'
-          errorMessage.style.color = 'red'
-          hasForbiddenWord = true
-          break
-        }
-      }
-      // Si no se encuentra ninguna palabra prohibida, envía el formulario
-      if (!hasForbiddenWord) {
-        button.submit()
-      }
-    })
-  })
+        .then(response => response.json())
+        .then(data => {
+            const forbiddenWords = data.data;
+            const button = document.querySelector('.button-enviar') as HTMLFormElement;
+            const areatext = document.getElementById('form') as HTMLTextAreaElement;
+            const errorMessage = document.querySelector('.error-message') as HTMLElement;
+
+            button.addEventListener('click', function (event) {
+                // Detiene el envío del formulario al principio
+                event.preventDefault();
+                const words = (areatext.value + ' ').split(/\b/);
+                let hasForbiddenWord = false;
+
+                for (const word of words) {
+                    if (forbiddenWords.includes(word)) {
+                        // Si se encuentra una palabra prohibida, muestra un mensaje de error
+                        errorMessage.textContent = 'Por favor, evita usar lenguaje ofensivo en tu testimonio.';
+                        errorMessage.style.color = 'red';
+                        hasForbiddenWord = true;
+                        break;
+                    }
+                }
+
+                // Si no se encuentra ninguna palabra prohibida, envía el formulario
+                if (!hasForbiddenWord) {
+                    areatext.closest('form').submit();
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching forbidden words:', error));
 </script>
+
 
 <style>
     body {
