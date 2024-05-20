@@ -49,6 +49,4 @@ export const supabaseAdmin = createClient(process.env.SUPABASE_URL, process.env.
   }
 })
 
-// export const adminAuthClient = supabaseAdmin.auth.admin
-
 export default app
