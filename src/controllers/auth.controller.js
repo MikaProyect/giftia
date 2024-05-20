@@ -28,17 +28,12 @@ export const registerController = async (req, res) => {
       options: {
         data: {
           display_name: username
+        },
+        app_metadata: {
+          role: 'admin'
         }
       }
     })
-
-    // Esto es para añadir users a la BD llamada "admins"
-    // const userBDAdded = await supabase.from('admins').insert({
-    //     id: result.data.user.id,
-    //     username: username,
-    //     email: email,
-    // })
-    // console.log(userBDAdded)
 
     res.status(201).json({ message: result.data.user })
   } catch (error) {
