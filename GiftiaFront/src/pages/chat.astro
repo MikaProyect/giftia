@@ -32,7 +32,7 @@ if (userSession === null) {
             <ul>
                 <li><a class="CT" href=""><ion-icon name="person-circle-outline" title="Mi cuenta"></ion-icon></a></li>
                 <li><a class="OP" href=""><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
-                <li><a class="SL" href=""><ion-icon name="exit-outline" title="Salir"></ion-icon></a></li>
+                <li><div class="SL salir"><ion-icon name="exit-outline" title="Salir"></ion-icon></div></li>
             </ul>
         </div>
 
@@ -74,6 +74,26 @@ if (userSession === null) {
             </div>
         </div>
     </div>
+
+    <script is:inline>
+        const salir = document.querySelector(".salir");
+        salir.addEventListener("click", async () => {
+            try {
+                const res = await fetch("http://localhost:3000/api/logout", {
+                    method: "POST"
+                });
+                const resJson = await res.json();
+                if (resJson.error === null) {
+                    localStorage.removeItem("idTest");
+                    localStorage.removeItem("token");
+                    window.location.href = "/";
+                }
+
+            } catch (error) {
+                console.log("Ha ocurrido un error: ", error);
+            }
+        });
+    </script>
 
     <script is:inline>
         //esto significa que será destinado para que se ejecute inline
@@ -250,6 +270,10 @@ if (userSession === null) {
         margin: 10px 0; /* Agregamos un margen entre los elementos */
         font-size: 45px;
         color: #000;
+    }
+
+    .salir {
+        cursor: pointer;
     }
 
     .chatBubbles {
