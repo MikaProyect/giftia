@@ -61,14 +61,8 @@ button:hover {
     align-items: center;
     /* Centrar verticalmente */
     flex-direction: column;
-<<<<<<< HEAD
 }
 
 .close-button {
     margin-bottom: 30px;
-=======
-
-
-
->>>>>>> d699974aed01c61da7882430dfc3dcc19c21c8f8
 }
