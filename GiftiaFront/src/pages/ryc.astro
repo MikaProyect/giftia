@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Barra from "../components/BarraProgreso/Barra.jsx"
 ---
 
 <Layout title="Reclamos y Sugerencias">
@@ -89,10 +90,18 @@ import Layout from "../layouts/Layout.astro";
         
             <div class="cont-texto">
                 <textarea class="texto" name="formulario" id="form" maxlength="600" placeholder="Escríbenos aquí..." required></textarea>
+            </div>
+
+            <div>
                 <button class="button-enviar" type="submit">Enviar</button>
             </div>
-        
+    
             <span class="error-message"></span>
+        </div>
+        
+        <div class="floating-container" id="floating-container">
+            <h2>...</h2>
+            <Barra client:load/>
         </div>
 
     </body>
@@ -305,20 +314,24 @@ import Layout from "../layouts/Layout.astro";
     }
 
     .button-enviar {
-        position: relative;
-        padding: 5px 10px;
-        margin: 10px;
+        display: block; /* Esto convierte el botón en un bloque, permitiendo el uso de margin auto */
+        padding: 5px 30px;
+        margin: 30px auto; /* Aumenta el margen superior (original era 10px) */
         border-radius: 10px;
         background-color: #ffb2d5;
     }
+
 
     .seleccion-izq {
         position: absolute;
         left: 31%; /* Ajusta según el espacio que desees desde la izquierda */
         right: 21%; /* Ajusta según el espacio que desees desde la derecha */
-        height: 88%;
-        border-radius: 10px; /* Redondea las esquinas */
         top: 12vh;
+        bottom: 4vh; /* Ajusta este valor según el espacio que desees desde abajo */
+        overflow-y: auto; /* Habilita el desplazamiento vertical */
+        overflow-x: hidden; /* Evita el desplazamiento horizontal */
+        -ms-overflow-style: none; 
+        scrollbar-width: none; 
     }
 
     .accordion {
@@ -362,7 +375,12 @@ import Layout from "../layouts/Layout.astro";
         border: 2px solid #ffb2d5;
         border-radius: 15px;
         width: 130% !important;
-        height: 180px !important; 
+        height: 235px !important; 
+        overflow-y: auto; /* Habilita el desplazamiento vertical */
+        overflow-x: hidden; /* Evita el desplazamiento horizontal */
+        -ms-overflow-style: none;  /* IE y Edge */
+        scrollbar-width: none;  /* Firefox */
+        outline: none;
     }
 
     .cont-texto {
@@ -370,31 +388,51 @@ import Layout from "../layouts/Layout.astro";
         display: flex;
     }
 
+    .floating-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0,1);
+        padding: 30px;
+        border-radius: 10px;
+        max-width: 100vh;
+        width: calc(100% - 40px);
+        text-align: left;
+        
+    }
 </style>
 
-<!--Al pasar con el cursor arriba del panel izquierdo, debe aparecer una texto
-flotante que diga para que es cada baton LISTO--> 
+<!--
+    
+LISTOS ✅
 
-<!--falta poner que las opciones sean obligatorias de responder (todas) LISTO-->
+Al pasar con el cursor arriba del panel izquierdo, debe aparecer una texto
+flotante que diga para que es cada baton
 
-<!--agregas la flechita hacia abajo en cada uno de los desplegables LISTO-->
+falta poner que las opciones sean obligatorias de responder (todas)
 
-<!--integrar el boton de enviar -->
+agregas la flechita hacia abajo en cada uno de los desplegables
 
-<!-- configurar lo de las alertas (el estilo) -->
+agregar las opciones para cuando aprete sugerencia, y que dependiendo de lo que escoja
+en la primera opcion aparezca una u otra
 
-<!--agregar las opciones para cuando aprete sugerencia, y que dependiendo de lo que escoja
-en la primera opcion aparezca una u otra LISTO -->
+agregar un filtro para las palabras malas
 
-<!-- agregar un filtro para las palabras malas LISTO-->
+ver como quedaria con la imagen de fondo, pero que se mantenga el degrade de colores
 
-<!--ver como quedaria con la imagen de fondo, pero que se mantenga el degrade de colores -->
+integrar el boton de enviar
 
-<!--Al apretar enviar debe salir otra pagina (me gustaria que fuese una ventana flotante en el medio
+sacar el cuadro de texto del contenedor izq y agrandarlo para 
+darle espacio a las alertas de groserias y la de que respondan todo
+
+PENDIENTES ❎
+
+configurar lo de las alertas (el estilo)
+
+Al apretar enviar debe salir otra pagina (me gustaria que fuese una ventana flotante en el medio
 y que el fondo se difumine) que diga "tu solicutud será antendidalo más pronto posible", como con 
-una barra que se vaya cargando y cuando llegue al final te regrese al chat-->
+una barra que se vaya cargando y cuando llegue al final te regrese al chat
 
-<!--Falta todo el backend con la bd y esas cosas -->
-
-<!--PENDIENTE SOLO YO: sacar el cuadro de texto del contenedor izq y agrandarlo para 
-darle espacio a las alertas de groserias y la de que respondan todo -->
+Falta todo el backend con la bd y esas cosas
