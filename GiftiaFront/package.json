@@ -13,10 +13,15 @@
   "dependencies": {
     "@astrojs/react": "^3.3.4",
     "@astrojs/tailwind": "^5.1.0",
+<<<<<<< HEAD
+=======
+    "@lemonsqueezy/wedges": "^1.3.0",
+>>>>>>> 2db372a92088e3cfceef706d514418aaddb5fc66
     "@supabase/supabase-js": "^2.43.2",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
     "astro": "^4.8.4",
+    "dotenv": "^16.4.5",
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

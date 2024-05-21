@@ -1,23 +1,23 @@
-import { useEffect, useState } from 'react'
-import { EditProducts } from '../EditProducts/EditProducts'
-import { CreateProducts } from '../CreateProducts/CreateProducts'
-import './ProductsTable.css'
+import { useEffect, useState } from "react";
+import { EditProducts } from "../EditProducts/EditProducts";
+import { CreateProducts } from "../CreateProducts/CreateProducts";
+import "./ProductsTable.css";
 
-function ProductsTable () {
-  const [products, setProducts] = useState([])
-  const [idSelect, setIdSelect] = useState()
-  const [visible, setVisible] = useState(false)
-  const [createVisible, setCreateVisible] = useState(false)
+function ProductsTable() {
+  const [products, setProducts] = useState([]);
+  const [idSelect, setIdSelect] = useState();
+  const [visible, setVisible] = useState(false);
+  const [createVisible, setCreateVisible] = useState(false);
 
   const onEdit = (data) => {
-    setIdSelect(data.id)
-    setVisible(true)
-  }
+    setIdSelect(data.id);
+    setVisible(true);
+  };
 
   const onClose = () => {
-    setVisible(false)
-    setCreateVisible(false)
-  }
+    setVisible(false);
+    setCreateVisible(false);
+  };
 
   const onDelete = async (id) => {
     try {
@@ -25,33 +25,33 @@ function ProductsTable () {
       const res = await fetch(
         `http://localhost:3000/api/products/delete/${id}`,
         {
-          method: 'DELETE'
+          method: "DELETE",
         }
-      )
-      const updatedProducts = products.filter((prod) => prod.id !== id)
-      setProducts(updatedProducts)
+      );
+      const updatedProducts = products.filter((prod) => prod.id !== id);
+      setProducts(updatedProducts);
     } catch (error) {
-      console.error('Error fetching products:', error)
+      console.error("Error fetching products:", error);
     }
-  }
+  };
 
   const onCreate = () => {
-    setCreateVisible(true)
-  }
+    setCreateVisible(true);
+  };
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/products/get')
-        const data = await res.json()
-        setProducts(data.message)
+        const res = await fetch("http://localhost:3000/api/products/get");
+        const data = await res.json();
+        setProducts(data.message);
       } catch (error) {
-        console.error('Error fetching products:', error)
+        console.error("Error fetching products:", error);
       }
-    }
+    };
 
     getProducts()
-  }, [])
+  }, []);
 
   return (
     <>
@@ -73,6 +73,7 @@ function ProductsTable () {
               <th>Tags</th>
               <th>Vendedor</th>
               <th>Enlace</th>
+              <th>Imagen</th>
               <th></th>
             </tr>
           </thead>
@@ -89,9 +90,14 @@ function ProductsTable () {
                 <td>
                   <a href={prod.link}>{prod.link}</a>
                 </td>
+                <td><img src={prod.url} alt="imagen" /></td>
                 <td>
-                  <button onClick={() => onEdit(prod)}>Editar</button>
-                  <button onClick={() => onDelete(prod.id)}>Eliminar</button>
+                  <button className="editeli" onClick={() => onEdit(prod)}>
+                    Editar
+                  </button>
+                  <button className="editeli" onClick={() => onDelete(prod.id)}>
+                    Eliminar
+                  </button>
                 </td>
               </tr>
             ))}
@@ -120,7 +126,7 @@ function ProductsTable () {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export { ProductsTable }
+export { ProductsTable };
