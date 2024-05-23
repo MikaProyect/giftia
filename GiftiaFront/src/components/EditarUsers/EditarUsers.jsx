@@ -64,7 +64,7 @@ function EditUser ({ show, Close, data }) {
     <>
         {visible && (
         <div className="edit-product-form">
-            <form id="EditProductos" onSubmit={onSubmit}>
+            <form id="EditUsers" onSubmit={onSubmit}>
             <h1 className="tituloEditPr">Editar Usuario</h1>
 
                 <div className="form-group">
@@ -104,11 +104,11 @@ function EditUser ({ show, Close, data }) {
                     <button type="submit">Guardar</button>
                 </div>
             </form>
-            <div className="form-group">
+            <div>
                 <button onClick={() => onClose()} >cerrar</button>
             </div>
         </div>
-    )}
+      )}
     </>
   )
 }
