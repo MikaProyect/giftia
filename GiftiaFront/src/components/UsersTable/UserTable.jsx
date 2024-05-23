@@ -1,47 +1,61 @@
 import { useEffect, useState } from "react";
 import "./UserTable.css"
+import { EditUser } from "../EditarUsers/EditarUsers";
+import { CreateUser } from "../CreateUser/CreateUser";
+
+
 
 function UserTable () {
-    const [user, setUser] = useState();
-    const [idSelect, setIdSelect] = useState();
+    const [user, setUser] = useState([]);
     const [visible, setVisible] = useState(false);
-    const [createVisible, setCreateVisible] = useState(false);
+    const [data, setData] = useState({
+      username: '',
+      email: '',
+      role: ''
+    });
 
-    const onEdit = (data) => {
-        setIdSelect(data.id);
-        setVisible(true);
-    };
-    const onClose = () => {
-        setVisible(false);
-        setCreateVisible(false);
-    };
+     const onEdit = (data) => {
+      setData(data);
+      setVisible(true);
+     };
 
-    const onDelete = async (id) => {
-        try {
-          const res = await fetch(
-            `http://localhost:3000/api/products/delete/${id}`,
-            {
-              method: "DELETE",
-            }
-          );
-          const updatedUsers = products.filter((prod) => prod.id !== id);
-          setUser(updatedUsers);
-        } catch (error) {
-          console.error("Error fetching products:", error);
-        }
-    };
+     const onClose = () => {
+         setVisible(false);
+     };
 
-    const onCreate = () => {
-        setCreateVisible(true);
-      };
+     const onDelete = async (id) => {
+         try {
+           const res = await fetch(
+             `http://localhost:3000/api/admin/delete-user`,
+             {
+               method: "POST",
+               headers: {
+                 "Content-Type": "application/json",
+               },
+               body: JSON.stringify({
+                 id,
+               }),
+             }
+           );
+           const updatedUsers = products.filter((prod) => prod.id !== id);
+           setUser(updatedUsers);
+         } catch (error) {
+           console.error("Error fetching products:", error);
+         }
+     };
+
+    //  const onCreate = () => {
+    //      setCreateVisible(true);
+    //    };
 
       useEffect(() => {
         const getUsers = async () => {
           try {
-            const res = await fetch("http://localhost:3000/api/admin/get-users");
+            const res = await fetch("http://localhost:3000/api/admin/get-users", {
+              method: "GET",
+            });
             const data = await res.json();
             setUser(data.message);
-            console.log(user)
           } catch (error) {
             console.error("Error fetching products:", error);
           }
@@ -59,7 +73,7 @@ function UserTable () {
           >
             Agregar Productos
           </button>
-          <body className="allCont">
+          <div className="allCont">
             <table className="tabla-contenedora">
               <thead>
                 <tr>
@@ -71,23 +85,20 @@ function UserTable () {
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>STOCK</td>
-                        <td>Franco Vera</td>
-                        <td>franco123@admin.cl</td>
-                        <td>3</td>
-                        <td><button>Editar</button></td>
-                    </tr>
-                    <tr>
-                        <td>STOCK</td>
-                        <td>Kevin Morillas</td>
-                        <td>kevin123@admin.cl</td>
-                        <td>3</td>
-                        <td><button>Editar</button></td>
-                    </tr>
+                      {user.map((user) => (
+                        <tr key={user.id}>
+                          <td>STOCK</td>
+                          <td>{user.username}</td>
+                          <td>{user.email}</td>
+                          <td>{user.role}</td>
+                          <td><button onClick={() => onEdit(user)}>Editar</button></td>
+                        </tr>
+                      ))}
                 </tbody>
-                </table>
-                </body>
+              </table>
+            </div>
+            <EditUser show={visible} Close={onClose} data={data} />
+            <CreateUser />
         </>
       );
     }

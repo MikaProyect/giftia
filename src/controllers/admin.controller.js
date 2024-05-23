@@ -1,18 +1,18 @@
-import { supabase, supabaseAdmin } from '../app.js'
-import { isAdmin } from '../libs/adminVerif.js'
+import { supabaseAdmin } from '../app.js'
 
 export const getUsers = async (req, res) => {
+  console.log(req.body)
   const usersList = []
   try {
     const { data: { users }, error } = await supabaseAdmin.auth.admin.listUsers()
+    console.log(users)
 
     for (const user of users) {
-      const role = await isAdmin(user.id) ? 'admin' : 'user'
       usersList.push({
         id: user.id,
         username: user.user_metadata.display_name,
         email: user.email,
-        role,
+        role: user.app_metadata.role,
         created_at: user.created_at,
         updated_at: user.updated_at
       })
@@ -93,26 +93,45 @@ export const createAdminUser = async (req, res) => {
       errors.push(error.message)
     }
 
-    const { data: adminDB, error: adminErrorDB } = await supabase.from('admins').insert({
-      id: user.user.id,
-      username,
-      email
-    })
-
-    if (adminErrorDB) {
-      errors.push(adminErrorDB.message)
-    }
-
     if (errors.length === 0) {
       res.status(200).json({
         status: 'success',
-        message: user,
-        dbMessage: adminDB
+        message: user
       })
     } else {
       res.status(500).json({
         status: 'error',
         message: errors
+      })
+    }
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: error.message
+    })
+  }
+}
+
+export const editUser = async (req, res) => {
+  const { id, username, email, role } = req.body
+
+  try {
+    const { data: user, error } = await supabaseAdmin.auth.admin.updateUserById(
+      id,
+      { email, user_metadata: { display_name: username }, app_metadata: { role } }
+    )
+
+    if (error) {
+      res.status(500).json({
+        status: 'error',
+        message: error.message
+      })
+    }
+
+    if (user) {
+      res.status(200).json({
+        status: 'success',
+        message: user
       })
     }
   } catch (error) {
