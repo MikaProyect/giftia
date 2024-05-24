@@ -44,8 +44,7 @@
       });
       const resJson = await res.json();
       if (resJson.error === null) {
-          localStorage.removeItem("idTest");
-          localStorage.removeItem("token");
+          localStorage.removeItem('user');
           window.location.href = "/";
       }
     } catch (error) {

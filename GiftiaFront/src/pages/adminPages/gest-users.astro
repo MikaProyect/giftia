@@ -4,7 +4,7 @@ import { UserTable } from "../../components/UsersTable/UserTable";
 
 const res = await fetch("http://localhost:3000/api/user/status");
 const resJson = await res.json();
-const userSession = resJson.message.session;
+const userSession = resJson.message;
 
 if (userSession === null) {
   return Astro.redirect("/");
@@ -16,7 +16,7 @@ const result = await fetch("http://localhost:3000/api/admin/verif", {
     "Content-Type": "application/json",
   },
   body: JSON.stringify({
-    userId: userSession.user.id,
+    userId: userSession.id,
   }),
 });
 const userType = await result.json();
