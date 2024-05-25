@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 
-function EditUser ({ show, Close, data }) {
-    const [visible, setVisible] = useState(true);
-    const [formData, setFormData] = useState({
+function EditUsers ({idUser}) {
+    const [formData, setFormData] = useState ({
+        id: '',
         username: '',
         email: '',
-        tipo: ''
+        role: ''
     })
 
   const handleInputChange = (e) => {
