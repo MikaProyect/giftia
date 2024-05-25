@@ -1,0 +1,47 @@
+/* Estilos para el formulario de edición */
+.edit-product-form {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.edit-product-form .form-group {
+    margin-bottom: 15px;
+}
+
+.edit-product-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.edit-product-form input,
+.edit-product-form select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.edit-product-form button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #898ad8;
+    color: white;
+    cursor: pointer;
+}
+
+.edit-product-form button:hover {
+    background-color: #6b6dc7;
+}
+
+.tituloEditPr {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}

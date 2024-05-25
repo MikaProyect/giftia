@@ -3,8 +3,6 @@ import "./UserTable.css"
 import { EditUser } from "../EditarUsers/EditarUsers";
 import { CreateUser } from "../CreateUser/CreateUser";
 
-
-
 function UserTable () {
     const [user, setUser] = useState([]);
     const [visible, setVisible] = useState(false);
@@ -37,10 +35,10 @@ function UserTable () {
                }),
              }
            );
-           const updatedUsers = products.filter((prod) => prod.id !== id);
+           const updatedUsers = user.filter((usr) => usr.id !== id);
            setUser(updatedUsers);
          } catch (error) {
-           console.error("Error fetching products:", error);
+           console.error("Error deleting user:", error);
          }
      };
 
@@ -57,7 +55,7 @@ function UserTable () {
             const data = await res.json();
             setUser(data.message);
           } catch (error) {
-            console.error("Error fetching products:", error);
+            console.error("Error fetching users:", error);
           }
         };
     
@@ -66,13 +64,6 @@ function UserTable () {
 
     return (
         <>
-        <button
-            onClick={() => onCreate()}
-            id="btn-abrir-agrpr"
-            className="BotonAgrPr"
-          >
-            Agregar Productos
-          </button>
           <div className="allCont">
             <table className="tabla-contenedora">
               <thead>
@@ -81,7 +72,7 @@ function UserTable () {
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Tipo Usuario</th>
-                    <th>Tipo Usuario</th>
+                    <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -91,14 +82,17 @@ function UserTable () {
                           <td>{user.username}</td>
                           <td>{user.email}</td>
                           <td>{user.role}</td>
-                          <td><button onClick={() => onEdit(user)}>Editar</button></td>
+                          <td>
+                              <button className="edit-button" onClick={() => onEdit(user)}>Editar</button>
+                              <button className="edit-button" onClick={() => onDelete(user.id)}>Eliminar</button>
+                          </td>
                         </tr>
                       ))}
                 </tbody>
               </table>
+              {visible && <EditUser show={visible} Close={onClose} data={data} />}
+              <CreateUser />
             </div>
-            <EditUser show={visible} Close={onClose} data={data} />
-            <CreateUser />
         </>
       );
     }

@@ -63,7 +63,7 @@ table.tabla-contenedora tbody tr:last-of-type {
 
 /* Estilos para el botón de editar */
 .edit-button {
-    background-color: #4CAF50; /* Verde */
+    background-color: #A4BAFD; /* Verde */
     border: none;
     color: white;
     padding: 15px 30px; /* Aumenta el tamaño del botón */
@@ -74,8 +74,4 @@ table.tabla-contenedora tbody tr:last-of-type {
     margin: 4px 2px;
     border-radius: 5px;
     cursor: pointer;
-}
-
-.edit-button:hover {
-    background-color: #45a049; /* Verde más oscuro al pasar el ratón */
 }
