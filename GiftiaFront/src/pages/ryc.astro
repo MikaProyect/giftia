@@ -41,7 +41,7 @@ if (user !== 'error') {
                 <ul>
                     <li><a class="CT" href=""><ion-icon name="person-circle-outline" title="Mi cuenta"></ion-icon></a></li>
                     <li><a class="OP" href=""><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
-                    <li><a class="SL" href=""><ion-icon name="exit-outline" title="Salir"></ion-icon></a></li>
+                    <li><a class="SL" id="salir" href=""><ion-icon name="exit-outline" title="Salir"></ion-icon></a></li>
                 </ul>
             </div>
 
@@ -351,6 +351,23 @@ if (user !== 'error') {
     });
 </script>
 
+<script is:inline type="module">
+    const salir = document.querySelector("#salir");
+    salir.addEventListener("click", async () => {
+        try {
+            const res = await fetch("http://localhost:3000/api/logout", {
+                method: "POST"
+            });
+            const data = await res.json();
+            if (data.error === null) {
+            localStorage.removeItem('user');
+            window.location.href = "/";
+            }
+        } catch (error) {
+            console.log("Ha ocurrido un error: ", error);
+        }
+    });
+</script>
 
 <style>
     body {
