@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 
-function EditUsers ({idUser}) {
-    const [formData, setFormData] = useState ({
-        id: '',
+function EditUser ({ show, Close, data }) {
+    const [visible, setVisible] = useState(true);
+    const [formData, setFormData] = useState({
         username: '',
         email: '',
-        role: ''
+        tipo: ''
     })
 
   const handleInputChange = (e) => {
@@ -64,7 +64,7 @@ function EditUsers ({idUser}) {
     <>
         {visible && (
         <div className="edit-product-form">
-            <form id="EditProductos" onSubmit={onSubmit}>
+            <form id="EditUsers" onSubmit={onSubmit}>
             <h1 className="tituloEditPr">Editar Usuario</h1>
 
                 <div className="form-group">
@@ -104,11 +104,11 @@ function EditUsers ({idUser}) {
                     <button type="submit">Guardar</button>
                 </div>
             </form>
-            <div className="form-group">
+            <div>
                 <button onClick={() => onClose()} >cerrar</button>
             </div>
         </div>
-    )}
+      )}
     </>
   )
 }
