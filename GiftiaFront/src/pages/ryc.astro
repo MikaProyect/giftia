@@ -37,15 +37,15 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
             <div class="seleccion-izq">
                 <div class="accordion">
             
-                    <div class="accordion-item">
+                    <div class="accordion-item" id="primer-item">
                         <div class="accordion-header">Selecciona una de las opciones 
                             <ion-icon name="chevron-down-outline" class="flechita"></ion-icon>
                         </div>
                         <div class="accordion-content" id="r">
-                            <button id="btn-reclamo">Reclamo</button>
+                            <button id="btn-reclamo" value="Reclamo">Reclamo</button>
                         </div>
                         <div class="accordion-content" id="s">
-                            <button id="btn-sugerencia">Sugerencia</button>
+                            <button id="btn-sugerencia" value="Sugerencia">Sugerencia</button>
                         </div>
                     </div>
             
@@ -54,19 +54,19 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
                             <ion-icon name="chevron-down-outline" class="flechita"></ion-icon>
                         </div>
                         <div class="accordion-content">
-                            <button>Uno o varios de los links no funcionan.</button>
+                            <button value="Uno o varios de los links no funcionan.">Uno o varios de los links no funcionan.</button>
                         </div>
                         <div class="accordion-content">
-                            <button>Los precios no se ajustaron a mi presupuesto.</button>
+                            <button value="Los precios no se ajustaron a mi presupuesto.">Los precios no se ajustaron a mi presupuesto.</button>
                         </div>
                         <div class="accordion-content">
-                            <button>La página no funciona correctamente.</button>
+                            <button value="La página no funciona correctamente.">La página no funciona correctamente.</button>
                         </div>
                         <div class="accordion-content">
-                            <button>Los regalos no tienen relación con lo que solicité.</button>
+                            <button value="Los regalos no tienen relación con lo que solicité.">Los regalos no tienen relación con lo que solicité.</button>
                         </div>
                         <div class="accordion-content">
-                            <button>Otro.</button>
+                            <button value="Otro.">Otro.</button>
                         </div>
                     </div>
             
@@ -75,22 +75,22 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
                             <ion-icon name="chevron-down-outline" class="flechita"></ion-icon>
                         </div>
                         <div class="accordion-content">
-                            <button>Mejorar el diseño interactivo.</button>
+                            <button value="Mejorar el diseño interactivo.">Mejorar el diseño interactivo.</button>
                         </div>
                         <div class="accordion-content">
-                            <button>Faltan más variedades de regalos.</button>
+                            <button value="Faltan más variedades de regalos.">Faltan más variedades de regalos.</button>
                         </div>
                         <div class="accordion-content">
-                            <button>Los tiempos de espera son muy largos.</button>
+                            <button value="Los tiempos de espera son muy largos.">Los tiempos de espera son muy largos.</button>
                         </div>
                         <div class="accordion-content">
-                            <button>Otro.</button>
+                            <button value="Otro.">Otro.</button>
                         </div>
                     </div>
                 </div>
             
                 <div class="cont-texto">
-                    <textarea class="texto" name="formulario" id="form" minlength="20" maxlength="600" placeholder="Escríbenos aquí..." required></textarea>
+                    <textarea class="texto" name="formulario" id="form" minlength="10" maxlength="600" placeholder="Escríbenos aquí..." required></textarea>
                 </div>
 
                 <div>
@@ -263,7 +263,7 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
         })
 
         boton.addEventListener("click", function () {
-            if(texto.value.length >= 20 && primerItemClickeado && otrosItemsClickeados){
+            if(texto.value.length >= 10 && primerItemClickeado && otrosItemsClickeados){
                 ventana.style.display = "block"
                 izq.style.filter = "blur(10px)"
                 izq.style.transition = "filter 0.5s ease"
@@ -277,7 +277,64 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
             }
         })
     })
+</script>
+
+<!--Backend-Supabase-->
+<script>
+    let item1 = '';
+    let item2 = '';
+    let item3 = '';
+    const textarea = document.querySelector('.texto') as HTMLTextAreaElement;
+
+    document.querySelectorAll('.accordion-item button').forEach(button => {
+    button.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement;
+        const id = target.closest('.accordion-item')?.id;
+        if (id === 'primer-item') {
+        item1 = target.innerText;
+        } else if (id === 'cont-sugerencias') {
+        item2 = target.innerText;
+        } else if (id === 'cont-reclamos') {
+        item3 = target.innerText;
+        }
+    });
+    });
+
+    document.querySelector('.button-enviar')?.addEventListener('click', async () => { // Agregamos async aquí
+    const texto = textarea.value;
+    console.log(item1, item2, item3, texto);
     
+
+    // Determinar la ruta y el tipo basados en el valor de 'valorItem1'
+    let ruta = '';
+    let tipo = '';
+    if (item1 === 'Sugerencia') {
+        ruta = '/api/ryc/send/suggest';
+        tipo = item2;
+    } else if (item1 === 'Reclamo') {
+        ruta = '/api/ryc/send/complaint';
+        tipo = item3;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:3000${ruta}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ category: item1, type: tipo, content: texto }),
+        });
+
+        if (!response.ok) {
+        throw new Error(`An error has occurred: ${response.status}`);
+        }
+
+        const data = await response.json(); // Agregamos await aquí
+        console.log(data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+    });
 </script>
 
 
