@@ -77,10 +77,21 @@ if (user !== 'error') {
         </div>
     </div>
 
-    <script is:inline>
+    <script is:inline type="module">
         const salir = document.querySelector(".salir");
         salir.addEventListener("click", async () => {
-            await logoutAPI();
+            try {
+                const res = await fetch("http://localhost:3000/api/logout", {
+                    method: "POST"
+                });
+                const data = await res.json();
+                if (data.error === null) {
+                localStorage.removeItem('user');
+                window.location.href = "/";
+                }
+            } catch (error) {
+                console.log("Ha ocurrido un error: ", error);
+            }
         });
     </script>
 
