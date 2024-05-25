@@ -1,6 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Barra from "../components/BarraProgreso/Barra.jsx"
+import { profileAPI } from '../api/auth.js'
+
+const user = await profileAPI();
+if (user !== 'error') {
+  if (user === 'user not logged') {
+    return Astro.redirect("/login");
+  } else {
+    if (user.role === 'admin') {
+    return Astro.redirect("/adminPages/gest-prod");
+    }
+  }
+} else {
+  console.log('Ha ocurrido un error: ', user);
+}
 ---
 
 <Layout title="Reclamos y Sugerencias">

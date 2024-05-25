@@ -46,11 +46,10 @@ export const logoutAPI = async () => {
     const res = await fetch("http://localhost:3000/api/logout", {
         method: "POST"
     });
-    const resJson = await res.json();
-    if (resJson.error === null) {
-        localStorage.removeItem("idTest");
-        localStorage.removeItem("token");
-        window.location.href = "/";
+    const data = await res.json();
+    if (data.error === null) {
+      localStorage.removeItem('user');
+      window.location.href = "/";
     }
   } catch (error) {
     console.log("Ha ocurrido un error: ", error);
@@ -59,13 +58,13 @@ export const logoutAPI = async () => {
 
 export const profileAPI = async () => {
   try {
-    const res = await fetch("http://localhost:3000/api/profile", {
+    const res = await fetch("http://localhost:3000/api/user/profile", {
         method: "GET"
     });
-    const resJson = await res.json();
-    return resJson.message;
+    const data = await res.json();
+    return data.message;
   } catch (error) {
     console.log("Ha ocurrido un error: ", error);
-    return err = 'error'
+    return 'error'
   }
 };
