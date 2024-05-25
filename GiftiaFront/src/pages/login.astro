@@ -1,15 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { profileAPI } from '../api/auth.js'
 
-try {
-	const res = await fetch("http://localhost:3000/api/user/status")
-	const resJson = await res.json()
-	const userSession = resJson.message;
-	if (userSession !== null) {
-  		return Astro.redirect('/chat')
-	}
-} catch (error) {
-	console.log(error)
+const user = await profileAPI();
+
+if (user !== 'error') {
+  if (user !== 'user not logged') {
+    return Astro.redirect("/chat");
+  }
+} else {
+  console.log('Ha ocurrido un error: ', user);
 }
 
 ---

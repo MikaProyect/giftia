@@ -106,13 +106,13 @@ export const adminVerif = async (req, res) => {
   }
 }
 
-export const userStatus = async (req, res) => {
+export const userProfile = async (req, res) => {
   const { data } = await supabase.auth.getSession()
   if (data.session === null) {
     res.status(400).json({
       error: null,
       status: 400,
-      message: null
+      message: 'user not logged'
     })
   } else {
     res.status(200).json({

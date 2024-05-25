@@ -1,12 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { profileAPI } from '../api/auth.js'
 
-const res = await fetch("http://localhost:3000/api/user/status");
-const resJson = await res.json();
-const userSession = resJson.message;
-
-if (userSession === null) {
-  return Astro.redirect("/");
+const user = await profileAPI();
+if (user !== 'error') {
+  if (user === 'user not logged') {
+    return Astro.redirect("/login");
+  }
+} else {
+  console.log('Ha ocurrido un error: ', user);
 }
 ---
 
@@ -78,20 +80,7 @@ if (userSession === null) {
     <script is:inline>
         const salir = document.querySelector(".salir");
         salir.addEventListener("click", async () => {
-            try {
-                const res = await fetch("http://localhost:3000/api/logout", {
-                    method: "POST"
-                });
-                const resJson = await res.json();
-                if (resJson.error === null) {
-                    localStorage.removeItem("idTest");
-                    localStorage.removeItem("token");
-                    window.location.href = "/";
-                }
-
-            } catch (error) {
-                console.log("Ha ocurrido un error: ", error);
-            }
+            await logoutAPI();
         });
     </script>
 
