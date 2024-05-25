@@ -1,13 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { profileAPI } from '../api/auth.js'
 
-const res = await fetch("http://localhost:3000/api/user/status")
-const resJson = await res.json()
-const userSession = resJson.message.session
+const user = await profileAPI();
 
-if (userSession !== null) {
-  return Astro.redirect('/chat')
+if (user !== 'error') {
+  if (user !== 'user not logged') {
+    return Astro.redirect("/chat");
+  }
+} else {
+  console.log('Ha ocurrido un error: ', user);
 }
+
 ---
 
 <Layout title="Giftia">
@@ -72,8 +76,21 @@ if (userSession !== null) {
 		<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 		<script>
+			import { saveItem, getItem } from '../functions/localStorage.js'
+			import { loginAPI, registerAPI } from '../api/auth.js'
 			const loginForm = document.querySelector('#loginForm')
 			const registerForm = document.querySelector('#registerForm')
+
+			const linkTo = (role) => {
+				console.log(role)
+				if(role === 'admin'){
+					window.location.href = "/adminPages/gest-prod"
+				}else if (role === 'user') {
+					window.location.href = "/chat"
+				} else {
+					console.log('An error has ocurred. Maybe the user does not exist or have a wrong role in the database.')
+				}
+			}
 
 
 			loginForm.addEventListener('submit', async (e) => {
@@ -81,53 +98,12 @@ if (userSession !== null) {
 				const email = loginForm['loginEmail'].value;
 				const password = loginForm['loginPassword'].value;
 
-				const res = await fetch('http://localhost:3000/api/login', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({ 
-						email: email,
-						password: password
-					})
-				})
-				const data = await res.json()
-				console.log(data)
+				const user = await loginAPI(email, password)
+				saveItem('user', user)
+				const userType = await getItem('user')
+				linkTo(userType.role)
 
-				if (localStorage.getItem('idTest')  === null) {
-					localStorage.setItem('idTest', data.message.id)
-				} else if (localStorage.getItem('idTest')  !== null ) {
-					localStorage.removeItem('idTest')
-					localStorage.setItem('idTest', data.message.id)
-				}
-				// Se verifica que el user logeado es admin o no para redirigirlo.
-				const result = await fetch('http://localhost:3000/api/admin/verif', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({ 
-						userId: data.message.id
-					})
-				})
-				const userType = await result.json()
-
-				if (localStorage.getItem('userType')  === null) {
-					localStorage.setItem('userType', userType.message)
-				} else if (localStorage.getItem('userType')  !== null ) {
-					localStorage.removeItem('userType')
-					localStorage.setItem('userType', userType.message)
-				}
-
-				if(userType.message === "isAdmin"){
-					window.location.href = "/adminPages/gest-prod"
-				}
-				if (userType.message === "noAdmin") {
-					window.location.href = "/chat"
-				} else {
-					console.log("An error has ocurred")
-				}
-				// Fin proceso
+				
 			})
 
 			registerForm.addEventListener('submit', async (e) => {
@@ -136,59 +112,11 @@ if (userSession !== null) {
 				const email = registerForm['registerEmail'].value;
 				const password = registerForm['registerPass'].value;
 
-
-				try {
-					const res = await fetch('http://localhost:3000/api/register', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({ 
-						username: user,
-						email: email,
-						password: password
-					})
-				})
-				const data = await res.json()
-				
-				if (localStorage.getItem('idTest')  === null) {
-					localStorage.setItem('idTest', data.message.id)
-				} else if (localStorage.getItem('idTest')  !== null ) {
-					localStorage.removeItem('idTest')
-					localStorage.setItem('idTest', data.message.id)
-				}
-
-				const result = await fetch('http://localhost:3000/api/admin/verif', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({ 
-						userId: data.message.id
-					})
-				})
-				const userType = await result.json()
-
-				if (localStorage.getItem('userType')  === null) {
-					localStorage.setItem('userType', userType.message)
-				} else if (localStorage.getItem('userType')  !== null ) {
-					localStorage.removeItem('userType')
-					localStorage.setItem('userType', userType.message)
-				}
-
-				if (localStorage.getItem('userType')  === null) {
-					localStorage.setItem('userType', userType.message)
-				} else if (localStorage.getItem('userType')  !== null ) {
-					localStorage.removeItem('userType')
-					localStorage.setItem('userType', userType.message)
-				}
-				window.location.href = "/chat"
-
-				} catch (error) {
-					console.log(error)
-				}
+				const userRegister = await registerAPI(user, email, password)
+				saveItem('user', userRegister)
+				const userType = await getItem('user')
+				linkTo(userType.role)
 			})
-
 		</script>
 
 	</body>

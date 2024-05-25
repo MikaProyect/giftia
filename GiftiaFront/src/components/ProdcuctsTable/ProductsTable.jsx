@@ -5,18 +5,39 @@ import "./ProductsTable.css";
 
 function ProductsTable() {
   const [products, setProducts] = useState([]);
-  const [idSelect, setIdSelect] = useState();
+  const [editProduct, setEditProduct] = useState();
   const [visible, setVisible] = useState(false);
   const [createVisible, setCreateVisible] = useState(false);
 
   const onEdit = (data) => {
-    setIdSelect(data.id);
-    setVisible(true);
+    setEditProduct(data);
+    if (visible) {
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
+  };
+
+  const onCreate = () => {
+    if (createVisible) {
+      setCreateVisible(false);
+    } else {
+      setCreateVisible(true);
+    }
   };
 
   const onClose = () => {
-    setVisible(false);
-    setCreateVisible(false);
+    if (visible) {
+      setVisible(false);
+    } else {
+      setCreateVisible(true);
+    }
+  };
+
+  const onCreateClose = () => {
+    if (visible) {
+      setCreateVisible(false);
+    }
   };
 
   const onDelete = async (id) => {
@@ -35,9 +56,7 @@ function ProductsTable() {
     }
   };
 
-  const onCreate = () => {
-    setCreateVisible(true);
-  };
+
 
   useEffect(() => {
     const getProducts = async () => {
@@ -104,25 +123,8 @@ function ProductsTable() {
           </tbody>
         </table>
         <div>
-          {createVisible && <CreateProducts />}
-          {visible && <EditProducts idProd={idSelect} />}
-
-          {createVisible && (
-            <button
-              className="agre-cerrar close-button"
-              onClick={() => onClose()}
-            >
-              Cerrar
-            </button>
-          )}
-          {visible && (
-            <button
-              className="edit-cerrar close-button"
-              onClick={() => onClose()}
-            >
-              Cerrar
-            </button>
-          )}
+          <CreateProducts show={createVisible} windowClose={onCreateClose} />
+          <EditProducts show={visible} product={editProduct} windowClose={onClose} />
         </div>
       </div>
     </>

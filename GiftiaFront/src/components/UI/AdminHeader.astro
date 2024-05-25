@@ -32,25 +32,14 @@
   const menuToggle = document.getElementById('menu-toggle');
   const navbarDefault = document.getElementById('navbar-default');
   const logout = document.getElementById('logout');
+  import { logoutAPI } from '../../api/auth.js'
 
   menuToggle.addEventListener('click', function () {
     navbarDefault.classList.toggle('hidden');
   });
 
   logout.addEventListener('click', async function () {
-    try {
-      const res = await fetch("http://localhost:3000/api/logout", {
-          method: "POST"
-      });
-      const resJson = await res.json();
-      if (resJson.error === null) {
-          localStorage.removeItem("idTest");
-          localStorage.removeItem("token");
-          window.location.href = "/";
-      }
-    } catch (error) {
-        console.log("Ha ocurrido un error: ", error);
-    }
+    await logoutAPI();
   });
 </script>
 

@@ -55,7 +55,7 @@ function CreateUser () {
 
   return (
     <div className="edit-product-form">
-      <form id="EditProductos" onSubmit={onSubmit}>
+      <form id="CreateUsers" onSubmit={onSubmit}>
         <h1 className="tituloEditPr">Crear un usuario</h1>
 
         <div className="form-group">

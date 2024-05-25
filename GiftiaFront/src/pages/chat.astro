@@ -1,12 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { profileAPI } from '../api/auth.js'
 
-const res = await fetch("http://localhost:3000/api/user/status");
-const resJson = await res.json();
-const userSession = resJson.message.session;
-
-if (userSession === null) {
-  return Astro.redirect("/");
+const user = await profileAPI();
+if (user !== 'error') {
+  if (user === 'user not logged') {
+    return Astro.redirect("/login");
+  }
+} else {
+  console.log('Ha ocurrido un error: ', user);
 }
 ---
 
@@ -31,7 +33,7 @@ if (userSession === null) {
             <!--PENDIENTE-->
             <ul>
                 <li><a class="CT" href=""><ion-icon name="person-circle-outline" title="Mi cuenta"></ion-icon></a></li>
-                <li><a class="OP" href=""><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
+                <li><a class="OP" href="ryc"><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
                 <li><div class="SL salir"><ion-icon name="exit-outline" title="Salir"></ion-icon></div></li>
             </ul>
         </div>
@@ -75,20 +77,18 @@ if (userSession === null) {
         </div>
     </div>
 
-    <script is:inline>
+    <script is:inline type="module">
         const salir = document.querySelector(".salir");
         salir.addEventListener("click", async () => {
             try {
                 const res = await fetch("http://localhost:3000/api/logout", {
                     method: "POST"
                 });
-                const resJson = await res.json();
-                if (resJson.error === null) {
-                    localStorage.removeItem("idTest");
-                    localStorage.removeItem("token");
-                    window.location.href = "/";
+                const data = await res.json();
+                if (data.error === null) {
+                localStorage.removeItem('user');
+                window.location.href = "/";
                 }
-
             } catch (error) {
                 console.log("Ha ocurrido un error: ", error);
             }

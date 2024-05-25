@@ -1,31 +1,19 @@
 ---
 import AdminLayout from "../../layouts/AdminLayout.astro";
 import { ProductsTable } from "../../components/ProdcuctsTable/ProductsTable";
+import { profileAPI } from "../../api/auth.js";
 
-const res = await fetch("http://localhost:3000/api/user/status");
-const resJson = await res.json();
-const userSession = resJson.message.session;
-
-if (userSession === null) {
-  return Astro.redirect("/");
-}
-
-const result = await fetch("http://localhost:3000/api/admin/verif", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    userId: userSession.user.id,
-  }),
-});
-const userType = await result.json();
-
-
-
-if (userType.message === "noAdmin") {
-  console.log(userType);
-  return Astro.redirect("/chat");
+const user = await profileAPI();
+if (user !== 'error') {
+  if (user === 'user not logged') {
+    return Astro.redirect("/login");
+  } else {
+    if (user.role !== 'admin') {
+    return Astro.redirect("/chat");
+    }
+  }
+} else {
+  console.log('Ha ocurrido un error: ', user);
 }
 ---
 

@@ -12,7 +12,7 @@ export const getUsers = async (req, res) => {
         id: user.id,
         username: user.user_metadata.display_name,
         email: user.email,
-        role: user.app_metadata.role,
+        role: user.app_metadata.role || 'user',
         created_at: user.created_at,
         updated_at: user.updated_at
       })

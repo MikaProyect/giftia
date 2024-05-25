@@ -1,110 +1,133 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Barra from "../components/BarraProgreso/Barra.jsx"
+import { profileAPI } from '../api/auth.js'
+
+const user = await profileAPI();
+if (user !== 'error') {
+  if (user === 'user not logged') {
+    return Astro.redirect("/login");
+  } else {
+    if (user.role === 'admin') {
+    return Astro.redirect("/adminPages/gest-prod");
+    }
+  }
+} else {
+  console.log('Ha ocurrido un error: ', user);
+}
 ---
 
 <Layout title="Reclamos y Sugerencias">
 
     <body class="fondo-ryc">
+        <main>
     
-        <!--Barra de navegacion izquierda-->
-        <script
-            type="module"
-            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-        ></script>
+            <!--Barra de navegacion izquierda-->
+            <script
+                type="module"
+                src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+            ></script>
 
-        <script
-            nomodule
-            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-        ></script>
+            <script
+                nomodule
+                src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+            ></script>
 
-        <div class="izq">
-            <!--Contenedor del lado izquierdo-->
-            <img class="logok" src="../img/logo_karina.png" alt="logo" />
+            <div class="izq">
+                <!--Contenedor del lado izquierdo-->
+                <img class="logok" src="../img/logo_karina.png" alt="logo" />
 
-            <!--PENDIENTE-->
-            <ul>
-                <li><a class="CT" href=""><ion-icon name="person-circle-outline" title="Mi cuenta"></ion-icon></a></li>
-                <li><a class="OP" href=""><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
-                <li><a class="SL" href=""><ion-icon name="exit-outline" title="Salir"></ion-icon></a></li>
-            </ul>
-        </div>
-
-        <h1 class="titulo-inicial">Reclamos y Sugerencias</h1>
-        
-        <!--Acordeon de seleccion derecha-->
-        <div class="seleccion-izq">
-            <div class="accordion">
-        
-                <div class="accordion-item">
-                    <div class="accordion-header">Selecciona una de las opciones 
-                        <ion-icon name="chevron-down-outline" class="flechita"></ion-icon>
-                    </div>
-                    <div class="accordion-content" id="r">
-                        <button id="btn-reclamo">Reclamo</button>
-                    </div>
-                    <div class="accordion-content" id="s">
-                        <button id="btn-sugerencia">Sugerencia</button>
-                    </div>
-                </div>
-        
-                <div class="accordion-item" id="cont-reclamos">
-                    <div class="accordion-header">¿Con qué tiene relación tu reclamo? 
-                        <ion-icon name="chevron-down-outline" class="flechita"></ion-icon>
-                    </div>
-                    <div class="accordion-content">
-                        <button>Uno o varios de los links no funcionan.</button>
-                    </div>
-                    <div class="accordion-content">
-                        <button>Los precios no se ajustaron a mi presupuesto.</button>
-                    </div>
-                    <div class="accordion-content">
-                        <button>La página no funciona correctamente.</button>
-                    </div>
-                    <div class="accordion-content">
-                        <button>Los regalos no tienen relación con lo que solicité.</button>
-                    </div>
-                    <div class="accordion-content">
-                        <button>Otro.</button>
-                    </div>
-                </div>
-        
-                <div class="accordion-item" id="cont-sugerencias">
-                    <div class="accordion-header">¿Con qué tiene relación tu sugerencia? 
-                        <ion-icon name="chevron-down-outline" class="flechita"></ion-icon>
-                    </div>
-                    <div class="accordion-content">
-                        <button>Mejorar el diseño interactivo.</button>
-                    </div>
-                    <div class="accordion-content">
-                        <button>Faltan más variedades de regalos.</button>
-                    </div>
-                    <div class="accordion-content">
-                        <button>Los tiempos de espera son muy largos.</button>
-                    </div>
-                    <div class="accordion-content">
-                        <button>Otro.</button>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="cont-texto">
-                <textarea class="texto" name="formulario" id="form" maxlength="600" placeholder="Escríbenos aquí..." required></textarea>
+                <!--PENDIENTE-->
+                <ul>
+                    <li><a class="CT" href=""><ion-icon name="person-circle-outline" title="Mi cuenta"></ion-icon></a></li>
+                    <li><a class="OP" href=""><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
+                    <li><a class="SL" id="salir" href=""><ion-icon name="exit-outline" title="Salir"></ion-icon></a></li>
+                </ul>
             </div>
 
-            <div>
-                <button class="button-enviar" type="submit">Enviar</button>
-            </div>
-    
-            <span class="error-message"></span>
-        </div>
+            <h1 class="titulo-inicial">Reclamos y Sugerencias</h1>
+            
+            <!--Acordeon de seleccion derecha-->
+            <div class="seleccion-izq">
+                <div class="accordion">
+            
+                    <div class="accordion-item" id="primer-item">
+                        <div class="accordion-header">Selecciona una de las opciones 
+                            <ion-icon name="chevron-down-outline" class="flechita"></ion-icon>
+                        </div>
+                        <div class="accordion-content" id="r">
+                            <button id="btn-reclamo" value="Reclamo">Reclamo</button>
+                        </div>
+                        <div class="accordion-content" id="s">
+                            <button id="btn-sugerencia" value="Sugerencia">Sugerencia</button>
+                        </div>
+                    </div>
+            
+                    <div class="accordion-item" id="cont-reclamos">
+                        <div class="accordion-header">¿Con qué tiene relación tu reclamo? 
+                            <ion-icon name="chevron-down-outline" class="flechita"></ion-icon>
+                        </div>
+                        <div class="accordion-content">
+                            <button value="Uno o varios de los links no funcionan.">Uno o varios de los links no funcionan.</button>
+                        </div>
+                        <div class="accordion-content">
+                            <button value="Los precios no se ajustaron a mi presupuesto.">Los precios no se ajustaron a mi presupuesto.</button>
+                        </div>
+                        <div class="accordion-content">
+                            <button value="La página no funciona correctamente.">La página no funciona correctamente.</button>
+                        </div>
+                        <div class="accordion-content">
+                            <button value="Los regalos no tienen relación con lo que solicité.">Los regalos no tienen relación con lo que solicité.</button>
+                        </div>
+                        <div class="accordion-content">
+                            <button value="Otro.">Otro.</button>
+                        </div>
+                    </div>
+            
+                    <div class="accordion-item" id="cont-sugerencias">
+                        <div class="accordion-header">¿Con qué tiene relación tu sugerencia? 
+                            <ion-icon name="chevron-down-outline" class="flechita"></ion-icon>
+                        </div>
+                        <div class="accordion-content">
+                            <button value="Mejorar el diseño interactivo.">Mejorar el diseño interactivo.</button>
+                        </div>
+                        <div class="accordion-content">
+                            <button value="Faltan más variedades de regalos.">Faltan más variedades de regalos.</button>
+                        </div>
+                        <div class="accordion-content">
+                            <button value="Los tiempos de espera son muy largos.">Los tiempos de espera son muy largos.</button>
+                        </div>
+                        <div class="accordion-content">
+                            <button value="Otro.">Otro.</button>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="cont-texto">
+                    <textarea class="texto" name="formulario" id="form" minlength="10" maxlength="600" placeholder="Escríbenos aquí..." required></textarea>
+                </div>
+
+                <div>
+                    <button class="button-enviar" type="submit">Enviar</button>
+                </div>
         
-        <div class="floating-container" id="floating-container">
-            <h2>...</h2>
-            <Barra client:load/>
-        </div>
+                <span class="error-message"></span>
+            </div>
 
     </body>
+
+    
+    <div class="floating-container" id="floating-container">
+        <div class="cont-img">
+            <img class="logo-negro" src="../../public/logo-negro-trans.png" alt="logo">
+        </div>
+        <h2>Tu solicitud será resuelta lo antes posible.</h2>
+        <h2><br></h2>
+        <h2>Puedes ver su estado en "Mis solicitudes".</h2>
+        <Barra client:visible/>
+    </div>
+    </main>
+
 </Layout>
 
 <script>
@@ -191,23 +214,6 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
     }) 
 </script>
 
-<!--Con esto los usuarios deberán responder todas las casillas-->
-<script>
-    let clikeado = false
-    const botones = document.querySelectorAll (".accordion-content button")
-    botones.forEach(but=>{
-        but.addEventListener("click",function(){
-            clikeado = true
-        })
-    })
-    document.querySelector(".button-enviar").addEventListener("click", function(){
-        const areatext = document.getElementById('form') as HTMLTextAreaElement
-        if(! clikeado || ! areatext.value.trim()){
-            alert("Debe responder todas las casillas antes de enviar, por favor.")
-        }
-    })
-</script>
-
 <!--Filtro para las malas palabras en el cuadro de texto-->
 <script>
     fetch('/words.json')
@@ -236,13 +242,132 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
 
                 // Si no se encuentra ninguna palabra prohibida, envía el formulario
                 if (!hasForbiddenWord) {
-                    areatext.closest('form').submit();
+                    areatext.closest('form');
                 }
             });
         })
         .catch(error => console.error('Error fetching forbidden words:', error));
 </script>
 
+
+<!--Ventana flotante más las alertas  -->
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        const boton = document.querySelector(".button-enviar")
+        const ventana = document.querySelector(".floating-container") as HTMLFormElement
+        const texto = document.querySelector(".texto") as HTMLTextAreaElement
+        const botonesPrimerItem = Array.from(document.querySelectorAll(".accordion-item:first-child .accordion-content button"))
+        const botonesOtrosItems = Array.from(document.querySelectorAll(".accordion-item:not(:first-child) .accordion-content button"))
+        const izq = document.querySelector(".izq") as HTMLFormElement
+        const der = document.querySelector(".seleccion-izq") as HTMLFormElement
+        const title = document.querySelector(".titulo-inicial") as HTMLFormElement
+        let primerItemClickeado = false
+        let otrosItemsClickeados = false
+
+        botonesPrimerItem.forEach(boton => {
+            boton.addEventListener("click", function () {
+                primerItemClickeado = true
+            })
+        })
+
+        botonesOtrosItems.forEach(boton => {
+            boton.addEventListener("click", function () {
+                otrosItemsClickeados = true
+            })
+        })
+
+        boton.addEventListener("click", function () {
+            if(texto.value.length >= 10 && primerItemClickeado && otrosItemsClickeados){
+                ventana.style.display = "block"
+                izq.style.filter = "blur(10px)"
+                izq.style.transition = "filter 0.5s ease"
+                der.style.filter = "blur(10px)"
+                der.style.transition = "filter 0.5s ease"
+                title.style.filter = "blur(10px)"
+                title.style.transition = "filter 0.5s ease"
+            } else {
+                ventana.style.display = "none"
+                alert("Debe responder todas las casillas antes de enviar, por favor.")
+            }
+        })
+    })
+</script>
+
+<!--Backend-Supabase-->
+<script>
+    let item1 = '';
+    let item2 = '';
+    let item3 = '';
+    const textarea = document.querySelector('.texto') as HTMLTextAreaElement;
+
+    document.querySelectorAll('.accordion-item button').forEach(button => {
+    button.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement;
+        const id = target.closest('.accordion-item')?.id;
+        if (id === 'primer-item') {
+        item1 = target.innerText;
+        } else if (id === 'cont-sugerencias') {
+        item2 = target.innerText;
+        } else if (id === 'cont-reclamos') {
+        item3 = target.innerText;
+        }
+    });
+    });
+
+    document.querySelector('.button-enviar')?.addEventListener('click', async () => { // Agregamos async aquí
+    const texto = textarea.value;
+    console.log(item1, item2, item3, texto);
+    
+
+    // Determinar la ruta y el tipo basados en el valor de 'valorItem1'
+    let ruta = '';
+    let tipo = '';
+    if (item1 === 'Sugerencia') {
+        ruta = '/api/ryc/send/suggest';
+        tipo = item2;
+    } else if (item1 === 'Reclamo') {
+        ruta = '/api/ryc/send/complaint';
+        tipo = item3;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:3000${ruta}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ category: item1, type: tipo, content: texto }),
+        });
+
+        if (!response.ok) {
+        throw new Error(`An error has occurred: ${response.status}`);
+        }
+
+        const data = await response.json(); // Agregamos await aquí
+        console.log(data);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+    });
+</script>
+
+<script is:inline type="module">
+    const salir = document.querySelector("#salir");
+    salir.addEventListener("click", async () => {
+        try {
+            const res = await fetch("http://localhost:3000/api/logout", {
+                method: "POST"
+            });
+            const data = await res.json();
+            if (data.error === null) {
+            localStorage.removeItem('user');
+            window.location.href = "/";
+            }
+        } catch (error) {
+            console.log("Ha ocurrido un error: ", error);
+        }
+    });
+</script>
 
 <style>
     body {
@@ -321,7 +446,6 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
         background-color: #ffb2d5;
     }
 
-
     .seleccion-izq {
         position: absolute;
         left: 31%; /* Ajusta según el espacio que desees desde la izquierda */
@@ -389,19 +513,32 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
     }
 
     .floating-container {
+        display: none;
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: #fff;
+        background-color: #a4bafd;
+        border: 2px solid #ffb2d5;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0,1);
-        padding: 30px;
+        padding: 50px;
         border-radius: 10px;
-        max-width: 100vh;
+        max-width: 70vh;
         width: calc(100% - 40px);
         text-align: left;
-        
+        text-align: center; 
     }
+
+    .cont-img {
+        display: flex;
+        justify-content: center; /* Centra horizontalmente */
+        position: relative;      /* Ya lo tienes, está bien */
+    }
+
+    .logo-negro {
+        width: 15vh;
+    }
+
 </style>
 
 <!--
@@ -427,12 +564,12 @@ integrar el boton de enviar
 sacar el cuadro de texto del contenedor izq y agrandarlo para 
 darle espacio a las alertas de groserias y la de que respondan todo
 
-PENDIENTES ❎
-
-configurar lo de las alertas (el estilo)
-
 Al apretar enviar debe salir otra pagina (me gustaria que fuese una ventana flotante en el medio
 y que el fondo se difumine) que diga "tu solicutud será antendidalo más pronto posible", como con 
 una barra que se vaya cargando y cuando llegue al final te regrese al chat
+
+PENDIENTES ❎
+
+configurar lo de las alertas (el estilo)
 
 Falta todo el backend con la bd y esas cosas
