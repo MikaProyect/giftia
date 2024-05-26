@@ -39,6 +39,7 @@ export const getUsers = async (req, res) => {
 
 export const createUser = async (req, res) => {
   const { username, email, password } = req.body
+  console.log(username, email, password)
   try {
     const { data: user, error } = await supabaseAdmin.auth.admin.createUser({
       user_metadata: {
@@ -53,15 +54,22 @@ export const createUser = async (req, res) => {
     })
 
     if (error) {
-      res.status(500).json({
-        status: 'error in createUser',
-        message: error.message
-      })
+      if (error.message === 'Unable to validate email address: invalid format') {
+        return res.status(500).json({
+          status: '500',
+          message: 'Correo no válido'
+        })
+      } else {
+        return res.status(500).json({
+          status: 'error in createUser',
+          message: error.message
+        })
+      }
     }
 
     if (user) {
-      res.status(200).json({
-        status: 'success',
+      return res.status(200).json({
+        status: '200',
         message: user
       })
     }
@@ -74,7 +82,6 @@ export const createUser = async (req, res) => {
 }
 
 export const createAdminUser = async (req, res) => {
-  const errors = []
   const { username, email, password } = req.body
   try {
     const { data: user, error } = await supabaseAdmin.auth.admin.createUser({
@@ -90,18 +97,23 @@ export const createAdminUser = async (req, res) => {
     })
 
     if (error) {
-      errors.push(error.message)
+      if (error.message === 'Unable to validate email address: invalid format') {
+        return res.status(500).json({
+          status: '500',
+          message: 'Correo no válido'
+        })
+      } else {
+        return res.status(500).json({
+          status: 'error in createUser',
+          message: error.message
+        })
+      }
     }
 
-    if (errors.length === 0) {
-      res.status(200).json({
-        status: 'success',
+    if (user) {
+      return res.status(200).json({
+        status: '200',
         message: user
-      })
-    } else {
-      res.status(500).json({
-        status: 'error',
-        message: errors
       })
     }
   } catch (error) {

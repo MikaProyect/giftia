@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './CreateUser.css';
+import { createUserAPI } from '../../api/adminAuth.js';
 
 function CreateUser() {
     const [formData, setFormData] = useState({
@@ -9,6 +10,14 @@ function CreateUser() {
         user_role: ''
     });
 
+    const [showError, setShowError] = useState(false);
+    const [error, setError] = useState('');
+
+    const onCloseMessage = () => {
+        setShowError(false);
+        setError('');
+    };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -17,41 +26,17 @@ function CreateUser() {
         });
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         const { user_username, user_email, user_password, user_role } = formData;
-        let userType = '';
-        if (user_role === 'admin') {
-            userType = 'create-admin';
+        const data = await createUserAPI(user_username, user_email, user_password, user_role);
+        if (data.status === '500') {
+            console.log(data.message)
+            setError(data.message);
+            setShowError(true);
         } else {
-            userType = 'create-user';
+            window.location.reload();
         }
-
-        const createUser = async () => {
-            try {
-                const res = await fetch(
-                    `http://localhost:3000/api/admin/${userType}`,
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            username: user_username,
-                            email: user_email,
-                            role: user_role,
-                            password: user_password
-                        })
-                    }
-                );
-                const data = await res.json();
-                console.log(data);
-                window.location.reload();
-            } catch (error) {
-                console.log('Error en crear', error);
-            }
-        };
-        createUser();
     };
 
     return (
@@ -107,7 +92,9 @@ function CreateUser() {
                         onChange={handleInputChange}
                     />
                 </div>
-
+                {showError && (
+                    <p className="error" onClick={onCloseMessage}>{error}</p>
+                )}
                 <div className="form-group">
                     <button type="submit">Guardar</button>
                 </div>
