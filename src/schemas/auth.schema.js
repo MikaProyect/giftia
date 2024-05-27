@@ -32,6 +32,10 @@ export const loginSchema = z.object({
 export const createUserSchema = z.object({
   username: z.string({
     required_error: 'El usuario es requerido'
+  }).min(1, {
+    message: 'El usuario no puede estar vacío'
+  }).min(3, {
+    message: 'El usuario debe tener al menos 3 caracteres'
   }),
   email: z.string({
     required_error: 'El correo es requerido'
@@ -43,6 +47,8 @@ export const createUserSchema = z.object({
   }),
   password: z.string({
     required_error: 'La contraseña es requerida'
+  }).min(1, {
+    message: 'La contraseña no puede estar vacía'
   }).min(6, {
     message: 'La contraseña debe tener al menos 6 caracteres'
   })

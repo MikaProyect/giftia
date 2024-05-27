@@ -24,15 +24,18 @@ function CreateUser() {
         e.preventDefault();
         const { user_username, user_email, user_password, user_role } = formData;
         const data = await createUserAPI(user_username, user_email, user_password, user_role);
-        if (data.status === '500') {
-            Toastify({
-                text: data.message,
-                duration: 60000, // 60,000 milisegundos = 1 minuto
-                close: true,
-                gravity: "bottom",
-                position: "right",
-                backgroundColor: "#FF5F6D"
-            }).showToast();
+        console.log(data.message)
+        if (data.status === '400') {
+            for (const error of data.message) {
+                Toastify({
+                    text: error,
+                    duration: 60000, // 60,000 milisegundos = 1 minuto
+                    close: true,
+                    gravity: "bottom",
+                    position: "right",
+                    backgroundColor: "#FF5F6D"
+                }).showToast();
+            }
         } else {
             window.location.reload();
         }
