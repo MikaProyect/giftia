@@ -20,12 +20,12 @@ export const getUsers = async (req, res) => {
 
     if (error) {
       res.status(500).json({
-        status: 'error',
+        status: '500',
         message: error.message
       })
     } else {
       res.status(200).json({
-        status: 'success',
+        status: '200',
         message: usersList
       })
     }
