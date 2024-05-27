@@ -88,10 +88,9 @@ if (user !== 'error') {
 				}else if (role === 'user') {
 					window.location.href = "/chat"
 				} else {
-					console.log('An error has ocurred. Maybe the user does not exist or have a wrong role in the database.')
+					console.log('Usuario o contraseña incorrectos')
 				}
 			}
-
 
 			loginForm.addEventListener('submit', async (e) => {
 				e.preventDefault();
@@ -99,11 +98,14 @@ if (user !== 'error') {
 				const password = loginForm['loginPassword'].value;
 
 				const user = await loginAPI(email, password)
-				saveItem('user', user)
-				const userType = await getItem('user')
-				linkTo(userType.role)
 
-				
+                if (user === 'Email o contraseña incorrecta') {
+                    console.log('Email o contraseña incorrecta')
+                } else {
+                    saveItem('user', user)
+                    const userType = await getItem('user')
+                    linkTo(userType.role)
+                }
 			})
 
 			registerForm.addEventListener('submit', async (e) => {

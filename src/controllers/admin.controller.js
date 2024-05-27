@@ -5,7 +5,6 @@ export const getUsers = async (req, res) => {
   const usersList = []
   try {
     const { data: { users }, error } = await supabaseAdmin.auth.admin.listUsers()
-    console.log(users)
 
     for (const user of users) {
       usersList.push({
@@ -19,18 +18,18 @@ export const getUsers = async (req, res) => {
     }
 
     if (error) {
-      res.status(500).json({
+      return res.status(500).json({
         status: '500',
         message: error.message
       })
     } else {
-      res.status(200).json({
+      return res.status(200).json({
         status: '200',
         message: usersList
       })
     }
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       status: 'error',
       message: error.message
     })
@@ -134,14 +133,14 @@ export const editUser = async (req, res) => {
     )
 
     if (error) {
-      res.status(500).json({
+      return res.status(500).json({
         status: 'error',
         message: error.message
       })
     }
 
     if (user) {
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         message: user
       })
@@ -161,14 +160,14 @@ export const deleteUser = async (req, res) => {
     const { data: user, error } = await supabaseAdmin.auth.admin.deleteUser(id)
 
     if (error) {
-      res.status(500).json({
+      return res.status(500).json({
         status: 'error',
         message: error.message
       })
     }
 
     if (user) {
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         message: user
       })

@@ -11,10 +11,14 @@ export const loginAPI = async (email, password) => {
 					})
 				})
 				const data = await res.json()
-        return data.message
+        if (data.status === '500' || data.status === '400') {
+          return 'Email o contraseña incorrecta'
+        } else {
+          return data.message
+        }
   } catch (error) {
     console.log("Ha ocurrido un error inesperado: ", error);
-    return err = 'error'
+    return 'error'
     
   }
 };

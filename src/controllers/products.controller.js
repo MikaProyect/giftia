@@ -8,7 +8,7 @@ const upload = multer({ storage })
 export const getProducts = async (req, res) => {
   try {
     const result = await supabase.from('products').select('*')
-    res.status(201).json({ message: result.data })
+    return res.status(201).json({ message: result.data })
   } catch (error) {
     console.log(error)
     res.status(400).json({ message: 'Error en Supabase api' })
@@ -85,7 +85,7 @@ export const updateProduct = async (req, res) => {
       .eq('id', id)
       .select()
 
-    res.status(202).json({ message: result })
+    return res.status(202).json({ message: result })
   } catch (error) {
     res.status(400).json({ message: 'Error en Supabase api', error })
   }
@@ -100,7 +100,7 @@ export const deleteProduct = async (req, res) => {
       .delete()
       .eq('id', id)
 
-    res.status(204).json({ message: result })
+    return res.status(204).json({ message: result })
   } catch (error) {
     console.log(error)
     res.status(400).json({ message: 'Error en Supabase api' })
