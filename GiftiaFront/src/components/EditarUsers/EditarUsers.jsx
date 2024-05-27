@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import './EditarUsers.css';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 
 function EditUser({ show, Close, data }) {
     const [visible, setVisible] = useState(true);
@@ -44,10 +46,27 @@ function EditUser({ show, Close, data }) {
                     }
                 );
                 const data = await res.json();
-                console.log(data);
-                // Puedes agregar aquí lógica para actualizar la UI o mostrar un mensaje de éxito
+                if (res.status !== 200) {
+                    Toastify({
+                        text: data.message || 'Error en actualizar',
+                        duration: 60000, // 60,000 milisegundos = 1 minuto
+                        close: true,
+                        gravity: "bottom",
+                        position: "right",
+                        backgroundColor: "#FF5F6D"
+                    }).showToast();
+                } else {
+                    // Puedes agregar aquí lógica para actualizar la UI o mostrar un mensaje de éxito
+                }
             } catch (error) {
-                console.log('Error en actualizar', error);
+                Toastify({
+                    text: 'Error en actualizar',
+                    duration: 60000, // 60,000 milisegundos = 1 minuto
+                    close: true,
+                    gravity: "bottom",
+                    position: "right",
+                    backgroundColor: "#FF5F6D"
+                }).showToast();
             }
         };
         editUser();

@@ -4,8 +4,18 @@ div.allCont {
     justify-content: center; /* Centrar horizontalmente */
     align-items: center; /* Centrar verticalmente */
     min-height: 100vh; /* Asegurar que el contenedor ocupe toda la altura de la pantalla */
-    margin: 0;
+    padding-top: 70px; /* Añadir espacio para la navbar */
     background-color: #1E1E8A; /* Color de fondo de la página */
+}
+
+/* Estilos para la tabla */
+.table-container {
+    max-height: 70vh; /* Limitar la altura de la tabla */
+    overflow-y: auto; /* Añadir scroll vertical */
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto;
 }
 
 /* Estilos para la tabla */

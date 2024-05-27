@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './CreateUser.css';
 import { createUserAPI } from '../../api/adminAuth.js';
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
 
 function CreateUser() {
     const [formData, setFormData] = useState({
@@ -9,14 +11,6 @@ function CreateUser() {
         user_password: '',
         user_role: ''
     });
-
-    const [showError, setShowError] = useState(false);
-    const [error, setError] = useState('');
-
-    const onCloseMessage = () => {
-        setShowError(false);
-        setError('');
-    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -31,9 +25,14 @@ function CreateUser() {
         const { user_username, user_email, user_password, user_role } = formData;
         const data = await createUserAPI(user_username, user_email, user_password, user_role);
         if (data.status === '500') {
-            console.log(data.message)
-            setError(data.message);
-            setShowError(true);
+            Toastify({
+                text: data.message,
+                duration: 60000, // 60,000 milisegundos = 1 minuto
+                close: true,
+                gravity: "bottom",
+                position: "right",
+                backgroundColor: "#FF5F6D"
+            }).showToast();
         } else {
             window.location.reload();
         }
@@ -92,9 +91,6 @@ function CreateUser() {
                         onChange={handleInputChange}
                     />
                 </div>
-                {showError && (
-                    <p className="error" onClick={onCloseMessage}>{error}</p>
-                )}
                 <div className="form-group">
                     <button type="submit">Guardar</button>
                 </div>
