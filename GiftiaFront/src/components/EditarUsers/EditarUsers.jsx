@@ -4,7 +4,6 @@ import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 
 function EditUser({ show, Close, data }) {
-    const [visible, setVisible] = useState(true);
     const [formData, setFormData] = useState({
         id: '',
         username: '',
@@ -22,7 +21,6 @@ function EditUser({ show, Close, data }) {
 
     const onClose = () => {
         Close();
-        setVisible(false);
     };
 
     const onSubmit = (e) => {
@@ -46,21 +44,29 @@ function EditUser({ show, Close, data }) {
                     }
                 );
                 const data = await res.json();
-                if (res.status !== 200) {
+                if (res.ok) {
                     Toastify({
-                        text: data.message || 'Error en actualizar',
+                        text: 'Usuario actualizado exitosamente',
+                        duration: 60000, // 60,000 milisegundos = 1 minuto
+                        close: true,
+                        gravity: "bottom",
+                        position: "right",
+                        backgroundColor: "#28a745"
+                    }).showToast();
+                    Close();
+                } else {
+                    Toastify({
+                        text: data.message || 'Error al actualizar el usuario',
                         duration: 60000, // 60,000 milisegundos = 1 minuto
                         close: true,
                         gravity: "bottom",
                         position: "right",
                         backgroundColor: "#FF5F6D"
                     }).showToast();
-                } else {
-                    // Puedes agregar aquí lógica para actualizar la UI o mostrar un mensaje de éxito
                 }
             } catch (error) {
                 Toastify({
-                    text: 'Error en actualizar',
+                    text: 'Error en la solicitud: ' + error.message,
                     duration: 60000, // 60,000 milisegundos = 1 minuto
                     close: true,
                     gravity: "bottom",
@@ -74,66 +80,58 @@ function EditUser({ show, Close, data }) {
 
     useEffect(() => {
         if (show) {
-            setVisible(true);
             setFormData(data);
-        } else {
-            setVisible(false);
-            setFormData({});
         }
     }, [show, data]);
 
     return (
-        <>
-            {visible && (
-                <div className="edit-product-form">
-                    <form id="EditUsers" onSubmit={onSubmit}>
-                        <h1 className="tituloEditPr">Editar Usuario</h1>
+        <div className="edit-product-form">
+            <form id="EditUsers" onSubmit={onSubmit}>
+                <h1 className="tituloEditPr">Editar Usuario</h1>
 
-                        <div className="form-group">
-                            <label htmlFor="username">Nombre:</label>
-                            <input
-                                type="text"
-                                id="username"
-                                name="username"
-                                value={formData.username}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="email">Email:</label>
-                            <input
-                                type="text"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="role">Tipo:</label>
-                            <select
-                                id="role"
-                                name="role"
-                                value={formData.role}
-                                onChange={handleInputChange}
-                            >
-                                <option value="user">User</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                        </div>
-
-                        <div className="form-group">
-                            <button type="submit">Guardar</button>
-                        </div>
-                    </form>
-                    <div>
-                        <button onClick={() => onClose()}>Cerrar</button>
-                    </div>
+                <div className="form-group">
+                    <label htmlFor="username">Nombre:</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleInputChange}
+                    />
                 </div>
-            )}
-        </>
+
+                <div className="form-group">
+                    <label htmlFor="email">Email:</label>
+                    <input
+                        type="text"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="role">Tipo:</label>
+                    <select
+                        id="role"
+                        name="role"
+                        value={formData.role}
+                        onChange={handleInputChange}
+                    >
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+
+                <div className="form-group">
+                    <button type="submit">Guardar</button>
+                </div>
+            </form>
+            <div>
+                <button onClick={onClose}>Cerrar</button>
+            </div>
+        </div>
     );
 }
 
