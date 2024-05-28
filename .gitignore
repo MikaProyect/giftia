@@ -1,6 +1,7 @@
 # Carpetas
 node_modules
 BDTest
+.vscode
 
 # Archivos
 .env
