@@ -3,6 +3,7 @@ import AdminLayout from "../../layouts/AdminLayout.astro";
 import { ProductsTable } from "../../components/ProdcuctsTable/ProductsTable";
 import { profileAPI } from "../../api/auth.js";
 
+
 const user = await profileAPI();
 if (user !== 'error') {
   if (user === 'user not logged') {

@@ -67,3 +67,8 @@ button:hover {
 .close-button {
     margin-bottom: 30px;
 }
+
+.search-input{
+    
+    width: 400px;
+}
