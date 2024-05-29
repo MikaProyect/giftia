@@ -5,6 +5,7 @@ export const getUsers = async (req, res) => {
   const usersList = []
   try {
     const { data: { users }, error } = await supabaseAdmin.auth.admin.listUsers()
+  
 
     for (const user of users) {
       usersList.push({

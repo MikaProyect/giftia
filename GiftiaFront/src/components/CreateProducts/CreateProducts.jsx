@@ -56,6 +56,7 @@ function CreateProducts ( { show, windowClose } ) {
         })
         const data = await res.json()
         console.log(data)
+        window.location.reload();
       } catch (error) {
         console.log('Error en crear', error)
       }

@@ -71,18 +71,22 @@ function ProductsTable() {
 
   return (
     <>
-      <button onClick={onCreate} id="btn-abrir-agrpr" className="BotonAgrPr">
-        Agregar Productos
-      </button>
- 
+  
       <div className="allCont">
-        <input
+
+      <div class="control-bar">
+      <input
         type="text"
         placeholder="Buscar..."
         value={searchTerm}
         onChange={handleSearchChange}
         className="search-input"
         />
+    <button onClick={onCreate} id="btn-abrir-agrpr" className="BotonAgrPr">
+        Agregar Productos
+      </button>
+    </div>
+        
         <table className="default">
           <thead>
             <tr>
