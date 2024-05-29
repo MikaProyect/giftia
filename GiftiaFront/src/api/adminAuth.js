@@ -1,10 +1,12 @@
 export const createUserAPI = async (username, email, password, role) => {
     let userType = '';
-    if (user_role === 'admin') {
+    if (role === 'admin') {
         userType = 'create-admin';
     } else {
         userType = 'create-user';
     }
+    console.log(role)
+    console.log(userType)
 
     try {
         const res = await fetch(

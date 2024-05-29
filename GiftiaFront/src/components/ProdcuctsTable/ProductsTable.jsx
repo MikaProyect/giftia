@@ -8,55 +8,36 @@ function ProductsTable() {
   const [editProduct, setEditProduct] = useState();
   const [visible, setVisible] = useState(false);
   const [createVisible, setCreateVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
 
   const onEdit = (data) => {
     setEditProduct(data);
-    if (visible) {
-      setVisible(false);
-    } else {
-      setVisible(true);
-    }
+    setVisible(!visible);
   };
 
   const onCreate = () => {
-    if (createVisible) {
-      setCreateVisible(false);
-    } else {
-      setCreateVisible(true);
-    }
+    setCreateVisible(!createVisible);
   };
 
   const onClose = () => {
-    if (visible) {
-      setVisible(false);
-    } else {
-      setCreateVisible(true);
-    }
+    setVisible(false);
   };
 
   const onCreateClose = () => {
-    if (visible) {
-      setCreateVisible(false);
-    }
+    setCreateVisible(false);
   };
 
   const onDelete = async (id) => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const res = await fetch(
-        `http://localhost:3000/api/products/delete/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await fetch(`http://localhost:3000/api/products/delete/${id}`, {
+        method: "DELETE",
+      });
       const updatedProducts = products.filter((prod) => prod.id !== id);
       setProducts(updatedProducts);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
-
-
 
   useEffect(() => {
     const getProducts = async () => {
@@ -69,19 +50,43 @@ function ProductsTable() {
       }
     };
 
-    getProducts()
+    getProducts();
   }, []);
+
+  // Función para manejar el cambio en el input de búsqueda
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Filtrar los productos en base al término de búsqueda
+  const filteredProducts = products.filter((prod) => {
+    return (
+      prod.id.toString().includes(searchTerm.toLowerCase()) ||
+      prod.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      prod.tipo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      prod.tags.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      prod.seller.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  });
 
   return (
     <>
-      <button
-        onClick={() => onCreate()}
-        id="btn-abrir-agrpr"
-        className="BotonAgrPr"
-      >
+  
+      <div className="allCont">
+
+      <div class="control-bar">
+      <input
+        type="text"
+        placeholder="Buscar..."
+        value={searchTerm}
+        onChange={handleSearchChange}
+        className="search-input"
+        />
+    <button onClick={onCreate} id="btn-abrir-agrpr" className="BotonAgrPr">
         Agregar Productos
       </button>
-      <div className="allCont">
+    </div>
+        
         <table className="default">
           <thead>
             <tr>
@@ -98,7 +103,7 @@ function ProductsTable() {
           </thead>
 
           <tbody className="product-cont">
-            {products.map((prod) => (
+            {filteredProducts.map((prod) => (
               <tr key={prod.id}>
                 <td>{prod.id}</td>
                 <td>{prod.tipo}</td>

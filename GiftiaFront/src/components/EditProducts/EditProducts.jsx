@@ -49,7 +49,7 @@ function EditProducts ({ show, product, windowClose }) {
           }
         )
         const data = await res.json()
-        console.log(data)
+        window.location.reload();
       } catch (error) {
         console.log('Error en actualizar', error)
       }

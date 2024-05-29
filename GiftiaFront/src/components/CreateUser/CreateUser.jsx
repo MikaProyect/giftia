@@ -23,6 +23,7 @@ function CreateUser() {
     const onSubmit = async (e) => {
         e.preventDefault();
         const { user_username, user_email, user_password, user_role } = formData;
+        console.log(user_role)
         const data = await createUserAPI(user_username, user_email, user_password, user_role);
         console.log(data.message)
         if (data.status === '400') {

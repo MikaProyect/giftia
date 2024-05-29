@@ -3,6 +3,7 @@ import AdminLayout from "../../layouts/AdminLayout.astro";
 import { ProductsTable } from "../../components/ProdcuctsTable/ProductsTable";
 import { profileAPI } from "../../api/auth.js";
 
+
 const user = await profileAPI();
 if (user !== 'error') {
   if (user === 'user not logged') {
@@ -27,7 +28,9 @@ if (user !== 'error') {
 
   h1 {
     color: rgb(0, 0, 0);
-    margin-top: 20px; /* Ajusta el margen según sea necesario */
+    font-size: 32px;
+    font-weight: bold;
+    /*margin-top: 0px; /* Ajusta el margen según sea necesario */
     margin-left: 10px;
     position: absolute; /* Utiliza "absolute" para posicionar de forma absoluta */
     top: 100px; /* Ajusta según tus necesidades */
@@ -35,7 +38,7 @@ if (user !== 'error') {
   }
 
   button {
-    color: rgb(0, 0, 0);
+    color: rgb(192, 4, 4);
     border-color: rgb(72, 75, 233);
     border-radius: 7px;
     margin-top: 5px;
