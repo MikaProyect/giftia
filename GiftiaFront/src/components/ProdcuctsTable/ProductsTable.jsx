@@ -74,7 +74,7 @@ function ProductsTable() {
   
       <div className="allCont">
 
-      <div class="control-bar">
+      <div className="control-bar">
       <input
         type="text"
         placeholder="Buscar..."
