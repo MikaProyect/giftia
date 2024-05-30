@@ -6,6 +6,10 @@ export const sendSuggestion = async (req, res) => {
 
   try {
     const { category, type, content } = req.body
+    
+    if(!category || !type || !content) {
+      return res.status(400).json({success: false, message: "Uno de los datos es nulo"});
+    }
     console.log('Datos recibidos en sendSuggestion:', req.body)
     const { data, error } = await supabase
       .from('ryc')
@@ -24,6 +28,10 @@ export const sendComplaint = async (req, res) => {
 
   try {
     const { category, type, content } = req.body
+    if(!category || !type || !content) {
+      return res.status(400).json({success: false, message: "Uno de los datos es nulo"});
+    }
+    
     console.log('Datos recibidos en sendComplaint:', req.body)
     const { data, error } = await supabase
       .from('ryc')
