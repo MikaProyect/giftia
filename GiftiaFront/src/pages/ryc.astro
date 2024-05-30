@@ -40,11 +40,13 @@ if (user !== 'error') {
                 <!--PENDIENTE-->
                 <ul>
                     <li><a class="CT" href=""><ion-icon name="person-circle-outline" title="Mi cuenta"></ion-icon></a></li>
-                    <li><a class="OP" href=""><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
+                    <li><a class="GT" href="chat"><ion-icon name="gift-outline" title="Chat"></ion-icon></a></li>
+                    <li><a class="OP" href="ryc"><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
+                    <li><a class="MS" href=""><ion-icon name="ellipsis-horizontal-circle-outline" title="Mis Solicitudes"></ion-icon></a></li>
                     <li><a class="SL" id="salir" href=""><ion-icon name="exit-outline" title="Salir"></ion-icon></a></li>
                 </ul>
             </div>
-
+            
             <h1 class="titulo-inicial">Reclamos y Sugerencias</h1>
             
             <!--Acordeon de seleccion derecha-->
@@ -234,7 +236,9 @@ if (user !== 'error') {
                     if (forbiddenWords.includes(word)) {
                         // Si se encuentra una palabra prohibida, muestra un mensaje de error
                         errorMessage.textContent = 'Por favor, evita usar lenguaje ofensivo en tu testimonio.';
-                        errorMessage.style.color = 'red';
+                        errorMessage.style.color = 'black';
+                        errorMessage.style.display = 'block';
+                        errorMessage.style.textAlign = 'center';
                         hasForbiddenWord = true;
                         break;
                     }
@@ -407,7 +411,9 @@ if (user !== 'error') {
 
     .CT,
     .SL,
-    .OP {
+    .OP,
+    .GT,
+    .MS {
         text-align: center;
         list-style-type: none;
         color: white;
@@ -421,7 +427,7 @@ if (user !== 'error') {
     }
 
     ul {
-        margin-top: 45vh;
+        margin-top: 30vh;
     }
 
     .titulo-inicial {
