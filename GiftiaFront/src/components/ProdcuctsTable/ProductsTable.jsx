@@ -8,7 +8,7 @@ function ProductsTable() {
   const [editProduct, setEditProduct] = useState();
   const [visible, setVisible] = useState(false);
   const [createVisible, setCreateVisible] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
+  const [searchTerm, setSearchTerm] = useState("");
 
   const onEdit = (data) => {
     setEditProduct(data);
@@ -53,12 +53,10 @@ function ProductsTable() {
     getProducts();
   }, []);
 
-  // Función para manejar el cambio en el input de búsqueda
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  // Filtrar los productos en base al término de búsqueda
   const filteredProducts = products.filter((prod) => {
     return (
       prod.id.toString().includes(searchTerm.toLowerCase()) ||
@@ -71,62 +69,62 @@ function ProductsTable() {
 
   return (
     <>
-  
       <div className="allCont">
+        <div className="control-bar">
+          <input
+            type="text"
+            placeholder="Buscar..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="search-input"
+          />
+          <button onClick={onCreate} id="btn-abrir-agrpr" className="BotonAgrPr">
+            Agregar Productos
+          </button>
+        </div>
 
-      <div className="control-bar">
-      <input
-        type="text"
-        placeholder="Buscar..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-        className="search-input"
-        />
-    <button onClick={onCreate} id="btn-abrir-agrpr" className="BotonAgrPr">
-        Agregar Productos
-      </button>
-    </div>
-        
-        <table className="default">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Tipo</th>
-              <th>Nombre</th>
-              <th>Precio</th>
-              <th>Tags</th>
-              <th>Vendedor</th>
-              <th>Enlace</th>
-              <th>Imagen</th>
-              <th></th>
-            </tr>
-          </thead>
-
-          <tbody className="product-cont">
-            {filteredProducts.map((prod) => (
-              <tr key={prod.id}>
-                <td>{prod.id}</td>
-                <td>{prod.tipo}</td>
-                <td>{prod.name}</td>
-                <td>{prod.price}</td>
-                <td>{prod.tags}</td>
-                <td>{prod.seller}</td>
-                <td>
-                  <a href={prod.link}>{prod.link}</a>
-                </td>
-                <td><img src={prod.url} alt="imagen" /></td>
-                <td>
-                  <button className="editeli" onClick={() => onEdit(prod)}>
-                    Editar
-                  </button>
-                  <button className="editeli" onClick={() => onDelete(prod.id)}>
-                    Eliminar
-                  </button>
-                </td>
+        <div className="table-container">
+          <table className="default">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Tags</th>
+                <th>Vendedor</th>
+                <th>Enlace</th>
+                <th>Imagen</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="product-cont">
+              {filteredProducts.map((prod) => (
+                <tr key={prod.id}>
+                  <td>{prod.id}</td>
+                  <td>{prod.tipo}</td>
+                  <td>{prod.name}</td>
+                  <td>{prod.price}</td>
+                  <td>{prod.tags}</td>
+                  <td>{prod.seller}</td>
+                  <td>
+                    <a href={prod.link}>{prod.link}</a>
+                  </td>
+                  <td><img src={prod.url} alt="imagen" /></td>
+                  <td>
+                    <button className="editeli" onClick={() => onEdit(prod)}>
+                      Editar
+                    </button>
+                    <button className="editeli" onClick={() => onDelete(prod.id)}>
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
         <div>
           <CreateProducts show={createVisible} windowClose={onCreateClose} />
           <EditProducts show={visible} product={editProduct} windowClose={onClose} />
