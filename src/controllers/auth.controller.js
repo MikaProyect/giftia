@@ -1,93 +1,104 @@
-import { supabase } from "../app.js"
-
+import { supabase } from '../app.js'
 
 export const loginController = async (req, res) => {
+  const { email, password } = req.body
 
-    const { user, password } = req.body
-    console.log(user, password)
-
-
-    try {
-        const result = await supabase.auth.signInWithPassword({
-            email: user,
-            password: password
-        })
-
-        console.log(result)
-        res.status(201).json({ message: result.data.user });
-
-    } catch (error) {
-        console.log(error)
-        res.status(400).json({ message: 'Error en Supabase api' })
-
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+    if (error) {
+      return res.status(500).json({
+        error: error.message,
+        status: 500,
+        message: 'Error en Supabase api'
+      })
+    } else {
+      return res.status(201).json({
+        error: null,
+        status: 201,
+        message: {
+          id: data.user.id,
+          username: data.user.user_metadata.display_name,
+          email: data.user.email,
+          role: data.user.app_metadata.role || 'user'
+        }
+      })
     }
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({ message: 'Error en Supabase api' })
+  }
 }
 
 export const registerController = async (req, res) => {
+  const { username, email, password } = req.body
 
-    const { username, email, password } = req.body
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          display_name: username
+        }
+      }
+    })
 
-    try {
-        const result = await supabase.auth.signUp({
-            email: email,
-            password: password,
-            options: {
-                data: {
-                    display_name: username
-                }
-            }
-        })
-
-        const userBDAdded = await supabase.from('users').insert({
-            id: result.data.user.id,
-            username: username,
-            email: email,
-            userType: 0,
-        })
-        console.log(userBDAdded)
-
-        res.status(201).json({ message: result.data.user });
-
-    } catch (error) {
-        console.log(error)
-        res.status(400).json({ message: 'Error en Supabase api' })
+    if (error) {
+      console.log(error)
+      return res.status(400).json({
+        error: error.message,
+        status: 400,
+        message: 'Error en Supabase api'
+      })
+    } else {
+      return res.status(201).json({
+        error: null,
+        status: 201,
+        message: {
+          id: data.user.id,
+          username: data.user.user_metadata.display_name,
+          email: data.user.email,
+          role: 'user'
+        }
+      })
     }
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({ message: 'Error en Supabase api' })
+  }
 }
 
 export const logoutController = async (req, res) => {
-    try {
-        const { error } = await supabase.auth.signOut()
-        console.log(error)
-        res.status(500).json({ error })
-    } catch (error) {
-        console.log(error)
-    }
+  try {
+    const { error } = await supabase.auth.signOut()
+    console.log(error)
+    return res.status(500).json({ error })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
-export const profileController = (req, res) => {
-    res.send("Perfil del usuario")
-
-}
-
-export const stateController = async (req, res) => {
-
-    const { userId } = req.body
-
-    try {
-        const result = await supabase.from('users').select('userType').eq('id', userId)
-        console.log(result)
-        res.status(201).json({ message: result.data[0] });
-
-    } catch (error) {
-        console.log(error)
-        res.status(400).json({ message: "ERROOOR" });
-    }
-
-}
-
-export const userStatus = async (req, res) => {
-    const user = await supabase.auth.getSession();
-
-    console.log(user)
-    res.status(200).json({ user })
+export const userProfile = async (req, res) => {
+  const { data } = await supabase.auth.getSession()
+  if (data.session === null) {
+    return res.status(400).json({
+      error: null,
+      status: 400,
+      message: 'user not logged'
+    })
+  } else {
+    return res.status(200).json({
+      error: null,
+      status: 200,
+      message: {
+        id: data.session.user.id,
+        username: data.session.user.user_metadata.display_name,
+        email: data.session.user.email,
+        role: data.session.user.app_metadata.role || 'user'
+      }
+    })
+  }
 }

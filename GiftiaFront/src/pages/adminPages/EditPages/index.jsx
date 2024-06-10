@@ -1,11 +1,13 @@
-import { EditProducts } from "../../../components/EditProducts/EditProducts";
+import { EditProducts } from '../../../components/EditProducts/EditProducts'
 
-function EditPage() {
-    return (
-        <>
-            <EditProducts idProd={test} />
-        </>
-    )
+function EditPage () {
+  const idProd = ''
+
+  return (
+    <>
+      <EditProducts idProd={idProd} />
+    </>
+  )
 }
 
-export default EditPage;
+export default EditPage

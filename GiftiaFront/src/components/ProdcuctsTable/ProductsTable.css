@@ -1,44 +1,69 @@
+/* Estilos para la tabla */
 table {
     border-collapse: collapse;
-    width: 80%;
-    max-width: 600px;
-    /* Establece un ancho máximo para la tabla */
-    margin-bottom: 30px;
-    /* Centra la tabla en el contenedor */
+    width: 100%; /* Ajusta el ancho al 100% del contenedor */
     background-color: #fff;
-    /* Color de fondo de la tabla */
-    margin-top: 100px;}
-   
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
 
-th,
-td {
+th, td {
     border: 1px solid #ddd;
-    /* Borde de las celdas */
-    padding: 8px;
-    /* Espaciado interno de las celdas */
+    padding: 12px;
     text-align: left;
     max-width: 300px;
     overflow: hidden;
 }
 
 th {
-    background-color: #4446e7;
-    /* Color de fondo del encabezado */
-    color: white;
-    /* Color del texto del encabezado */
+    background-color: #ffb2d5;
+    color: rgb(0, 0, 0);
+    letter-spacing: 0.1em;
+}
+
+/* Contenedor de la tabla con scroll */
+.table-container {
+    max-height: 650px; /* Ajusta la altura máxima según sea necesario */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    max-width: 1300px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+
+/* Estilos para el botón AgrPr */
+.control-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.search-input {
+    width: 400px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    margin-right: 10px;
 }
 
 .BotonAgrPr {
-    margin-top: 20px;
-    margin-left: 10px;
-    position: absolute;
-    top: 100px;
-    left: 1100px;
-    font-family: "Rajdhani", sans-serif;
     border-radius: 8px;
-    font-size: 20px;
-    border-color: rgb(72, 110, 233);
-    padding: 3px;
+    font-size: 16px;
+    color: #000000;
+    padding: 8px 12px;
+    background-color: #ffffff;
+    border: 2px solid #ffb2d5;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.BotonAgrPr:hover {
+    background-color: #ffb2d5;
+    color: #ffffff;
 }
 
 button {
@@ -47,19 +72,16 @@ button {
     border-radius: 7px;
     margin-top: 5px;
     padding: 2px;
+    background-color: #ececec;
 }
 
 button:hover {
-    background-color: rgba(16, 48, 192, 0.37);
+    background-color: #ffb2d5;
 }
 
 .allCont {
     display: flex;
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-}
-
-.close-button {
-    margin-bottom: 30px;
 }

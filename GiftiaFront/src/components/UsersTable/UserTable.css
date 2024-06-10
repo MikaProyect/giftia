@@ -1,0 +1,87 @@
+/* Estilos para centrar el contenedor */
+div.allCont {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    min-height: 100vh; /* Asegurar que el contenedor ocupe toda la altura de la pantalla */
+    padding-top: 70px; /* Añadir espacio para la navbar */
+    background-color: #1E1E8A; /* Color de fondo de la página */
+}
+
+/* Estilos para la tabla */
+.table-container {
+    max-height: 70vh; /* Limitar la altura de la tabla */
+    overflow-y: auto; /* Añadir scroll vertical */
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Estilos para la tabla */
+table.tabla-contenedora {
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #D9D9D9;
+    font-size: 1.2em; /* Aumenta el tamaño de la fuente */
+    min-width: 800px; /* Aumenta el ancho mínimo de la tabla */
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden; /* Para aplicar los bordes redondeados correctamente */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para dar un efecto flotante */
+}
+
+/* Estilos para el encabezado de la tabla */
+table.tabla-contenedora thead {
+    background-color: #D9D9D9;
+    color: #000;
+    text-align: left;
+    font-weight: bold;
+}
+
+table.tabla-contenedora thead tr th {
+    padding: 20px; /* Aumenta el padding */
+    background-color: #D9D9D9;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Estilos para las celdas */
+table.tabla-contenedora th,
+table.tabla-contenedora td {
+    padding: 20px; /* Aumenta el padding */
+    border: 1px solid #ddd;
+}
+
+/* Estilos para las filas del cuerpo de la tabla */
+table.tabla-contenedora tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+table.tabla-contenedora tbody tr:nth-of-type(even) {
+    background-color: #D1D1D1;
+}
+
+table.tabla-contenedora tbody tr:last-of-type {
+    border-bottom: rgba(16, 48, 192, 0.37);
+}
+
+/* Estilos para el icono de usuario */
+.user-icon {
+    width: 40px; /* Aumenta el tamaño del icono */
+    height: 40px; /* Aumenta el tamaño del icono */
+    border-radius: 50%;
+}
+
+/* Estilos para el botón de editar */
+.edit-button {
+    background-color: #A4BAFD; /* Verde */
+    border: none;
+    color: white;
+    padding: 15px 30px; /* Aumenta el tamaño del botón */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; /* Aumenta el tamaño de la fuente */
+    margin: 4px 2px;
+    border-radius: 5px;
+    cursor: pointer;
+}

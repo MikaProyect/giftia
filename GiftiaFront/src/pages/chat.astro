@@ -1,5 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { profileAPI } from '../api/auth.js'
+
+const user = await profileAPI();
+if (user !== 'error') {
+  if (user === 'user not logged') {
+    return Astro.redirect("/login");
+  }
+} else {
+  console.log('Ha ocurrido un error: ', user);
+}
 ---
 
 <Layout title="Chat">
@@ -21,9 +31,13 @@ import Layout from "../layouts/Layout.astro";
             <img class="logok" src="../img/logo_karina.png" alt="logo" />
 
             <!--PENDIENTE-->
-            <li><a class="CT">Cuenta</a></li>
-            <li><a class="SL">Salir</a></li>
-            <li><a class="OP">Comentarios</a></li>
+            <ul>
+                <li><a class="CT" href=""><ion-icon name="person-circle-outline" title="Mi cuenta"></ion-icon></a></li>
+                <li><a class="GT" href="chat"><ion-icon name="gift-outline" title="Chat"></ion-icon></a></li>
+                <li><a class="OP" href="ryc"><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
+                <li><a class="MS" href=""><ion-icon name="ellipsis-horizontal-circle-outline" title="Mis Solicitudes"></ion-icon></a></li>
+                <li><div class="SL salir"><ion-icon name="exit-outline" title="Salir"></ion-icon></div></li>
+            </ul>
         </div>
 
         <div class="der">
@@ -65,6 +79,24 @@ import Layout from "../layouts/Layout.astro";
         </div>
     </div>
 
+    <script is:inline type="module">
+        const salir = document.querySelector(".salir");
+        salir.addEventListener("click", async () => {
+            try {
+                const res = await fetch("http://localhost:3000/api/logout", {
+                    method: "POST"
+                });
+                const data = await res.json();
+                if (data.error === null) {
+                localStorage.removeItem('user');
+                window.location.href = "/";
+                }
+            } catch (error) {
+                console.log("Ha ocurrido un error: ", error);
+            }
+        });
+    </script>
+
     <script is:inline>
         //esto significa que será destinado para que se ejecute inline
 
@@ -94,6 +126,7 @@ import Layout from "../layouts/Layout.astro";
             newDiv.style.overflow = "auto"; // Para manejar correctamente el float
             newDiv.style.position = "relative"; // Posición relativa para alinear la imagen
             newDiv.style.display = "flex";
+            newDiv.style.border = "2px solid #ffb2d5";
 
             chat.appendChild(newDiv); // se inserta newdiv en chat-input
         }
@@ -140,6 +173,7 @@ import Layout from "../layouts/Layout.astro";
             newdiv.style.clear = "both"; // Limpiar el float para que se posicione debajo
             newdiv.style.overflow = "auto"; // Para manejar correctamente el float
             newdiv.style.position = "relative"; // Posición relativa para alinear la imagen
+            newdiv.style.border = "2px solid #ffb2d5";
 
             chat.appendChild(newdiv); // se inserta newdiv en chat-input
         }
@@ -151,12 +185,13 @@ import Layout from "../layouts/Layout.astro";
         const text = document.querySelector(".text");
         const bubble = document.querySelector(".chatBubbles");
         text.textContent = ""; //se agrega un "mensaje vacio"
-        bubble.style.backgroundColor = "#1a1a4c";
+        bubble.style.backgroundColor = "#3f35c4";
         setTimeout(() => {
             animation.style.display = "none";
             text.textContent =
                 "¡Hola! Soy Giftia, tu asistente personal para encontrar el regalo perfecto. Puedes proporcionarme información siguiendo este ejemplo: Color, edad, deporte y dinero disponible. Estoy aquí para hacer que tu experiencia de compra de regalos sea fácil, emocionante y completamente libre de estrés.";
-            bubble.style.backgroundColor = "#a4bafd";
+            bubble.style.backgroundColor = "#a4bafd"; 
+            bubble.style.border = "2px solid #ffb2d5";
         }, 3000);
     </script>
 </Layout>
@@ -180,7 +215,7 @@ import Layout from "../layouts/Layout.astro";
         position: absolute;
         width: 100%; /*ancho*/
         height: 100%; /*altura*/
-        background-color: #1a1a4c; /*color de fondo*/
+        background-color: #3f35c4; /*color de fondo*/
         z-index: 1; /* es para que esté detrás de otros elementos */
         top: 0; /*estará pegado al borde superior*/
     }
@@ -199,13 +234,14 @@ import Layout from "../layouts/Layout.astro";
         flex-direction: column; /* alinea los elementos verticalmente */
         justify-content: flex-start; /* alinea los elementos al principio */
         align-items: center; /* alinea los elementos al centro horizontalmente */
+        border: 1px solid #ffb2d5;
     }
 
     .der {
         position: absolute;
         width: calc(87% - 40px); /* 87% - 20px de cada lado */
         height: 100%;
-        background-color: #1a1a4c;
+        background-color: #3f35c4;
         z-index: 1; /* Asegura que esté detrás de otros elementos */
         left: calc(13% + 20px); /* Posición desde el borde izquierdo */
         border-radius: 10px; /* redondea las esquinas */
@@ -218,7 +254,7 @@ import Layout from "../layouts/Layout.astro";
         min-width: 130px;
         display: block;
         position: relative; /* Cambiamos la posición a relativa */
-        margin-top: -10px; /* Agregamos un margen superior */
+        margin-top: 10px; /* Agregamos un margen superior */
     }
 
     .titulo {
@@ -229,17 +265,25 @@ import Layout from "../layouts/Layout.astro";
 
     .CT,
     .SL,
-    .OP {
+    .OP,
+    .MS,
+    .GT {
         text-align: center;
         list-style-type: none;
         color: white;
         margin: 10px 0; /* Agregamos un margen entre los elementos */
+        font-size: 45px;
+        color: #000;
+    }
+
+    .salir {
+        cursor: pointer;
     }
 
     .chatBubbles {
         display: flex;
         flex-direction: column;
-        background-color: #a4bafd;
+        background-color: #ffb2d5;
         border-radius: 2vh;
         width: 90%;
         padding: 1vh;
@@ -347,5 +391,13 @@ import Layout from "../layouts/Layout.astro";
         33.184357541899445% {
             transform: translateY(-7.2px);
         }
+    }
+
+    li {
+        list-style: none;
+    }
+
+    ul {
+        margin-top: 28vh;
     }
 </style>

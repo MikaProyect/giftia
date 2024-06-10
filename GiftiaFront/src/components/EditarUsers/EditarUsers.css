@@ -1,0 +1,74 @@
+/* Estilos para el formulario de edición */
+.edit-product-form {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.edit-product-form .form-group {
+    margin-bottom: 15px;
+}
+
+.edit-product-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.edit-product-form input,
+.edit-product-form select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.edit-product-form button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #898ad8;
+    color: white;
+    cursor: pointer;
+}
+
+.edit-product-form button:hover {
+    background-color: #6b6dc7;
+}
+
+.tituloEditPr {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+/* Estilos para el modal */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro para el modal */
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos para el fondo oscuro detrás del modal */
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}

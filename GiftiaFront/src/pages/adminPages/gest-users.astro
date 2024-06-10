@@ -1,0 +1,31 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import { UserTable } from "../../components/UsersTable/UserTable";
+import { profileAPI } from "../../api/auth.js";
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+
+const user = await profileAPI();
+if (user !== 'error') {
+  if (user === 'user not logged') {
+    return Astro.redirect("/login");
+  } else {
+    if (user.role !== 'admin') {
+      return Astro.redirect("/chat");
+    }
+  }
+} else {
+  Toastify({
+    text: 'Ha ocurrido un error: ' + user,
+    duration: 60000, // 60,000 milisegundos = 1 minuto
+    close: true,
+    gravity: "bottom",
+    position: "right",
+    backgroundColor: "#FF5F6D"
+  }).showToast();
+}
+---
+
+<AdminLayout title="Gestión  de Usuarios">
+  <UserTable client:visible />
+</AdminLayout>
