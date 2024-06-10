@@ -53,6 +53,7 @@ export const logoutAPI = async () => {
     const data = await res.json();
     if (data.error === null) {
       localStorage.removeItem('user');
+      localStorage.removeItem('token');
       window.location.href = "/";
     }
   } catch (error) {

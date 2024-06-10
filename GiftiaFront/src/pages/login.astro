@@ -5,11 +5,11 @@ import { profileAPI } from '../api/auth.js'
 const user = await profileAPI();
 
 if (user !== 'error') {
-  if (user !== 'user not logged') {
-    return Astro.redirect("/chat");
-  }
+    if (user !== 'user not logged') {
+        return Astro.redirect("/chat");
+    }
 } else {
-  console.log('Ha ocurrido un error: ', user);
+console.log('Ha ocurrido un error: ', user);
 }
 
 ---
@@ -97,12 +97,13 @@ if (user !== 'error') {
 				const email = loginForm['loginEmail'].value;
 				const password = loginForm['loginPassword'].value;
 
-				const user = await loginAPI(email, password)
+				const data = await loginAPI(email, password)
 
-                if (user === 'Email o contraseña incorrecta') {
+                if (data === 'Email o contraseña incorrecta') {
                     console.log('Email o contraseña incorrecta')
                 } else {
-                    saveItem('user', user)
+                    saveItem('user', data.user)
+                    saveItem('token', data.token)
                     const userType = await getItem('user')
                     linkTo(userType.role)
                 }

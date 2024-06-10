@@ -1,4 +1,5 @@
 import { supabase } from '../app.js'
+import { signIn } from '../auth/index.js'
 
 export const loginController = async (req, res) => {
   const { email, password } = req.body
@@ -19,10 +20,13 @@ export const loginController = async (req, res) => {
         error: null,
         status: 201,
         message: {
-          id: data.user.id,
-          username: data.user.user_metadata.display_name,
-          email: data.user.email,
-          role: data.user.app_metadata.role || 'user'
+          token: signIn(data.user.id),
+          user: {
+            id: data.user.id,
+            username: data.user.user_metadata.display_name,
+            email: data.user.email,
+            role: data.user.app_metadata.role || 'user'
+          }
         }
       })
     }
