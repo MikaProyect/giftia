@@ -1,6 +1,18 @@
 # Carpetas
 node_modules
 BDTest
+.vscode
 
 # Archivos
 .env
+# Front
+GiftiaFront/.eslintrc.cjs
+GiftiaFront/.prettierrc.mjs
+GiftiaFront/.prettierignore
+GiftiaFront/.lintstagedrc
+
+# Back
+.lintstagedrc
+.prettierignore
+.prettierrc.mjs
+.eslintrc.cjs
