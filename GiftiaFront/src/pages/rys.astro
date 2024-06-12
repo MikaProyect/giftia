@@ -319,8 +319,18 @@ if (user !== 'error') {
     });
 
     document.querySelector('.button-enviar')?.addEventListener('click', async () => { // Agregamos async aquí
-    const texto = textarea.value;
-    console.log(item1, item2, item3, texto);
+        const texto = textarea.value;
+        try{
+        
+        //si el texto tiene menos de 10 caracteres, no se puede enviar
+        if(texto.length < 10){
+            //..
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        console.log(item1, item2, item3, texto);
+    }  
+    
     
 
     // Determinar la ruta y el tipo basados en el valor de 'valorItem1'
