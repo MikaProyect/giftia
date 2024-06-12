@@ -73,3 +73,23 @@ export const profileAPI = async () => {
     return 'error'
   }
 };
+
+export const verifyUserAPI = async (id) => {
+  const rawToken = localStorage.getItem('token');
+  const token = rawToken ? rawToken.replace(/^"|"$/g, '') : null; // Eliminar comillas si existen
+  try {
+    console.log()
+    const res = await fetch("http://localhost:3000/api/admin/verify-user", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ id: id })
+    });
+    const data = await res.json();
+    return data.message;
+  } catch (error) {
+    return 'error';
+  }
+}

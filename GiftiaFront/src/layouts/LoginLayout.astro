@@ -28,16 +28,19 @@ const { title } = Astro.props;
 	<script>
 		import { getItem } from '../functions/localStorage.js';
 		import { verifyUserAPI } from '../api/auth.js';
+
 		document.addEventListener("DOMContentLoaded", async () => {
 			const user = getItem('user');
 			if (user) {
 				const res = await verifyUserAPI(user.id)
-				if (res === 'Token invalid') {
-					window.location.href = "/";
-				}
-			} else {
-				if (!user) {
-					window.location.href = "/";
+				if (res === 'user verified') {
+					if (user.role === 'admin') {
+						window.location.href = "/adminPages/gest-prod";
+					} else {
+						if (user.role === 'user') {
+							window.location.href = "/chat";
+						}
+					} 
 				}
 			}
 		})
