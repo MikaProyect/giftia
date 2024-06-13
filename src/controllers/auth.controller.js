@@ -84,25 +84,3 @@ export const logoutController = async (req, res) => {
     console.log(error)
   }
 }
-
-export const userProfile = async (req, res) => {
-  const { data } = await supabase.auth.getSession()
-  if (data.session === null) {
-    return res.status(400).json({
-      error: null,
-      status: 400,
-      message: 'user not logged'
-    })
-  } else {
-    return res.status(200).json({
-      error: null,
-      status: 200,
-      message: {
-        id: data.session.user.id,
-        username: data.session.user.user_metadata.display_name,
-        email: data.session.user.email,
-        role: data.session.user.app_metadata.role || 'user'
-      }
-    })
-  }
-}

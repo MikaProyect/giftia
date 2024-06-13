@@ -61,19 +61,6 @@ export const logoutAPI = async () => {
   }
 };
 
-export const profileAPI = async () => {
-  try {
-    const res = await fetch("http://localhost:3000/api/user/profile", {
-        method: "GET"
-    });
-    const data = await res.json();
-    return data.message;
-  } catch (error) {
-    console.log("Ha ocurrido un error: ", error);
-    return 'error'
-  }
-};
-
 export const verifyUserAPI = async (id) => {
   const rawToken = localStorage.getItem('token');
   const token = rawToken ? rawToken.replace(/^"|"$/g, '') : null; // Eliminar comillas si existen
