@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { loginController, logoutController, registerController, userProfile } from '../controllers/auth.controller.js'
+import { loginController, logoutController, registerController} from '../controllers/auth.controller.js'
 import { validateSchema } from '../middlewares/validator.middleware.js'
 import { loginSchema, registerSchema } from '../schemas/auth.schema.js'
 
@@ -11,6 +11,5 @@ router.post('/register', validateSchema(registerSchema), registerController)
 
 router.post('/logout', logoutController)
 
-router.get('/user/profile', userProfile)
 
 export default router
