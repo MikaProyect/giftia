@@ -13,7 +13,10 @@
   "dependencies": {
     "@astrojs/react": "^3.3.4",
     "@astrojs/tailwind": "^5.1.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@lemonsqueezy/wedges": "^1.3.0",
+    "@mui/material": "^5.15.20",
     "@supabase/supabase-js": "^2.43.2",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",

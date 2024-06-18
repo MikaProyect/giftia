@@ -1,0 +1,30 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css";
+
+.TableContainer {
+  min-width: 50px;
+  min-height: 20rem;
+  height: auto;
+  margin: 20px;
+  padding: 10px 0px;
+  border-radius: 10px;
+  background-color: #3b334b;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+.Table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.TableRow {
+  border-bottom: 1px solid #dddddd;
+}
+
+.RowHead {
+  background-color: #3b334b;
+}
+
+.TableCell {
+  padding: 20px;
+}
