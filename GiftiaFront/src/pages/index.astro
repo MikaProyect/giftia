@@ -53,7 +53,7 @@ import LoginLayout from "../layouts/LoginLayout.astro";
                 	</div>
                 	<button type="submit" class="btn-login0">Registrarme</button>
                 	<div class="inicio-registro">
-                   	 <p>Ya tienes una cuenta? <a href="/login/" class="link-login">Iniciar Sesión</a></p>
+                   	 <p>Ya tienes una cuenta? <a href="/" class="link-login">Iniciar Sesión</a></p>
                 	</div>    
             	</form>
 			</div>
@@ -120,16 +120,17 @@ import LoginLayout from "../layouts/LoginLayout.astro";
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: sans-serif; /* Definir font a utilizar */
+    font-family: "Poppins", sans-serif; /* Definir font a utilizar */
 }
 
 main {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #443C54;
     min-height: 100vh;
     color: white;
-    font-size: 20px;
+    font-size: 19px;
     line-height: 1.6;
 }
 
@@ -138,63 +139,14 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #898ad8;
+    background-color: #443C54;
 }
 
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px 100px;
-    background: #8094F9;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 99;
-}
-
-.logo {
-    font-size: 2em;
-    color: #eef3ff;
-    width: 40%;
-    max-width: 90px;
-    min-width: 20px;
-}
-
-.navegador { /* Configuración de todo el NavBar */
-    position: relative;
-    font-size: 1.1em;
-    color: #fff; /* Todos los colores #fff están por definir. */
-    text-decoration: none;
-    font-weight: 500;
-    margin-left: 40px;
-}
-
-.navegador .btnLogin-main { /* Para el botón de Iniciar Sesión */
-    width: 130px;
-    height: 50px;
-    background: transparent;
-    border: 2px solid #fff;
-    outline: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1.1em;
-    color: #fff; /* Todos los colores #fff están por definir. */
-    font-weight: 500;
-    margin-left: 40px;
-    transition: .5s;
-}
-
-.navegador .btnLogin-main:hover {
-    background: #fff; /* Todos los colores #fff están por definir. */
-    color: #4444CF;
-}
 
 .agrupador { /*Contenedor de los form */
     position: relative;
     width: 400px;
-    background: transparent;
+    background: #443C54;
     border: 2px solid rgba(255, 255, 255, .5); /* Borde blanco */
     border-radius: 20px;
     backdrop-filter: blur(20px);
@@ -329,13 +281,13 @@ header {
 .btn-login0 { /* Botón de inicio de sesión */
     width: 100%;
     height: 45px;
-    background: #E5E8FA;
+    background: #3b334b;
     border: none;
     outline: none;
     border-radius: 6px;
     cursor: pointer;
     font-size: 1em;
-    color: #898ad8;
+    color: #CBA3FB;
     font-weight: 500;
     margin-top: 10px;
 }
