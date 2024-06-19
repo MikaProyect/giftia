@@ -285,6 +285,7 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
 
 <!--Backend-Supabase-->
 <script>
+    import { getItem } from "../functions/localStorage.js";
     let item1 = '';
     let item2 = '';
     let item3 = '';
@@ -323,12 +324,13 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
     let ruta = '';
     let tipo = '';
     if (item1 === 'Sugerencia') {
-        ruta = '/api/ryc/send/suggest';
+        ruta = '/api/rys/send/suggest';
         tipo = item2;
     } else if (item1 === 'Reclamo') {
-        ruta = '/api/ryc/send/complaint';
+        ruta = '/api/rys/send/complaint';
         tipo = item3;
     }
+    const user = getItem('user')
 
     try {
         const response = await fetch(`http://localhost:3000${ruta}`, {
@@ -336,7 +338,7 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ category: item1, type: tipo, content: texto }),
+        body: JSON.stringify({ category: item1, type: tipo, content: texto, usuario: user.username }),
         });
 
         if (!response.ok) {

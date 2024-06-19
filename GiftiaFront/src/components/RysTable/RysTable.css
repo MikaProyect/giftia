@@ -1,20 +1,20 @@
-@import "https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css";
-
 .TableContainer {
   min-width: 50px;
   min-height: 20rem;
   height: auto;
   margin: 20px;
-  padding: 10px 0px;
+  padding-bottom: 10px;
   border-radius: 10px;
-  background-color: #3b334b;
+  background-color: #443C54;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .Table {
   width: 100%;
   border-collapse: collapse;
+  text-align: left;
 }
 
 .TableRow {
@@ -23,8 +23,87 @@
 
 .RowHead {
   background-color: #3b334b;
+  color: white;
+}
+
+.RowBody {
+  transition: .2s;
+  color: #c7c6c6;
+}
+
+.RowBody:hover {
+  background-color: #3b334b;
+  transition: .2s;
 }
 
 .TableCell {
   padding: 20px;
+}
+
+.solveBtn {
+  background-color: #6831ac;
+  color: #fff;
+  width: 7rem;
+  height: 2.2rem;
+  border-radius: 7px;
+  transition: .2s;
+  margin: 5px 5px;
+}
+
+.solveBtn:hover {
+  background-color: #6831acad;
+  transition: .2s;
+}
+
+.solveBtn:active {
+  background-color: #6831ac62;
+  transition: .2s;
+}
+
+.DialogHeader {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.DialogBody {
+  display: flex;
+  flex-direction: column;
+}
+
+.ContContainer {
+  max-width: 30rem;
+  width: auto;
+  height: auto;
+  padding: 20px;
+  border: 2px solid #443C54;
+  border-radius: 10px;
+}
+
+.ContInput {
+  max-height: 30rem;
+  min-height: 10rem;
+  width: 100%;
+  height: 10rem;
+
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  
+  color: #000;
+}
+
+.StateSelector {
+  color: #000;
+  width: 100%;
+  border-radius: 5px;
+  padding: 2px;
+  margin-top: 30px;
+}
+
+.BtnCont {
+  min-width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
 }
