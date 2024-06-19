@@ -29,7 +29,7 @@ export const sendComplaint = async (req, res) => {
   // Logica para enviar un reclamo a la base de datos
 
   try {
-    const { category, type, content } = req.body;
+    const { category, type, content, usuario } = req.body;
     if (!category || !type || !content) {
       return res
         .status(400)
@@ -39,7 +39,7 @@ export const sendComplaint = async (req, res) => {
     console.log("Datos recibidos en sendComplaint:", req.body);
     const { data, error } = await supabase
       .from("rys")
-      .insert([{ category, type, content }]);
+      .insert([{ category, type, content, usuario }]);
 
     if (error) throw error;
     res.status(200).json({ sucess: true, data });
