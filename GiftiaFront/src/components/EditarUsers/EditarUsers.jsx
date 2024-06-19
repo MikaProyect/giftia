@@ -47,7 +47,7 @@ function EditUser({ show, Close, data }) {
                 if (res.ok) {
                     Toastify({
                         text: 'Usuario actualizado exitosamente',
-                        duration: 60000, // 60,000 milisegundos = 1 minuto
+                        duration: 60000,
                         close: true,
                         gravity: "bottom",
                         position: "right",
@@ -57,7 +57,7 @@ function EditUser({ show, Close, data }) {
                 } else {
                     Toastify({
                         text: data.message || 'Error al actualizar el usuario',
-                        duration: 60000, // 60,000 milisegundos = 1 minuto
+                        duration: 60000,
                         close: true,
                         gravity: "bottom",
                         position: "right",
@@ -67,7 +67,7 @@ function EditUser({ show, Close, data }) {
             } catch (error) {
                 Toastify({
                     text: 'Error en la solicitud: ' + error.message,
-                    duration: 60000, // 60,000 milisegundos = 1 minuto
+                    duration: 60000,
                     close: true,
                     gravity: "bottom",
                     position: "right",
@@ -84,52 +84,56 @@ function EditUser({ show, Close, data }) {
         }
     }, [show, data]);
 
+    if (!show) return null;
+
     return (
-        <div className="edit-product-form">
-            <form id="EditUsers" onSubmit={onSubmit}>
-                <h1 className="tituloEditPr">Editar Usuario</h1>
+        <div className="modal">
+            <div className="modal-content">
+                <form id="EditUsers" onSubmit={onSubmit}>
+                    <h1 className="tituloEditPr">Editar Usuario</h1>
 
-                <div className="form-group">
-                    <label htmlFor="username">Nombre:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleInputChange}
-                    />
-                </div>
+                    <div className="form-group">
+                        <label htmlFor="username">Nombre:</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleInputChange}
+                        />
+                    </div>
 
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="text"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                    />
-                </div>
+                    <div className="form-group">
+                        <label htmlFor="email">Email:</label>
+                        <input
+                            type="text"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                        />
+                    </div>
 
-                <div className="form-group">
-                    <label htmlFor="role">Tipo:</label>
-                    <select
-                        id="role"
-                        name="role"
-                        value={formData.role}
-                        onChange={handleInputChange}
-                    >
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
+                    <div className="form-group">
+                        <label htmlFor="role">Tipo:</label>
+                        <select
+                            id="role"
+                            name="role"
+                            value={formData.role}
+                            onChange={handleInputChange}
+                        >
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
 
-                <div className="form-group">
-                    <button type="submit">Guardar</button>
+                    <div className="form-group">
+                        <button type="submit">Guardar</button>
+                    </div>
+                </form>
+                <div>
+                    <button type="button" onClick={onClose}>Cerrar</button>
                 </div>
-            </form>
-            <div>
-                <button onClick={onClose}>Cerrar</button>
             </div>
         </div>
     );
