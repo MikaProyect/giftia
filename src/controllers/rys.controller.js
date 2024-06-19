@@ -53,6 +53,7 @@ export const getData = async (req, res) => {
     let { data: rys, error } = await supabase
       .from('rys')
       .select('*')
+      .eq('is_deleted', false)
       
     if (error) {
       return res.status(500).json({
@@ -100,6 +101,40 @@ export const updateData = async (req, res) => {
       return res.status(200).json({
         status: 200,
         message: data
+      });
+    }
+        
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      status: 500,
+      message: "Error en supabase",
+    });
+  }
+}
+
+export const deleteData = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const { data, error } = await supabase
+      .from('rys')
+      .update({
+        is_deleted: true
+      })
+      .eq('id', id)
+      .select()
+    
+    if (error) {
+      return res.status(500).json({
+        status: 500,
+        message: error.message });
+    }
+
+    if (data) {
+      return res.status(200).json({
+        status: 200,
+        message: 'Eliminado con éxito'
       });
     }
         

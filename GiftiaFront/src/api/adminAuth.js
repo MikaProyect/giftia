@@ -60,3 +60,24 @@ export const updateRySAPI = async (id, newStatus, newResponse) => {
     return error;
   }
 }
+
+export const deleteRySAPI = async (id) => {
+  try {
+    const res = await fetch(`http://localhost:3000/api/rys/send/delete-data/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    if (!res.ok) {
+      throw new Error('Error al eliminar el dato');
+    }
+    const data = await res.json();
+    if (data.status === 200) {
+      return data.message;
+    }
+  } catch (error) {
+    return error;
+  }
+}
+

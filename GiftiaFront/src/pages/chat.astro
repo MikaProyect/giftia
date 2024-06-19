@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { BackAdmin } from "../components/UI/BackAdmin";
 ---
 
 <Layout title="Chat">
@@ -22,6 +23,7 @@ import Layout from "../layouts/Layout.astro";
 
             <!--PENDIENTE-->
             <ul>
+                <li><BackAdmin client:load /></ion-icon></li>
                 <li><a class="CT" href=""><ion-icon name="person-circle-outline" title="Mi cuenta"></ion-icon></a></li>
                 <li><a class="GT" href="chat"><ion-icon name="gift-outline" title="Chat"></ion-icon></a></li>
                 <li><a class="OP" href="rys"><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
