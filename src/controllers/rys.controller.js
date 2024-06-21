@@ -1,11 +1,12 @@
 import { supabase } from "../app.js";
+import { m_getData, m_getDataByUser } from "../schemas/rys.schema.js";
 
 export const sendSuggestion = async (req, res) => {
   // Para enviar datos aqui: http://localhost:3000/api/ryc/send/suggest
   // Logica para enviar una sugerencia a la base de datos
 
   try {
-    const { category, type, content, usuario } = req.body;
+    const { category, type, content, user_id } = req.body;
 
     if (!category || !type || !content) {
       return res
@@ -15,7 +16,7 @@ export const sendSuggestion = async (req, res) => {
     console.log("Datos recibidos en sendSuggestion:", req.body);
     const { data, error } = await supabase
       .from("rys")
-      .insert([{ category, type, content, usuario }]);
+      .insert([{ category, type, content, user_id }]);
 
     if (error) throw error;
     res.status(200).json({ sucess: true, data });
@@ -29,7 +30,7 @@ export const sendComplaint = async (req, res) => {
   // Logica para enviar un reclamo a la base de datos
 
   try {
-    const { category, type, content, usuario } = req.body;
+    const { category, type, content, user_id } = req.body;
     if (!category || !type || !content) {
       return res
         .status(400)
@@ -39,7 +40,7 @@ export const sendComplaint = async (req, res) => {
     console.log("Datos recibidos en sendComplaint:", req.body);
     const { data, error } = await supabase
       .from("rys")
-      .insert([{ category, type, content, usuario }]);
+      .insert([{ category, type, content, user_id }]);
 
     if (error) throw error;
     res.status(200).json({ sucess: true, data });
@@ -50,29 +51,37 @@ export const sendComplaint = async (req, res) => {
 
 export const getData = async (req, res) => {
   try {
-    let { data: rys, error } = await supabase
-      .from('rys')
-      .select('*')
-      .eq('is_deleted', false)
-      
-    if (error) {
-      return res.status(500).json({
-        status: 500,
-        message: error.message });
-    }
+    const data = await m_getData();
 
-    if (rys) {
-      return res.status(200).json({
-        status: 200,
-        message: rys
-      });
-    }
-
+    return res.status(200).json({
+      status: 200,
+      message: data,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({
+      error: error,
       status: 500,
-      message: "Error en supabase",
+      message: "Error en BD",
+    });
+  }
+};
+
+export const getDataByUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await m_getDataByUser(id);
+
+    return res.status(200).json({
+      status: 200,
+      message: data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: error,
+      status: 500,
+      message: "Error en BD",
     });
   }
 };
@@ -83,27 +92,27 @@ export const updateData = async (req, res) => {
 
   try {
     const { data, error } = await supabase
-      .from('rys')
+      .from("rys")
       .update({
         status: status,
-        response: response
+        response: response,
       })
-      .eq('id', id)
-      .select()
-    
+      .eq("id", id)
+      .select();
+
     if (error) {
       return res.status(500).json({
         status: 500,
-        message: error.message });
+        message: error.message,
+      });
     }
 
     if (data) {
       return res.status(200).json({
         status: 200,
-        message: data
+        message: data,
       });
     }
-        
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -111,33 +120,33 @@ export const updateData = async (req, res) => {
       message: "Error en supabase",
     });
   }
-}
+};
 
 export const deleteData = async (req, res) => {
   const { id } = req.params;
 
   try {
     const { data, error } = await supabase
-      .from('rys')
+      .from("rys")
       .update({
-        is_deleted: true
+        is_deleted: true,
       })
-      .eq('id', id)
-      .select()
-    
+      .eq("id", id)
+      .select();
+
     if (error) {
       return res.status(500).json({
         status: 500,
-        message: error.message });
+        message: error.message,
+      });
     }
 
     if (data) {
       return res.status(200).json({
         status: 200,
-        message: 'Eliminado con éxito'
+        message: "Eliminado con éxito",
       });
     }
-        
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -145,4 +154,4 @@ export const deleteData = async (req, res) => {
       message: "Error en supabase",
     });
   }
-}
+};

@@ -18,20 +18,6 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
                 nomodule
                 src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
             ></script>
-
-            <div class="izq">
-                <!--Contenedor del lado izquierdo-->
-                <img class="logok" src="../img/logo_karina.png" alt="logo" />
-
-                <!--PENDIENTE-->
-                <ul>
-                    <li><a class="CT" href=""><ion-icon name="person-circle-outline" title="Mi cuenta"></ion-icon></a></li>
-                    <li><a class="GT" href="chat"><ion-icon name="gift-outline" title="Chat"></ion-icon></a></li>
-                    <li><a class="OP" href="ryc"><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
-                    <li><a class="MS" href=""><ion-icon name="ellipsis-horizontal-circle-outline" title="Mis Solicitudes"></ion-icon></a></li>
-                    <li><a class="SL" id="salir" href=""><ion-icon name="exit-outline" title="Salir"></ion-icon></a></li>
-                </ul>
-            </div>
             
             <h1 class="titulo-inicial">Reclamos y Sugerencias</h1>
             
@@ -287,7 +273,7 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
 <script>
     import { getItem } from "../functions/localStorage.js";
     let user = getItem('user');
-    let username = user.username;
+    let user_id = user.id;
     let item1 = '';
     let item2 = '';
     let item3 = '';
@@ -340,7 +326,7 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ category: item1, type: tipo, content: texto, usuario: username }),
+        body: JSON.stringify({ category: item1, type: tipo, content: texto, user_id: user_id }),
         });
 
         if (!response.ok) {

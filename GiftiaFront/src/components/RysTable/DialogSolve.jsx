@@ -6,8 +6,6 @@ import { updateRySAPI } from '../../api/adminAuth';
 
 import DialogTemplate from '../DialogTemplate'
 
-
-
 const StateSelector = ({ selectedState, onSelectState }) => {
   const states = ['Pendiente', 'Finalizado']; // Opciones de estado
 
