@@ -97,7 +97,8 @@ const { title } = Astro.props;
       }
     });
     const salir = document.querySelector("#salir");
-    salir.addEventListener("click", async () => {
+    salir.addEventListener("click", async (e) => {
+    e.preventDefault();
       try {
         const res = await fetch("http://localhost:3000/api/logout", {
           method: "POST",

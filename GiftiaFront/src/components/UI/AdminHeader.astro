@@ -45,7 +45,8 @@
     navbarDefault.classList.toggle('hidden');
   });
 
-  logout.addEventListener('click', async function () {
+  logout.addEventListener('click', async function (e) {
+    e.preventDefault();
     await logoutAPI();
   });
 
