@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Exit } from '../UI/Exit'
+import { Toast } from '../UI/Toast'
 
 import { updateRySAPI } from '../../api/adminAuth';
 
@@ -39,6 +40,7 @@ const DialogSolve = ({ open, close, item, modifyData }) => {
     // Enviar el texto (inputText) y el estado seleccionado (selectedState) a la API. Se envía el item ya que se neecsita el id
     updateRySAPI(item.id, selectedState, inputText);
     modifyData(item.id, selectedState, inputText);
+    Toast('Respuesta enviada exitosamente')
     close();
   };
 

@@ -1,17 +1,16 @@
 import './RysTable.css'
 import { useState, useEffect } from 'react'
+import { Status } from '../UI/Status'
 import { Loading } from '../UI/Loading'
 import { DialogSolve } from './DialogSolve'
 
-import { Status } from '../UI/Status'
-
 import { LeftArrow } from '../UI/LeftArrow'
 import { RightArrow } from '../UI/RightArrow'
-import { Toast } from '../UI/Toast'
 
-import { getRySAPI, deleteRySAPI } from '../../api/adminAuth'
+import { solicitudesUserAPI } from '../../api/solicitudesAPI'
+import { getItem } from '../../functions/localStorage'
 
-const RysTable = () => {
+const UserRysTable = () => {
   const [loading, setLoading] = useState();
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
@@ -23,7 +22,7 @@ const RysTable = () => {
   const filteredData = data.filter((item) => 
     item.category?.toLowerCase().includes(filter.toLowerCase()) ||
     item.type?.toLowerCase().includes(filter.toLowerCase()) ||
-    item.usuario?.toLowerCase().includes(filter.toLowerCase()) ||
+    item.fecha?.toLowerCase().includes(filter.toLowerCase()) ||
     item.status?.toLowerCase().includes(filter.toLowerCase())
   );
 
@@ -48,6 +47,7 @@ const RysTable = () => {
   const modifyData = (id, newStatus, newResponse) => {
     // Modifica los datos de la tabla luego que que se hayan enviado los datos a la API
     const newData = data.map((item) => {
+      console.log(item.id)
       if (item.id === id) {
         return {
           ...item,
@@ -69,17 +69,10 @@ const RysTable = () => {
     setOpen(false)
   }
 
-  const onDelete = async (id) => {
-    const newData = data.filter((item) => item.id !== id)
-    const res = await deleteRySAPI(id)
-    console.log(res)
-    setData(newData)
-    Toast(res)
-  }
-
   const getDataRyS = async () => {
+    const user = getItem('user')
     setLoading(true)
-    const data = await getRySAPI()
+    const data = await solicitudesUserAPI(user.id)
     setData(data)
     setLoading(false)
   }
@@ -96,7 +89,7 @@ const RysTable = () => {
             placeholder="Buscar solicitud"
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            className='filterSearch'
+            className='filterSearch text-black'
           />
       </div>
       <div className='TableContainer'>
@@ -124,7 +117,6 @@ const RysTable = () => {
                     <td className='TableCell'><Status status={item.status} /></td>
                     <td className='TableCell'>
                       <button className='solveBtn' onClick={() => openDialog(item)}>Ver</button>
-                      <button className='solveBtn' onClick={() => onDelete(item.id)}>Eliminar</button>
                     </td>
                   </tr>
                 ))}
@@ -155,4 +147,4 @@ const RysTable = () => {
   )
 }
 
-export { RysTable }
+export { UserRysTable }

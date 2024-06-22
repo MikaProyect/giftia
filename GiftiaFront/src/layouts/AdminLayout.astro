@@ -15,16 +15,13 @@ const { title } = Astro.props;
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/img/logo-white.png" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap"
-			rel="stylesheet"
-		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="roboto-slab-text">
+	<body class="poppins-regular">
 		<AdminHeader />
 		<slot />
 	</body>
@@ -57,12 +54,11 @@ const { title } = Astro.props;
 		);
 	}
 
-	.roboto-slab-text {
-		font-family: "Roboto Slab", serif;
-		font-optical-sizing: auto;
-		font-weight: 400;
-		font-style: normal;
-	}
+	.poppins-regular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
 
 	* {
 		padding: 0;
