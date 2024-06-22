@@ -18,20 +18,6 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
                 nomodule
                 src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
             ></script>
-
-            <div class="izq">
-                <!--Contenedor del lado izquierdo-->
-                <img class="logok" src="../img/logo_karina.png" alt="logo" />
-
-                <!--PENDIENTE-->
-                <ul>
-                    <li><a class="CT" href=""><ion-icon name="person-circle-outline" title="Mi cuenta"></ion-icon></a></li>
-                    <li><a class="GT" href="chat"><ion-icon name="gift-outline" title="Chat"></ion-icon></a></li>
-                    <li><a class="OP" href="ryc"><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
-                    <li><a class="MS" href=""><ion-icon name="ellipsis-horizontal-circle-outline" title="Mis Solicitudes"></ion-icon></a></li>
-                    <li><a class="SL" id="salir" href=""><ion-icon name="exit-outline" title="Salir"></ion-icon></a></li>
-                </ul>
-            </div>
             
             <h1 class="titulo-inicial">Reclamos y Sugerencias</h1>
             
@@ -222,7 +208,7 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
                     if (forbiddenWords.includes(word)) {
                         // Si se encuentra una palabra prohibida, muestra un mensaje de error
                         errorMessage.textContent = 'Por favor, evita usar lenguaje ofensivo en tu testimonio.';
-                        errorMessage.style.color = 'black';
+                        errorMessage.style.color = 'white';
                         errorMessage.style.display = 'block';
                         errorMessage.style.textAlign = 'center';
                         hasForbiddenWord = true;
@@ -285,6 +271,9 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
 
 <!--Backend-Supabase-->
 <script>
+    import { getItem } from "../functions/localStorage.js";
+    let user = getItem('user');
+    let user_id = user.id;
     let item1 = '';
     let item2 = '';
     let item3 = '';
@@ -323,12 +312,13 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
     let ruta = '';
     let tipo = '';
     if (item1 === 'Sugerencia') {
-        ruta = '/api/ryc/send/suggest';
+        ruta = '/api/rys/send/suggest';
         tipo = item2;
     } else if (item1 === 'Reclamo') {
-        ruta = '/api/ryc/send/complaint';
+        ruta = '/api/rys/send/complaint';
         tipo = item3;
     }
+    
 
     try {
         const response = await fetch(`http://localhost:3000${ruta}`, {
@@ -336,7 +326,7 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ category: item1, type: tipo, content: texto }),
+        body: JSON.stringify({ category: item1, type: tipo, content: texto, user_id: user_id }),
         });
 
         if (!response.ok) {
@@ -372,9 +362,10 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
 <style>
     body {
 
-        background: -webkit-linear-gradient(180deg, hsla(244, 57%, 49%, 0.801), hsla(225, 96%, 82%, 0.774)),url("../../public/fondo_ryc.jpg");
-        background: linear-gradient(180deg, hsla(244, 57%, 49%, 0.756), hsla(225, 96%, 82%, 0.778)),url("../../public/fondo_ryc.jpg"); 
-		width: auto;
+        /*background: -webkit-linear-gradient(180deg, hsla(244, 57%, 49%, 0.801), hsla(225, 96%, 82%, 0.774)),url("../../public/fondo_ryc.jpg");
+        background: linear-gradient(180deg, hsla(244, 57%, 49%, 0.756), hsla(225, 96%, 82%, 0.778)),url("../../public/fondo_ryc.jpg"); */
+		background-color: #202124;
+        width: auto;
 		height: 100vh;
         background-size: cover;
     }
@@ -431,7 +422,7 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
         position: absolute;
         left: 90vh;
         top: 3vh;
-        color: #ffb2d5;
+        color: #CBA3FB;
     }
 
     .flechita {
@@ -445,7 +436,7 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
         padding: 5px 30px;
         margin: 30px auto; /* Aumenta el margen superior (original era 10px) */
         border-radius: 10px;
-        background-color: #ffb2d5;
+        background-color: #CBA3FB;
     }
 
     .seleccion-izq {
@@ -461,19 +452,20 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
     }
 
     .accordion {
-        border: 1px solid #ffb2d5;
+        border: 1px solid #CBA3FB;
     }
 
     .accordion-item {
-        border-bottom: 1px solid #ffb2d5;
+        border-bottom: 1px solid #CBA3FB;
         padding: 10px;
     }
 
     .accordion-header {
         display: block;
         padding: 5px;
-        background-color: #a4bafd;
+        background-color: #443C54;
         cursor: pointer;
+        color: #CBA3FB;
     }
 
     .accordion-content {
@@ -498,7 +490,7 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
     .texto {
         resize: none;
         padding: 10px;
-        border: 2px solid #ffb2d5;
+        border: 2px solid #CBA3FB;
         border-radius: 15px;
         width: 130% !important;
         height: 235px !important; 
@@ -507,6 +499,7 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
         -ms-overflow-style: none;  /* IE y Edge */
         scrollbar-width: none;  /* Firefox */
         outline: none;
+        background-color: #443C54;
     }
 
     .cont-texto {
@@ -520,8 +513,8 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: #a4bafd;
-        border: 2px solid #ffb2d5;
+        background-color: #443C54;
+        border: 2px solid #CBA3FB;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0,1);
         padding: 50px;
         border-radius: 10px;
@@ -542,36 +535,3 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
     }
 
 </style>
-
-<!--
-    
-LISTOS ✅
-
-Al pasar con el cursor arriba del panel izquierdo, debe aparecer una texto
-flotante que diga para que es cada baton
-
-falta poner que las opciones sean obligatorias de responder (todas)
-
-agregas la flechita hacia abajo en cada uno de los desplegables
-
-agregar las opciones para cuando aprete sugerencia, y que dependiendo de lo que escoja
-en la primera opcion aparezca una u otra
-
-agregar un filtro para las palabras malas
-
-ver como quedaria con la imagen de fondo, pero que se mantenga el degrade de colores
-
-integrar el boton de enviar
-
-sacar el cuadro de texto del contenedor izq y agrandarlo para 
-darle espacio a las alertas de groserias y la de que respondan todo
-
-Al apretar enviar debe salir otra pagina (me gustaria que fuese una ventana flotante en el medio
-y que el fondo se difumine) que diga "tu solicutud será antendidalo más pronto posible", como con 
-una barra que se vaya cargando y cuando llegue al final te regrese al chat
-
-PENDIENTES ❎
-
-configurar lo de las alertas (el estilo)
-
-Falta todo el backend con la bd y esas cosas

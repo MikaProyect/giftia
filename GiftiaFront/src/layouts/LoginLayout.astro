@@ -15,14 +15,13 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/img/logo-white.png" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap"
-			rel="stylesheet"
-		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="roboto-slab-text">
+	<body class="poppins-regular">
 		<slot />
 	</body>
 	<script>
@@ -48,20 +47,8 @@ const { title } = Astro.props;
 </html>
 
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-
-	.roboto-slab-text {
-		font-family: "Roboto Slab", serif;
+	.poppins-regular {
+		font-family: "Poppins", sans-serif;
 		font-optical-sizing: auto;
 		font-weight: 400;
 		font-style: normal;
@@ -73,7 +60,7 @@ const { title } = Astro.props;
 		margin: 0;
 	}
 	code {
-		font-family:
+		/* font-family:
 			Menlo,
 			Monaco,
 			Lucida Console,
@@ -81,15 +68,10 @@ const { title } = Astro.props;
 			DejaVu Sans Mono,
 			Bitstream Vera Sans Mono,
 			Courier New,
-			monospace;
-	}
+			monospace;*/
+	} 
 	body {
-		background: rgb(63, 53, 196);
-		background: linear-gradient(
-			180deg,
-			rgba(63, 53, 196, 1) 0%,
-			rgba(164, 186, 253, 1) 100%
-		);
+		background:#443C54;
 		width: auto;
 		height: 100vh;
 	}

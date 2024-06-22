@@ -33,10 +33,17 @@ export const verifyToken = (req, res, next) => {
         })
       }
     } catch (err) {
-      return res.status(401).json({
-        status: '401',
-        message: 'Token invalid'
-      })
+      if (err.name === 'TokenExpiredError') {
+        return res.status(401).json({
+          status: '401',
+          message: 'Token expired'
+        })
+      } else {
+        return res.status(401).json({
+          status: '401',
+          message: 'Token invalid'
+        })
+      }
     }
   }
 }
