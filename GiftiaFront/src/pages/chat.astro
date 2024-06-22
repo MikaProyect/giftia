@@ -92,7 +92,7 @@ import { BackAdmin } from "../components/UI/BackAdmin";
             conversation.push(userMsg);
 
             newDiv.style.color = "black";
-            newDiv.style.backgroundColor = "#8094f9";
+            newDiv.style.backgroundColor = "#443C54";
             newDiv.style.textAlign = "rigth";
             newDiv.style.marginLeft = "auto";
             newDiv.style.borderRadius = "10px"; // Redondear las esquinas
@@ -103,7 +103,8 @@ import { BackAdmin } from "../components/UI/BackAdmin";
             newDiv.style.overflow = "auto"; // Para manejar correctamente el float
             newDiv.style.position = "relative"; // Posición relativa para alinear la imagen
             newDiv.style.display = "flex";
-            newDiv.style.border = "2px solid #ffb2d5";
+            newDiv.style.border = "2px solid #fff";
+            newDiv.style.color = "#fff";
 
             chat.appendChild(newDiv); // se inserta newdiv en chat-input
         }
@@ -140,7 +141,7 @@ import { BackAdmin } from "../components/UI/BackAdmin";
             newdiv.innerHTML = "<p>" + data.message + "</p>"; //inserta un nuevo parrafo del bot a newdiv
 
             newdiv.style.color = "black";
-            newdiv.style.backgroundColor = "#a4bafd";
+            newdiv.style.backgroundColor = "#443C54";
             newdiv.style.textAlign = "left";
             newdiv.style.marginRight = "auto";
             newdiv.style.borderRadius = "10px"; // Redondear las esquinas
@@ -150,7 +151,9 @@ import { BackAdmin } from "../components/UI/BackAdmin";
             newdiv.style.clear = "both"; // Limpiar el float para que se posicione debajo
             newdiv.style.overflow = "auto"; // Para manejar correctamente el float
             newdiv.style.position = "relative"; // Posición relativa para alinear la imagen
-            newdiv.style.border = "2px solid #ffb2d5";
+            newdiv.style.border = "2px solid #CBA3FB";
+            newdiv.style.color = "#CBA3FB";
+            
 
             chat.appendChild(newdiv); // se inserta newdiv en chat-input
         }
@@ -162,13 +165,15 @@ import { BackAdmin } from "../components/UI/BackAdmin";
         const text = document.querySelector(".text");
         const bubble = document.querySelector(".chatBubbles");
         text.textContent = ""; //se agrega un "mensaje vacio"
-        bubble.style.backgroundColor = "#3f35c4";
+        bubble.style.backgroundColor = "#443C54";
         setTimeout(() => {
             animation.style.display = "none";
             text.textContent =
                 "¡Hola! Soy Giftia, tu asistente personal para encontrar el regalo perfecto. Puedes proporcionarme información siguiendo este ejemplo: Color, edad, deporte y dinero disponible. Estoy aquí para hacer que tu experiencia de compra de regalos sea fácil, emocionante y completamente libre de estrés.";
-            bubble.style.backgroundColor = "#a4bafd"; 
-            bubble.style.border = "2px solid #ffb2d5";
+            text.style.color = "#CBA3FB";
+            bubble.style.backgroundColor = "#443C54"; 
+            bubble.style.border = "2px solid #CBA3FB";
+            
         }, 3000);
     </script>
 </Layout>
@@ -192,7 +197,7 @@ import { BackAdmin } from "../components/UI/BackAdmin";
         position: absolute;
         width: 100%; /*ancho*/
         height: 100%; /*altura*/
-        background-color: #3f35c4; /*color de fondo*/
+        background-color: #202124; /*color de fondo*/
         z-index: 1; /* es para que esté detrás de otros elementos */
         top: 0; /*estará pegado al borde superior*/
     }
@@ -218,7 +223,7 @@ import { BackAdmin } from "../components/UI/BackAdmin";
         position: absolute;
         width: calc(87% - 40px); /* 87% - 20px de cada lado */
         height: 100%;
-        background-color: #3f35c4;
+        background-color: #202124;
         z-index: 1; /* Asegura que esté detrás de otros elementos */
         left: calc(13% + 20px); /* Posición desde el borde izquierdo */
         border-radius: 10px; /* redondea las esquinas */
@@ -265,6 +270,7 @@ import { BackAdmin } from "../components/UI/BackAdmin";
         width: 90%;
         padding: 1vh;
         margin-bottom: 10px;
+        color: "#CBA3FB";
     }
 
     .text {
