@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.routes.js'
 import productsRoutes from './routes/products.routes.js'
 import adminRoutes from './routes/admin.routes.js'
 import rysRoutes from './routes/rys.routes.js'
+import googleAuthRoutes from './routes/googleAuth.routes.js'
 
 dotenv.config()
 const app = express()
@@ -25,12 +26,13 @@ app.use('/api', chatRoutes)
 app.use('/api', productsRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/rys/send', rysRoutes)
+app.use('/api', googleAuthRoutes)
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Giftia API' })
 })
 
-// Esto es un manejador de errores, en coso de que algo falla, se manda un JSON con el tipo de error.
+// Esto es un manejador de errores, en caso de que algo falle, se manda un JSON con el tipo de error.
 app.use((err, req, res, send, next) => {
   res.status(500).json({
     status: 'error',

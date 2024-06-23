@@ -27,6 +27,9 @@ import LoginLayout from "../layouts/LoginLayout.astro";
                     	<a href="#"> Olvidé mi contraseña </a> <!--Botón sin link de caida todavía --> 
                 	</div>
                 	<button type="submit" class="btn-login0">Ingresar</button>
+                    <div id="google-sign-in" class="btn-google">
+                        <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="Sign in with Google">
+                    </div>
                 	<div class="inicio-registro">
                    	 <p>No estas registrado? <a href="#" class="link-registro">Registrarme</a></p>
                 	</div>    
@@ -54,9 +57,54 @@ import LoginLayout from "../layouts/LoginLayout.astro";
                 	<button type="submit" class="btn-login0">Registrarme</button>
                 	<div class="inicio-registro">
                    	 <p>Ya tienes una cuenta? <a href="/" class="link-login">Iniciar Sesión</a></p>
+                        <div id="google-sign-in" class="btn-google">
+                            <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="Sign in with Google">
+                        </div>
                 	</div>    
             	</form>
 			</div>
+
+            <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+    window.onload = function() {
+        google.accounts.id.initialize({
+            client_id: "523955370149-nba3rtk9aejfmaue1o2croqcbmcgh6gg.apps.googleusercontent.com",
+            callback: handleCredentialResponse
+        });
+        google.accounts.id.renderButton(
+            document.getElementById("google-sign-in"),
+            { theme: "outline", size: "large" }  // customization attributes
+        );
+        google.accounts.id.prompt(); // also display the One Tap dialog
+    }
+
+    function handleCredentialResponse(response) {
+        console.log("Encoded JWT ID token: " + response.credential);
+        // Aquí puedes enviar el token al backend para verificar y autenticar al usuario
+        fetch('http://localhost:3000/api/google-login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token: response.credential })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                // Guardar datos del usuario y redirigir
+                localStorage.setItem('user', JSON.stringify(data.user));
+                localStorage.setItem('token', data.token);
+                window.location.href = "/chat"; // Redirigir a la página principal o a donde desees
+            } else {
+                console.log('Error en la autenticación con Google');
+            }
+        })
+        .catch(error => {
+            console.log('Ha ocurrido un error:', error);
+        });
+    }
+</script>
+
 			
 			
         </div>
