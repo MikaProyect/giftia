@@ -24,6 +24,59 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="poppins-regular">
+
+    <!-- Cambio del diseño según festividades-->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const sidebar = document.querySelector(".izq") as HTMLElement;
+    
+        function CambiarFondo() {
+          if (!sidebar) {
+            console.error("El elemento .izq no se encontró en el DOM");
+            return;
+          }
+    
+          let date = new Date();
+          let day = date.getDate();
+          let month = date.getMonth() + 1;
+          
+          // if (day === 25 && month === 6) {
+          if (day === 14 && month === 2) {
+            sidebar.style.backgroundImage = "url('../img/FondoValentin.png')"
+            console.log("Fondo de San Valentin aplicado");
+          }
+
+          // if (day === 25 && month === 6) {
+          if (day === 11 && month === 5) {
+            sidebar.style.backgroundImage = "url('../img/FondoMadre.png')"
+            console.log("Fondo dia de la madre aplicado");
+          }
+
+          // if (day === 25 && month === 6) {
+          if (day === 16 && month === 6) {
+            sidebar.style.backgroundImage = "url('../img/FondoPadre.png')"
+            console.log("Fondo dia del padre aplicado");
+          }
+
+          // if (day === 25 && month === 6) {
+          if (day === 11 && month === 8) {
+            sidebar.style.backgroundImage = "url('../img/FondoNiño.png')"
+            console.log("Fondo dia del niño aplicado");
+          }
+          
+          // if (day === 25 && month === 6) {
+          if (day === 25 && month === 12) {
+            sidebar.style.backgroundImage = "url('../img/FondoNavideño.png')"
+            console.log("Fondo Navideño aplicado");
+          }
+
+        }
+    
+        CambiarFondo();
+      });
+    </script>
+    
+    
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -113,7 +166,9 @@ const { title } = Astro.props;
       }
     });
   </script>
+
 </html>
+
 
 <style is:global>
   :root {
@@ -173,9 +228,9 @@ const { title } = Astro.props;
   }
 
   .izq {
-    background-image: url('../img/FondoNavideño.png'); /* ruta de la imagen de fondo */
-    background-size: cover; /* ajusta la imagen para cubrir todo el contenedor */
-    background-position: center; /* centra la imagen en el contenedor */
+    /*background-image: url('../img/FondoNavideño.png');*/
+    background-size: cover;
+    background-position: center;
 
     position: absolute;
     width: calc(13% - 40px); /* 13% - 20px de cada lado */
