@@ -43,7 +43,7 @@ import LoginLayout from "../layouts/LoginLayout.astro";
             </div> -->
             <div class="inicio-registro">
                 <button id="google-sign-in" class="btn-google">
-                    iniciar sesion con google
+                  <img src="/img/Continuar-Google.png" alt="Iniciar Sesión con Google" />
                 </button>
               <p>
                 No estas registrado? <a href="#" class="link-registro"
@@ -80,6 +80,9 @@ import LoginLayout from "../layouts/LoginLayout.astro";
               >
             </div>
             <button type="submit" class="btn-login0">Registrarme</button>
+            <button id="google-sign-in" class="btn-google">
+              <img src="/img/SingUpGoogle.png" alt="Iniciar Sesión con Google" />
+            </button>
             <div class="inicio-registro">
               <p>
                 Ya tienes una cuenta? <a href="/" class="link-login"
@@ -198,41 +201,33 @@ import LoginLayout from "../layouts/LoginLayout.astro";
     font-family: "Poppins", sans-serif; /* Definir font a utilizar */
   }
 
-  main {
+  body, main {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #443c54;
+    background-color: #443C54;
     min-height: 100vh;
     color: white;
     font-size: 19px;
     line-height: 1.6;
-  }
+}
 
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #443c54;
-  }
-
-  .agrupador {
-    /*Contenedor de los form */
+.agrupador {
     position: relative;
     width: 400px;
-    background: #443c54;
-    border: 2px solid rgba(255, 255, 255, 0.5); /* Borde blanco */
+    background: #443C54;
+    border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 20px;
     backdrop-filter: blur(20px);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    transition: 0.2s ease;
+    transition: .2s ease;
     padding: 20px;
   }
+
 
   .agrupador.activo {
     height: 520px;
@@ -287,7 +282,12 @@ import LoginLayout from "../layouts/LoginLayout.astro";
     z-index: 1;
   }
 
-  .form-boxlogin h2,
+  .form-boxlogin h2{
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+  }
+
   .form-boxregistro h2 {
     font-size: 2em;
     color: #fff;
@@ -316,6 +316,10 @@ import LoginLayout from "../layouts/LoginLayout.astro";
   .caja-inputs input:focus ~ label,
   .caja-inputs input:valid ~ label {
     top: -5px; /* Eleva el texto cuando el usuario va a ingresar su correo o contraseña */
+  }
+
+  .form-boxregistro h2 {
+    padding-top: 20px;
   }
 
   .caja-inputs input {
@@ -398,4 +402,16 @@ import LoginLayout from "../layouts/LoginLayout.astro";
   .inicio-registro p a:hover {
     text-decoration: underline;
   }
+
+  .btn-google {
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.btn-google img {
+    height: 50px;
+}
 </style>
