@@ -1,249 +1,282 @@
 ---
 import LoginLayout from "../layouts/LoginLayout.astro";
-
 ---
 
 <LoginLayout title="Giftia">
-    <main>
-	<body>
-        <div class="agrupador"> <!-- Contenedor del Formulario Login -->
-			<span class="icono-cerrar"><ion-icon name="close-outline"></ion-icon>
-			</span>
+  <main>
+    <body>
+      <div class="agrupador">
+        <!-- Contenedor del Formulario Login -->
+        <span class="icono-cerrar"
+          ><ion-icon name="close-outline"></ion-icon>
+        </span>
 
-            <div class="form-boxlogin"> <!--Formulario del Login -->
-            	<h2>Inicio de Sesión</h2>
-            	<form action="#" id="loginForm">
-                	<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
-                    	<input type="email" id="loginEmail" required>
-                    	<label>Correo</label>
-                	</div>
-                	<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
-                    	<input type="password" id="loginPassword" required>
-                    	<label>Contraseña</label>
-                	</div>
-                	<div class="recordar-olvido"> <!--Botón de recordar al usuario y olvido contraseña -->
-                    	<label><input type="checkbox">
-                    	Recordarme</label>
-                    	<a href="#"> Olvidé mi contraseña </a> <!--Botón sin link de caida todavía --> 
-                	</div>
-                	<button type="submit" class="btn-login0">Ingresar</button>
-                    <div id="google-sign-in" class="btn-google">
-                        <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="Sign in with Google">
-                    </div>
-                	<div class="inicio-registro">
-                   	 <p>No estas registrado? <a href="#" class="link-registro">Registrarme</a></p>
-                	</div>    
-            	</form>
-			</div>
-			<div class="form-boxregistro"> <!--Formulario del Registro -->
-            	<h2>Registro</h2>
-            	<form action="#" id="registerForm">
-					<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
-                    	<input type="text" id="registerUser" required>
-                    	<label>Usuario</label>
-                	</div>
-                	<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
-                    	<input type="email" id="registerEmail" required>
-                    	<label>Correo</label>
-                	</div>
-                	<div class="caja-inputs"> <!--Caja encargada de recibir datos del usuario -->
-                    	<input type="password" id="registerPass" required>
-                    	<label>Contraseña</label>
-                	</div>
-                	<div class="recordar-olvido"> <!--Botón de recordar al usuario y olvido contraseña -->
-                    	<label><input type="checkbox">
-                    	Acepto los terminos y condiciones</label>
-                	</div>
-                	<button type="submit" class="btn-login0">Registrarme</button>
-                	<div class="inicio-registro">
-                   	 <p>Ya tienes una cuenta? <a href="/" class="link-login">Iniciar Sesión</a></p>
-                        <div id="google-sign-in" class="btn-google">
-                            <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="Sign in with Google">
-                        </div>
-                	</div>    
-            	</form>
-			</div>
-
-            <script src="https://accounts.google.com/gsi/client" async defer></script>
-<script>
-    window.onload = function() {
-        google.accounts.id.initialize({
-            client_id: "523955370149-nba3rtk9aejfmaue1o2croqcbmcgh6gg.apps.googleusercontent.com",
-            callback: handleCredentialResponse
-        });
-        google.accounts.id.renderButton(
-            document.getElementById("google-sign-in"),
-            { theme: "outline", size: "large" }  // customization attributes
-        );
-        google.accounts.id.prompt(); // also display the One Tap dialog
-    }
-
-    function handleCredentialResponse(response) {
-        console.log("Encoded JWT ID token: " + response.credential);
-        // Aquí puedes enviar el token al backend para verificar y autenticar al usuario
-        fetch('http://localhost:3000/api/google-login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ token: response.credential })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if(data.success) {
-                // Guardar datos del usuario y redirigir
-                localStorage.setItem('user', JSON.stringify(data.user));
-                localStorage.setItem('token', data.token);
-                window.location.href = "/chat"; // Redirigir a la página principal o a donde desees
-            } else {
-                console.log('Error en la autenticación con Google');
-            }
-        })
-        .catch(error => {
-            console.log('Ha ocurrido un error:', error);
-        });
-    }
-</script>
-
-			
-			
+        <div class="form-boxlogin">
+          <!--Formulario del Login -->
+          <h2>Inicio de Sesión</h2>
+          <form action="#" id="loginForm">
+            <div class="caja-inputs">
+              <!--Caja encargada de recibir datos del usuario -->
+              <input type="email" id="loginEmail" required />
+              <label>Correo</label>
+            </div>
+            <div class="caja-inputs">
+              <!--Caja encargada de recibir datos del usuario -->
+              <input type="password" id="loginPassword" required />
+              <label>Contraseña</label>
+            </div>
+            <div class="recordar-olvido">
+              <!--Botón de recordar al usuario y olvido contraseña -->
+              <label
+                ><input type="checkbox" />
+                Recordarme</label
+              >
+              <a href="#"> Olvidé mi contraseña </a>
+              <!--Botón sin link de caida todavía -->
+            </div>
+            <button type="submit" class="btn-login0">Ingresar</button>
+            <!-- <div id="google-sign-in" class="btn-google">
+              <img
+                src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"
+                alt="Sign in with Google"
+              />
+            </div> -->
+            <div class="inicio-registro">
+                <button id="google-sign-in" class="btn-google">
+                    iniciar sesion con google
+                </button>
+              <p>
+                No estas registrado? <a href="#" class="link-registro"
+                  >Registrarme</a
+                >
+              </p>
+            </div>
+          </form>
         </div>
-		<script src="../scripts/scriptlogin.js"></script>
-		<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-		<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <div class="form-boxregistro">
+          <!--Formulario del Registro -->
+          <h2>Registro</h2>
+          <form action="#" id="registerForm">
+            <div class="caja-inputs">
+              <!--Caja encargada de recibir datos del usuario -->
+              <input type="text" id="registerUser" required />
+              <label>Usuario</label>
+            </div>
+            <div class="caja-inputs">
+              <!--Caja encargada de recibir datos del usuario -->
+              <input type="email" id="registerEmail" required />
+              <label>Correo</label>
+            </div>
+            <div class="caja-inputs">
+              <!--Caja encargada de recibir datos del usuario -->
+              <input type="password" id="registerPass" required />
+              <label>Contraseña</label>
+            </div>
+            <div class="recordar-olvido">
+              <!--Botón de recordar al usuario y olvido contraseña -->
+              <label
+                ><input type="checkbox" />
+                Acepto los terminos y condiciones</label
+              >
+            </div>
+            <button type="submit" class="btn-login0">Registrarme</button>
+            <div class="inicio-registro">
+              <p>
+                Ya tienes una cuenta? <a href="/" class="link-login"
+                  >Iniciar Sesión</a
+                >
+              </p>
+            </div>
+          </form>
+        </div>
 
-		<script>
-			import { saveItem, getItem } from '../functions/localStorage.js'
-			import { loginAPI, registerAPI } from '../api/auth.js'
-			const loginForm = document.querySelector('#loginForm')
-			const registerForm = document.querySelector('#registerForm')
-
-			const linkTo = (role) => {
-				console.log(role)
-				if(role === 'admin'){
-					window.location.href = "/adminPages/gest-prod"
-				}else if (role === 'user') {
-					window.location.href = "/chat"
-				} else {
-					console.log('Usuario o contraseña incorrectos')
-				}
-			}
-
-			loginForm.addEventListener('submit', async (e) => {
-				e.preventDefault();
-				const email = loginForm['loginEmail'].value;
-				const password = loginForm['loginPassword'].value;
-
-				const data = await loginAPI(email, password)
-
-                if (data === 'Email o contraseña incorrecta') {
-                    console.log('Email o contraseña incorrecta')
-                } else {
-                    saveItem('user', data.user)
-                    saveItem('token', data.token)
-                    const userType = await getItem('user')
-                    linkTo(userType.role)
+        <script>
+            import { saveItem } from "../functions/localStorage.js";
+            document.addEventListener('DOMContentLoaded', async () => {
+                try {
+                    const urlParams = new URLSearchParams(window.location.hash.slice(1));
+                    const accessToken = urlParams.get('access_token');
+                    if (accessToken) {
+                        saveItem('GoogleToken', accessToken);
+                        const res = await fetch('http://localhost:3000/api/google-login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ token: accessToken })
+                        });
+                        const data = await res.json()
+                        console.log(data)
+                        //window.location.href = "/chat";
+                    } else {
+                        console.error('Error al obtener el accessToken');
+                    }
+                } catch (error) {
+                    console.error('Error en la autenticación con Google:', error);
                 }
-			})
+                });
+        </script>
 
-			registerForm.addEventListener('submit', async (e) => {
-				e.preventDefault();
-				const user = registerForm['registerUser'].value;
-				const email = registerForm['registerEmail'].value;
-				const password = registerForm['registerPass'].value;
+        <script>
+            const googleSignInButton = document.getElementById("google-sign-in");
+            googleSignInButton.addEventListener("click", async (e) => {
+                e.preventDefault();
+                const res = await fetch(
+                    "http://localhost:3000/api/google-login2"
+                );
+                const data = await res.json();
+                console.log(data);
+                window.location.href = data.data.url;
+            });
+        </script>
+      </div>
+      <script src="../scripts/scriptlogin.js"></script>
+      <script
+        type="module"
+        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+      ></script>
+      <script
+        nomodule
+        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+      ></script>
 
-				const userRegister = await registerAPI(user, email, password)
-				saveItem('user', userRegister)
-				const userType = await getItem('user')
-				linkTo(userType.role)
-			})
-		</script>
+      <script>
+        import { saveItem, getItem } from "../functions/localStorage.js";
+        import { loginAPI, registerAPI } from "../api/auth.js";
+        const loginForm = document.querySelector("#loginForm");
+        const registerForm = document.querySelector("#registerForm");
 
-	</body>
-	</main>
+        const linkTo = (role) => {
+          console.log(role);
+          if (role === "admin") {
+            window.location.href = "/adminPages/gest-prod";
+          } else if (role === "user") {
+            window.location.href = "/chat";
+          } else {
+            console.log("Usuario o contraseña incorrectos");
+          }
+        };
+
+        loginForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const email = loginForm["loginEmail"].value;
+          const password = loginForm["loginPassword"].value;
+
+          const data = await loginAPI(email, password);
+
+          if (data === "Email o contraseña incorrecta") {
+            console.log("Email o contraseña incorrecta");
+          } else {
+            saveItem("user", data.user);
+            saveItem("token", data.token);
+            const userType = await getItem("user");
+            linkTo(userType.role);
+          }
+        });
+
+        registerForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const user = registerForm["registerUser"].value;
+          const email = registerForm["registerEmail"].value;
+          const password = registerForm["registerPass"].value;
+
+          const userRegister = await registerAPI(user, email, password);
+          saveItem("user", userRegister);
+          const userType = await getItem("user");
+          linkTo(userType.role);
+        });
+      </script>
+    </body>
+  </main>
 </LoginLayout>
 
 <style>
-	* {
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif; /* Definir font a utilizar */
-}
+  }
 
-main {
+  main {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #443C54;
+    background-color: #443c54;
     min-height: 100vh;
     color: white;
     font-size: 19px;
     line-height: 1.6;
-}
+  }
 
-body {
+  body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #443C54;
-}
+    background-color: #443c54;
+  }
 
-
-.agrupador { /*Contenedor de los form */
+  .agrupador {
+    /*Contenedor de los form */
     position: relative;
     width: 400px;
-    background: #443C54;
-    border: 2px solid rgba(255, 255, 255, .5); /* Borde blanco */
+    background: #443c54;
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Borde blanco */
     border-radius: 20px;
     backdrop-filter: blur(20px);
-    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    transition: .2s ease;
+    transition: 0.2s ease;
     padding: 20px;
-}
+  }
 
-.agrupador.activo {
+  .agrupador.activo {
     height: 520px;
-}
+  }
 
-.agrupador .form-boxlogin, .agrupador .form-boxregistro { /* Estilos compartidos entre login y registro */
+  .agrupador .form-boxlogin,
+  .agrupador .form-boxregistro {
+    /* Estilos compartidos entre login y registro */
     width: 100%;
     padding: 40px;
-}
+  }
 
-.agrupador .form-boxlogin {
-    transition: .18s ease;
+  .agrupador .form-boxlogin {
+    transition: 0.18s ease;
     transform: translateX(0);
-}
+  }
 
-.agrupador.activo .form-boxlogin {
+  .agrupador.activo .form-boxlogin {
     transition: none;
     transform: translateX(-400px);
-}
+  }
 
-.agrupador .form-boxregistro { /*Contenedor Registro */
+  .agrupador .form-boxregistro {
+    /*Contenedor Registro */
     position: absolute;
-    transform: translateX(400px); /* Se añade el translate para mover ambos forms de lugar y ocultar uno */
-}
+    transform: translateX(
+      400px
+    ); /* Se añade el translate para mover ambos forms de lugar y ocultar uno */
+  }
 
-.agrupador.activo .form-boxregistro {
+  .agrupador.activo .form-boxregistro {
     position: absolute;
     transition: none;
     transform: translateX(0px);
-}
+  }
 
-.agrupador .icono-cerrar { /*para la X de la esquinita */
+  .agrupador .icono-cerrar {
+    /*para la X de la esquinita */
     position: absolute;
     top: 0;
     right: 0;
     width: 45px;
     height: 45px;
-    background: #E5E8FA;
+    background: #e5e8fa;
     font-size: 2em;
     color: #162938;
     display: flex;
@@ -252,23 +285,24 @@ body {
     border-bottom-left-radius: 20px;
     cursor: pointer;
     z-index: 1;
-}
+  }
 
-.form-boxlogin h2, .form-boxregistro h2 {
+  .form-boxlogin h2,
+  .form-boxregistro h2 {
     font-size: 2em;
     color: #fff;
     text-align: center;
-}
+  }
 
-.caja-inputs {
+  .caja-inputs {
     position: relative;
     width: 100%;
     height: 50px;
     border-bottom: 2px solid #162938;
     margin: 30px 0;
-}
+  }
 
-.caja-inputs label {
+  .caja-inputs label {
     position: absolute;
     top: 50%;
     left: 5px;
@@ -276,15 +310,15 @@ body {
     font-size: 1em;
     font-weight: 500;
     pointer-events: none;
-    transition: .5s;
-}
+    transition: 0.5s;
+  }
 
-.caja-inputs input:focus~label,
-.caja-inputs input:valid~label {
+  .caja-inputs input:focus ~ label,
+  .caja-inputs input:valid ~ label {
     top: -5px; /* Eleva el texto cuando el usuario va a ingresar su correo o contraseña */
-}
+  }
 
-.caja-inputs input {
+  .caja-inputs input {
     width: 100%;
     height: 100%;
     background: transparent;
@@ -294,39 +328,44 @@ body {
     color: #fff;
     font-weight: 600;
     padding: 0 35px 0 5px;
-}
+  }
 
-.recordar-olvido { /* Para el mensaje de recordarme y olvido de contraseña */
-    font-size: .9em;
+  .recordar-olvido {
+    /* Para el mensaje de recordarme y olvido de contraseña */
+    font-size: 0.9em;
     color: #fff;
     font-weight: 500;
     margin: -15px 0;
     display: flex;
     flex-direction: column;
     align-items: center; /* Alinea los elementos verticalmente al centro */
-}
+  }
 
-.recordar-olvido label {
+  .recordar-olvido label {
     margin-bottom: 10px;
     display: flex;
     align-items: center; /* Alinea el checkbox y el texto verticalmente */
-}
+  }
 
-.recordar-olvido label input { /* Para el checkbox */
+  .recordar-olvido label input {
+    /* Para el checkbox */
     accent-color: #162938;
     margin-right: 3px;
-}
+  }
 
-.recordar-olvido a { /* Texto que dice "olvidé mi contraseña" */
+  .recordar-olvido a {
+    /* Texto que dice "olvidé mi contraseña" */
     color: #fff;
     text-decoration: none;
-}
+  }
 
-.recordar-olvido a:hover { /* Para que cuando se pase el mouse encima del texto, se subraye */
+  .recordar-olvido a:hover {
+    /* Para que cuando se pase el mouse encima del texto, se subraye */
     text-decoration: underline;
-}
+  }
 
-.btn-login0 { /* Botón de inicio de sesión */
+  .btn-login0 {
+    /* Botón de inicio de sesión */
     width: 100%;
     height: 45px;
     background: #3b334b;
@@ -335,25 +374,28 @@ body {
     border-radius: 6px;
     cursor: pointer;
     font-size: 1em;
-    color: #CBA3FB;
+    color: #cba3fb;
     font-weight: 500;
     margin-top: 10px;
-}
+  }
 
-.inicio-registro { /* No tienes cuenta? */
-    font-size: .9em;
+  .inicio-registro {
+    /* No tienes cuenta? */
+    font-size: 0.9em;
     color: #fff;
     text-align: center;
     font-weight: 500;
     margin: 25px 0 10px;
-}
+  }
 
-.inicio-registro p a { /* Texto para "Registrarme" */
+  .inicio-registro p a {
+    /* Texto para "Registrarme" */
     color: #fff;
     text-decoration: none;
     font-weight: 600;
-}
+  }
 
-.inicio-registro p a:hover {
+  .inicio-registro p a:hover {
     text-decoration: underline;
-}
+  }
+</style>
