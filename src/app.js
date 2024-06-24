@@ -7,7 +7,7 @@ import chatRoutes from './routes/chat.routes.js'
 import authRoutes from './routes/auth.routes.js'
 import productsRoutes from './routes/products.routes.js'
 import adminRoutes from './routes/admin.routes.js'
-import rycRoutes from './routes/ryc.routes.js'
+import rysRoutes from './routes/rys.routes.js'
 
 dotenv.config()
 const app = express()
@@ -24,7 +24,7 @@ app.use('/api', authRoutes)
 app.use('/api', chatRoutes)
 app.use('/api', productsRoutes)
 app.use('/api/admin', adminRoutes)
-app.use('/api/ryc/send', rycRoutes)
+app.use('/api/rys/send', rysRoutes)
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Giftia API' })

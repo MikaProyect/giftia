@@ -1,3 +1,8 @@
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 export const validateSchema = (schema) => (req, res, next) => {
   try {
     schema.parse(req.body)

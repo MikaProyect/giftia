@@ -1,0 +1,78 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/img/logo-white.png" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="poppins-regular">
+		<slot />
+	</body>
+	<script>
+		import { getItem } from '../functions/localStorage.js';
+		import { verifyUserAPI } from '../api/auth.js';
+
+		document.addEventListener("DOMContentLoaded", async () => {
+			const user = getItem('user');
+			if (user) {
+				const res = await verifyUserAPI(user.id)
+				if (res === 'user verified') {
+					if (user.role === 'admin') {
+						window.location.href = "/adminPages/gest-prod";
+					} else {
+						if (user.role === 'user') {
+							window.location.href = "/chat";
+						}
+					} 
+				}
+			}
+		})
+	</script>
+</html>
+
+<style is:global>
+	.poppins-regular {
+		font-family: "Poppins", sans-serif;
+		font-optical-sizing: auto;
+		font-weight: 400;
+		font-style: normal;
+	}
+
+	* {
+		padding: 0;
+		box-sizing: border-box;
+		margin: 0;
+	}
+	code {
+		/* font-family:
+			Menlo,
+			Monaco,
+			Lucida Console,
+			Liberation Mono,
+			DejaVu Sans Mono,
+			Bitstream Vera Sans Mono,
+			Courier New,
+			monospace;*/
+	} 
+	body {
+		background:#443C54;
+		width: auto;
+		height: 100vh;
+	}
+</style>

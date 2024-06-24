@@ -1,21 +1,7 @@
 ---
 import AdminLayout from "../../layouts/AdminLayout.astro";
 import { ProductsTable } from "../../components/ProdcuctsTable/ProductsTable";
-import { profileAPI } from "../../api/auth.js";
 
-
-const user = await profileAPI();
-if (user !== 'error') {
-  if (user === 'user not logged') {
-    return Astro.redirect("/login");
-  } else {
-    if (user.role !== 'admin') {
-    return Astro.redirect("/chat");
-    }
-  }
-} else {
-  console.log('Ha ocurrido un error: ', user);
-}
 ---
 
 <AdminLayout title="Gestión  de Productos">
@@ -47,6 +33,6 @@ if (user !== 'error') {
   }
 
   button:hover {
-    background-color: rgba(16, 48, 192, 0.37);
+    background-color: #ffff;
   }
 </style>

@@ -1,15 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { profileAPI } from '../api/auth.js'
-
-const user = await profileAPI();
-if (user !== 'error') {
-  if (user === 'user not logged') {
-    return Astro.redirect("/login");
-  }
-} else {
-  console.log('Ha ocurrido un error: ', user);
-}
+import { BackAdmin } from "../components/UI/BackAdmin";
 ---
 
 <Layout title="Chat">
@@ -25,20 +16,6 @@ if (user !== 'error') {
 
     <div class="cont-com">
         <!--Contenedor completo para el fondo-->
-
-        <div class="izq">
-            <!--Contenedor del lado izquierdo-->
-            <img class="logok" src="../img/logo_karina.png" alt="logo" />
-
-            <!--PENDIENTE-->
-            <ul>
-                <li><a class="CT" href=""><ion-icon name="person-circle-outline" title="Mi cuenta"></ion-icon></a></li>
-                <li><a class="GT" href="chat"><ion-icon name="gift-outline" title="Chat"></ion-icon></a></li>
-                <li><a class="OP" href="ryc"><ion-icon name="heart-circle-outline" title="Reclamos y Sugerencias"></ion-icon></a></li>
-                <li><a class="MS" href=""><ion-icon name="ellipsis-horizontal-circle-outline" title="Mis Solicitudes"></ion-icon></a></li>
-                <li><div class="SL salir"><ion-icon name="exit-outline" title="Salir"></ion-icon></div></li>
-            </ul>
-        </div>
 
         <div class="der">
             <!--Contenedor del lado derecho-->
@@ -115,7 +92,7 @@ if (user !== 'error') {
             conversation.push(userMsg);
 
             newDiv.style.color = "black";
-            newDiv.style.backgroundColor = "#8094f9";
+            newDiv.style.backgroundColor = "#443C54";
             newDiv.style.textAlign = "rigth";
             newDiv.style.marginLeft = "auto";
             newDiv.style.borderRadius = "10px"; // Redondear las esquinas
@@ -126,7 +103,8 @@ if (user !== 'error') {
             newDiv.style.overflow = "auto"; // Para manejar correctamente el float
             newDiv.style.position = "relative"; // Posición relativa para alinear la imagen
             newDiv.style.display = "flex";
-            newDiv.style.border = "2px solid #ffb2d5";
+            newDiv.style.border = "2px solid #fff";
+            newDiv.style.color = "#fff";
 
             chat.appendChild(newDiv); // se inserta newdiv en chat-input
         }
@@ -163,7 +141,7 @@ if (user !== 'error') {
             newdiv.innerHTML = "<p>" + data.message + "</p>"; //inserta un nuevo parrafo del bot a newdiv
 
             newdiv.style.color = "black";
-            newdiv.style.backgroundColor = "#a4bafd";
+            newdiv.style.backgroundColor = "#443C54";
             newdiv.style.textAlign = "left";
             newdiv.style.marginRight = "auto";
             newdiv.style.borderRadius = "10px"; // Redondear las esquinas
@@ -173,7 +151,9 @@ if (user !== 'error') {
             newdiv.style.clear = "both"; // Limpiar el float para que se posicione debajo
             newdiv.style.overflow = "auto"; // Para manejar correctamente el float
             newdiv.style.position = "relative"; // Posición relativa para alinear la imagen
-            newdiv.style.border = "2px solid #ffb2d5";
+            newdiv.style.border = "2px solid #CBA3FB";
+            newdiv.style.color = "#CBA3FB";
+            
 
             chat.appendChild(newdiv); // se inserta newdiv en chat-input
         }
@@ -185,13 +165,15 @@ if (user !== 'error') {
         const text = document.querySelector(".text");
         const bubble = document.querySelector(".chatBubbles");
         text.textContent = ""; //se agrega un "mensaje vacio"
-        bubble.style.backgroundColor = "#3f35c4";
+        bubble.style.backgroundColor = "#443C54";
         setTimeout(() => {
             animation.style.display = "none";
             text.textContent =
                 "¡Hola! Soy Giftia, tu asistente personal para encontrar el regalo perfecto. Puedes proporcionarme información siguiendo este ejemplo: Color, edad, deporte y dinero disponible. Estoy aquí para hacer que tu experiencia de compra de regalos sea fácil, emocionante y completamente libre de estrés.";
-            bubble.style.backgroundColor = "#a4bafd"; 
-            bubble.style.border = "2px solid #ffb2d5";
+            text.style.color = "#CBA3FB";
+            bubble.style.backgroundColor = "#443C54"; 
+            bubble.style.border = "2px solid #CBA3FB";
+            
         }, 3000);
     </script>
 </Layout>
@@ -215,7 +197,7 @@ if (user !== 'error') {
         position: absolute;
         width: 100%; /*ancho*/
         height: 100%; /*altura*/
-        background-color: #3f35c4; /*color de fondo*/
+        background-color: #202124; /*color de fondo*/
         z-index: 1; /* es para que esté detrás de otros elementos */
         top: 0; /*estará pegado al borde superior*/
     }
@@ -241,7 +223,7 @@ if (user !== 'error') {
         position: absolute;
         width: calc(87% - 40px); /* 87% - 20px de cada lado */
         height: 100%;
-        background-color: #3f35c4;
+        background-color: #202124;
         z-index: 1; /* Asegura que esté detrás de otros elementos */
         left: calc(13% + 20px); /* Posición desde el borde izquierdo */
         border-radius: 10px; /* redondea las esquinas */
@@ -288,6 +270,7 @@ if (user !== 'error') {
         width: 90%;
         padding: 1vh;
         margin-bottom: 10px;
+        color: "#CBA3FB";
     }
 
     .text {

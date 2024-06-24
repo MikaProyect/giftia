@@ -180,3 +180,20 @@ export const deleteUser = async (req, res) => {
     })
   }
 }
+
+export const verifyUser = async (req, res) => {
+  const { id } = req.body
+  const { data, error } = await supabaseAdmin.auth.admin.getUserById(id)
+
+  if (error) {
+    return res.status(500).json({
+      status: 500,
+      message: error.message
+    })
+  } else {
+    return res.status(200).json({
+      status: 200,
+      message: 'user verified'
+    })
+  }
+}

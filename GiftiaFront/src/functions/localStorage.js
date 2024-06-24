@@ -1,6 +1,6 @@
 export const saveItem = (key, value) => {
 	localStorage.setItem(key, JSON.stringify(value))
-    console.log(`${key} saved`)
+  console.log(`${key} saved`)
 }
 
 export const getItem = (key) => {

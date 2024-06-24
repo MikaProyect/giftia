@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { UserRysTable } from "../components/UserRysTable";
+
+---
+
+<Layout title="Mis solicitudes">
+  <div class="page">
+    <UserRysTable client:load />
+  </div>
+</Layout>
+
+<style>
+  .page {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    width: auto;
+    box-sizing: border-box;
+    color: white;
+    margin-left: 250px;
+    margin-top: 20px;
+  }
+</style>

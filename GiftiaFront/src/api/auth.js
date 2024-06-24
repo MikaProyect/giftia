@@ -53,6 +53,7 @@ export const logoutAPI = async () => {
     const data = await res.json();
     if (data.error === null) {
       localStorage.removeItem('user');
+      localStorage.removeItem('token');
       window.location.href = "/";
     }
   } catch (error) {
@@ -60,36 +61,22 @@ export const logoutAPI = async () => {
   }
 };
 
-export const profileAPI = async () => {
+export const verifyUserAPI = async (id) => {
+  const rawToken = localStorage.getItem('token');
+  const token = rawToken ? rawToken.replace(/^"|"$/g, '') : null; // Eliminar comillas si existen
   try {
-    const res = await fetch("http://localhost:3000/api/user/profile", {
-        method: "GET"
+    console.log()
+    const res = await fetch("http://localhost:3000/api/admin/verify-user", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ id: id })
     });
     const data = await res.json();
     return data.message;
   } catch (error) {
-    console.log("Ha ocurrido un error: ", error);
-    return 'error'
-  }
-};
-
-
-export const updateProfileAPI = async (username, email) => {
-  try {
-    const res = await fetch('http://localhost:3000/api/user/update-profile', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username,
-        email
-      })
-    });
-    const data = await res.json();
-    return data.message;
-  } catch (error) {
-    console.log("Ha ocurrido un error inesperado: ", error);
     return 'error';
   }
-};
+}
