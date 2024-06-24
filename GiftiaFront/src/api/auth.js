@@ -80,3 +80,19 @@ export const verifyUserAPI = async (id) => {
     return 'error';
   }
 }
+
+export const verifyGoogleUserAPI = async (GoogleToken) => {
+  try {
+    const res = await fetch('http://localhost:3000/api/google-login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ token: GoogleToken })
+    })
+    const data = await res.json()
+    return data.message
+  } catch (error) {
+    return 'error'
+  }
+}

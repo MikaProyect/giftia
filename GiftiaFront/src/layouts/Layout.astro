@@ -85,10 +85,17 @@ const { title } = Astro.props;
     import { verifyUserAPI } from "../api/auth.js";
     document.addEventListener("DOMContentLoaded", async () => {
       const user = getItem("user");
-      if (user) {
-        const res = await verifyUserAPI(user.id);
-        if (res === "Token invalid") {
-          window.location.href = "/";
+      const GoogleToken = getItem("GoogleToken");
+      if (user || GoogleToken) {
+        if (user) {
+          const res = await verifyUserAPI(user.id);
+          if (res === "Token invalid") {
+            window.location.href = "/";
+          } else if (GoogleToken) {
+            const rawToken = localStorage.getItem('GoogleToken');
+            const token = rawToken ? rawToken.replace(/^"|"$/g, '') : null; // Eliminar comillas si existen
+            // const res = await verifyGoogleToken(GoogleToken);
+          }
         }
       } else {
         if (!user) {
@@ -106,6 +113,8 @@ const { title } = Astro.props;
         const data = await res.json();
         if (data.error === null) {
           localStorage.removeItem("user");
+          localStorage.removeItem("token");
+          //localStorage.removeItem("GoogleToken");
           window.location.href = "/";
         }
       } catch (error) {

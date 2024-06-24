@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { OAuth2Client } from 'google-auth-library';
+import { supabase } from '../app.js'
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -31,20 +32,36 @@ router.post('/google-login', async (req, res) => {
   }
 });
 
-function findOrCreateUser(payload) {
-  // Aquí puedes buscar o crear el usuario en tu base de datos
-  // Este es un ejemplo simple. En una aplicación real, debes consultar tu base de datos.
-  return {
-    id: payload.sub,
-    email: payload.email,
-    name: payload.name
-  };
-}
+router.get('/google-login2', async (req, res) => {
+  try {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google'
+    })
+    if (error) {
+      console.log(error)
+      return res.status(400).json({ success: false, message: error.message });
+    }
+    return res.status(200).json({ success: true, data });
+  } catch (error) {
+    console.log(error)
+      return res.status(400).json({ success: false, message: error.message });
+  }
+});
 
-function generateJwtToken(user) {
-  // Aquí deberías implementar la generación de un token JWT
-  // Este es un ejemplo simple. En una aplicación real, debes usar una librería como jsonwebtoken.
-  return 'fake-jwt-token';
-}
+router.get('/google/get-session', async (req, res) => {
+  try {  
+  
+  
+  const { data, error } = await supabase.auth.getUserIdentities()
+  console.log(data)
+  if (error) {
+    console.log(error)
+    return res.status(400).json({ success: false, message: error.message });
+  }
+  return res.status(200).json({ success: true, data });
+  } catch (error) {
+    
+  }
+});
 
 export default router;
