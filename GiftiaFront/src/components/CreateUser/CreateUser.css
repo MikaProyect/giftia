@@ -12,7 +12,7 @@
 }
 
 .modal-content {
-    background: #fff;
+    background: #443C51;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -26,6 +26,7 @@
 }
 
 .form-group label {
+    color: #e9ecef;
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
@@ -55,15 +56,28 @@
 
 .tituloEditPr {
     margin-bottom: 20px;
-    color: #6c63ff;
+    color: #fff;
     text-align: center;
 }
 
 button[type="button"] {
-    background-color: #ff6b6b;
+    background-color: #443C54;
     color: #fff;
 }
 
 button[type="button"]:hover {
-    background-color: #e65a5a;
+    background-color: #CBA3FB;
+}
+
+button[type="submit"] {
+    background-color: #443C54;
+    color: #fff;
+}
+
+button[type="submit"]:hover {
+    background-color: #CBA3FB;
+}
+
+.form .h1 {
+    color: #fff;
 }

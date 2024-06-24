@@ -129,10 +129,10 @@ function EditUser({ show, Close, data }) {
 
                     <div className="form-group">
                         <button type="submit">Guardar</button>
+                        <button type="button" onClick={onClose}>Cerrar</button>
                     </div>
                 </form>
                 <div>
-                    <button type="button" onClick={onClose}>Cerrar</button>
                 </div>
             </div>
         </div>
