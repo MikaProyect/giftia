@@ -2,15 +2,19 @@ import { useState, useEffect } from 'react';
 import './UserProfile.css';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
+import { getItem } from '../../functions/localStorage.js';
 
 function UserProfile({ user }) {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
   });
+const [usuario, setUsuario] = useState(null)
+  console.log(usuario)
 
   useEffect(() => {
     if (user) {
+      setUsuario(getItem('user'))
       setFormData({
         username: user.username,
         email: user.email,
