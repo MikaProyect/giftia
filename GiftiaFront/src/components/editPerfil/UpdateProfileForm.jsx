@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
-import { updateProfileAPI } from '../../api/auth.js';
+import "./UpdateProfile.css";
+import "toastify-js/src/toastify.css";
+import { useEffect, useState } from "react";
+import DialogTemplate from "../DialogTemplate";
+import { Exit } from "../UI/Exit";
 
-const UpdateProfileForm = ({ user }) => {
+import { getItem, saveItem } from "../../functions/localStorage.js";
+
+import { updateUserAPI } from "../../api/auth";
+
+const UpdateProfileForm = ({ open, close, user, refresh }) => {
   const [formData, setFormData] = useState({
-    username: user.username,
-    email: user.email,
+    id: '',
+    username: '',
+    email: '',
   });
 
   const handleInputChange = (e) => {
@@ -17,59 +23,63 @@ const UpdateProfileForm = ({ user }) => {
     });
   };
 
+  const handleClose = () => {
+    close()
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { username, email } = formData;
-
-    const result = await updateProfileAPI(username, email);
-    if (result === 'Perfil actualizado exitosamente') {
-      Toastify({
-        text: 'Perfil actualizado exitosamente',
-        duration: 60000, // 60,000 milisegundos = 1 minuto
-        close: true,
-        gravity: 'bottom',
-        position: 'right',
-        backgroundColor: '#28a745',
-      }).showToast();
-    } else {
-      Toastify({
-        text: 'Error al actualizar el perfil: ' + result,
-        duration: 60000, // 60,000 milisegundos = 1 minuto
-        close: true,
-        gravity: 'bottom',
-        position: 'right',
-        backgroundColor: '#FF5F6D',
-      }).showToast();
-    }
+    let userData = getItem('user');
+    userData.username = username;
+    userData.email = email;
+    saveItem('user', userData);
+    const res = await updateUserAPI(formData);
+    refresh();
   };
 
+  useEffect(() => {
+    if (open) {
+      setFormData(user);
+    }
+  }, [open, user]);
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="username">Nombre de usuario:</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          value={formData.username}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="email">Correo electrónico:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          required
-        />
-      </div>
-      <button type="submit">Actualizar Perfil</button>
-    </form>
+    <>
+      {open && (
+        <DialogTemplate>
+          <Exit onClick={() => handleClose()} />
+          <div className="formContainer">
+            <form className="form-profile" onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="username">Nombre de usuario:</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="email">Correo electrónico:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <button type="submit">Actualizar Perfil</button>
+            </form>
+            <button onClick={handleClose}>Cerrar</button>
+          </div>
+        </DialogTemplate>
+      )}
+    </>
   );
 };
 
-export default UpdateProfileForm;
+export { UpdateProfileForm };

@@ -54,9 +54,6 @@ export const createUserSchema = z.object({
   })
 })
 
-
-
-
 export const updateProfileSchema = z.object({
   username: z.string({
     required_error: 'El usuario es requerido'

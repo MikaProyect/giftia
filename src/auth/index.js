@@ -22,6 +22,7 @@ export const verifyToken = (req, res, next) => {
   } else {
     const token = authHeader.split(' ')[1]
     const { id } = req.body
+    console.log(id)
     try {
       const decoded = jwt.verify(token, secret)
       if (id === decoded.id) {

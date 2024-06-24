@@ -65,7 +65,6 @@ export const verifyUserAPI = async (id) => {
   const rawToken = localStorage.getItem('token');
   const token = rawToken ? rawToken.replace(/^"|"$/g, '') : null; // Eliminar comillas si existen
   try {
-    console.log()
     const res = await fetch("http://localhost:3000/api/admin/verify-user", {
         method: "POST",
         headers: {
@@ -79,4 +78,24 @@ export const verifyUserAPI = async (id) => {
   } catch (error) {
     return 'error';
   }
+}
+
+export const updateUserAPI = async (data) => {
+  const rawToken = localStorage.getItem('token');
+  const token = rawToken ? rawToken.replace(/^"|"$/g, '') : null; // Eliminar comillas si existen
+  console.log(token)
+ try {
+  const res = await fetch('http://localhost:3000/api/user/update-profile', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({id: data.id , username: data.username, email: data.email})
+  })
+  const resJson = await res.json()
+  return resJson
+ } catch (error) {
+    return 'error';
+ }
 }

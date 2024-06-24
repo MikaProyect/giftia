@@ -1,5 +1,6 @@
 import { supabase } from '../app.js'
 import { signIn } from '../auth/index.js'
+import { m_updateUser } from '../schemas/user.schema.js'
 
 export const loginController = async (req, res) => {
   const { email, password } = req.body
@@ -86,26 +87,12 @@ export const logoutController = async (req, res) => {
 }
 
 export const updateProfileController = async (req, res) => {
-  const { username, email } = req.body;
-  const { data: session } = await supabase.auth.getSession()
-
-  if (!session) {
-    return res.status(401).json({ message: 'No autorizado' })
-  }
-
+  const { id, username, email } = req.body;
   try {
-    const { data, error } = await supabase.auth.updateUser({
-      email,
-      data: { display_name: username }
-    });
-
-    if (error) {
-      return res.status(500).json({ message: error.message })
-    }
-
-    return res.status(200).json({ message: 'Perfil actualizado exitosamente' })
+    const data = await m_updateUser(id, username, email)
+    console.log(data)
+    return res.status(200).json({ status: 200, message: 'Perfil actualizado exitosamente', user: data })
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: 'Error en Supabase api' })
+    return res.status(500).json({ message: 'Error en Supabase api', error: error.message })
   }
 }
