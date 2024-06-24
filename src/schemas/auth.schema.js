@@ -53,3 +53,19 @@ export const createUserSchema = z.object({
     message: 'La contraseña debe tener al menos 6 caracteres'
   })
 })
+
+
+
+
+export const updateProfileSchema = z.object({
+  username: z.string({
+    required_error: 'El usuario es requerido'
+  }).min(3, {
+    message: 'El usuario debe tener al menos 3 caracteres'
+  }),
+  email: z.string({
+    required_error: 'El correo es requerido'
+  }).email({
+    message: 'Correo inválido'
+  })
+});

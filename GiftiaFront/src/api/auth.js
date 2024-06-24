@@ -72,3 +72,24 @@ export const profileAPI = async () => {
     return 'error'
   }
 };
+
+
+export const updateProfileAPI = async (username, email) => {
+  try {
+    const res = await fetch('http://localhost:3000/api/user/update-profile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username,
+        email
+      })
+    });
+    const data = await res.json();
+    return data.message;
+  } catch (error) {
+    console.log("Ha ocurrido un error inesperado: ", error);
+    return 'error';
+  }
+};

@@ -102,3 +102,30 @@ export const userProfile = async (req, res) => {
     })
   }
 }
+
+
+
+export const updateProfileController = async (req, res) => {
+  const { username, email } = req.body;
+  const { data: session } = await supabase.auth.getSession()
+
+  if (!session) {
+    return res.status(401).json({ message: 'No autorizado' })
+  }
+
+  try {
+    const { data, error } = await supabase.auth.updateUser({
+      email,
+      data: { display_name: username }
+    });
+
+    if (error) {
+      return res.status(500).json({ message: error.message })
+    }
+
+    return res.status(200).json({ message: 'Perfil actualizado exitosamente' })
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: 'Error en Supabase api' })
+  }
+}
