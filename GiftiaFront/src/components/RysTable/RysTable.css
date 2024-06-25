@@ -54,6 +54,11 @@
   max-width: 300px;
 }
 
+.highlight-date {
+  color: red; /* O el color que prefieras */
+}
+
+
 .solveBtn {
   background-color: #6831ac;
   color: #fff;
