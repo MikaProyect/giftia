@@ -18,6 +18,11 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
                 nomodule
                 src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
             ></script>
+
+            <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+            
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        
             
             <h1 class="titulo-inicial">Reclamos y Sugerencias</h1>
             
@@ -190,6 +195,8 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
 
 <!--Filtro para las malas palabras en el cuadro de texto-->
 <script>
+    import { showMessage } from "../scripts/notification";
+
     fetch('/words.json')
         .then(response => response.json())
         .then(data => {
@@ -207,10 +214,11 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
                 for (const word of words) {
                     if (forbiddenWords.includes(word)) {
                         // Si se encuentra una palabra prohibida, muestra un mensaje de error
-                        errorMessage.textContent = 'Por favor, evita usar lenguaje ofensivo en tu testimonio.';
-                        errorMessage.style.color = 'white';
-                        errorMessage.style.display = 'block';
-                        errorMessage.style.textAlign = 'center';
+                        // errorMessage.textContent = 'Por favor, evita usar lenguaje ofensivo en tu testimonio.';
+                        showMessage('Por favor, evita usar lenguaje ofensivo en tu testimonio.', 'error');
+                        // errorMessage.style.color = 'white';
+                        // errorMessage.style.display = 'block';
+                        // errorMessage.style.textAlign = 'center';
                         hasForbiddenWord = true;
                         break;
                     }
@@ -228,6 +236,8 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
 
 <!--Ventana flotante más las alertas  -->
 <script>
+    import { showMessage } from "../scripts/notification";
+
     document.addEventListener("DOMContentLoaded", function(){
         const boton = document.querySelector(".button-enviar")
         const ventana = document.querySelector(".floating-container") as HTMLFormElement
@@ -263,7 +273,8 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
                 title.style.transition = "filter 0.5s ease"
             } else {
                 ventana.style.display = "none"
-                alert("Debe responder todas las casillas antes de enviar, por favor.")
+                // alert("Debe responder todas las casillas antes de enviar, por favor.")
+                showMessage('Debe responder todas las casillas antes de enviar, por favor.', 'error');
             }
         })
     })
@@ -456,7 +467,7 @@ import Barra from "../components/BarraProgreso/Barra.jsx"
     }
 
     .accordion-item {
-        border-bottom: 1px solid #CBA3FB;
+        border-bottom: 1px solid c;
         padding: 10px;
     }
 
