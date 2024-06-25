@@ -3,9 +3,8 @@ import "toastify-js/src/toastify.css";
 import { useEffect, useState } from "react";
 import DialogTemplate from "../DialogTemplate";
 import { Exit } from "../UI/Exit";
-
+import Toastify from 'toastify-js';
 import { getItem, saveItem } from "../../functions/localStorage.js";
-
 import { updateUserAPI } from "../../api/auth";
 
 const UpdateProfileForm = ({ open, close, user, refresh }) => {
@@ -24,8 +23,8 @@ const UpdateProfileForm = ({ open, close, user, refresh }) => {
   };
 
   const handleClose = () => {
-    close()
-  }
+    close();
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,8 +33,36 @@ const UpdateProfileForm = ({ open, close, user, refresh }) => {
     userData.username = username;
     userData.email = email;
     saveItem('user', userData);
-    const res = await updateUserAPI(formData);
-    refresh();
+
+    try {
+      const res = await updateUserAPI(formData);
+      if (res.status === 200) {
+        Toastify({
+          text: "Actualización exitosa",
+          duration: 3000,
+          gravity: "top",
+          position: "right",
+          backgroundColor: "#4BB543",
+        }).showToast();
+        refresh();
+      } else {
+        Toastify({
+          text: "No se ha podido actualizar con éxito",
+          duration: 3000,
+          gravity: "top",
+          position: "right",
+          backgroundColor: "#FF0000",
+        }).showToast();
+      }
+    } catch (error) {
+      Toastify({
+        text: "No se ha podido actualizar con éxito (400)",
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#FF0000",
+      }).showToast();
+    }
   };
 
   useEffect(() => {
@@ -43,14 +70,15 @@ const UpdateProfileForm = ({ open, close, user, refresh }) => {
       setFormData(user);
     }
   }, [open, user]);
+
   return (
     <>
       {open && (
         <DialogTemplate>
-          <Exit onClick={() => handleClose()} />
-          <div className="formContainer">
+          <div className="update-profile-form">
+            <Exit onClick={handleClose} />
             <form className="form-profile" onSubmit={handleSubmit}>
-              <div>
+              <div className="form-group">
                 <label htmlFor="username">Nombre de usuario:</label>
                 <input
                   type="text"
@@ -61,7 +89,7 @@ const UpdateProfileForm = ({ open, close, user, refresh }) => {
                   required
                 />
               </div>
-              <div>
+              <div className="form-group">
                 <label htmlFor="email">Correo electrónico:</label>
                 <input
                   type="email"
@@ -72,9 +100,8 @@ const UpdateProfileForm = ({ open, close, user, refresh }) => {
                   required
                 />
               </div>
-              <button type="submit">Actualizar Perfil</button>
+              <button className="btn-update" type="submit">Actualizar Perfil</button>
             </form>
-            <button onClick={handleClose}>Cerrar</button>
           </div>
         </DialogTemplate>
       )}

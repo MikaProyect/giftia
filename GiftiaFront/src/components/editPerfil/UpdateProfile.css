@@ -1,16 +1,49 @@
-.formContainer {
+.update-profile-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #443C54;
+  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-top: 10px;
 }
 
-.form-profile {
-  align-self: center;
+.update-profile-form .form-profile {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+}
+
+.update-profile-form .form-group {
+  margin-bottom: 20px;
+}
+
+.update-profile-form label {
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+.update-profile-form input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  color: #000; /* Asegura que el texto sea negro */
+}
+
+.update-profile-form .btn-update {
+  background-color: #6e5a96;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.update-profile-form .btn-update:hover {
+  background-color: #584480;
 }

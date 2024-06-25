@@ -1,44 +1,55 @@
 .profile-form {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background: #fff;
+  max-width: 700px;
+  height: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #443C54;
+  color: #fff;
+  margin-top: 120px;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  flex-direction: column; /* Arrange items vertically */
+  
   }
   
   .profile-form h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
+    color: rgb(255, 255, 255);
+    font-size: 35px;
+    margin-top: 20px;
+    font-weight: bold;
   }
   
-  .form-group {
-    margin-bottom: 15px;
+  .profile-form p {
+    font-size: 24px;
+
   }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
+
+  .profile-form button{
+    background-color: #443C54;
+    padding: 8px 12px;
+    border-radius: 80px;
+    margin: 0 auto; /* Add this line */
+    
   }
-  
-  .form-group input {
-    width: 100%;
+  .btnedit{
+    color: rgb(255, 255, 255);
+
+  }
+  .profile-form button svg {
+    display: block; /* Make SVG a block element */
+    margin: 0 auto; /* Center horizontally */
+    background-color: #6e5a96;
     padding: 8px;
-    box-sizing: border-box;
+    border-radius: 80px;
+    height: 60px;
+    width: 60px;
+    
+
   }
   
-  .form-group button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .form-group button:hover {
-    background: #0056b3;
-  }
-  
+

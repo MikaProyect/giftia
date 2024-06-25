@@ -3,6 +3,7 @@ import { UpdateProfileForm } from "./UpdateProfileForm.jsx";
 import "./UserProfile.css";
 import "toastify-js/src/toastify.css";
 import { getItem } from "../../functions/localStorage.js";
+import { EDIT } from "../UI/edit"
 
 function UserProfile() {
   const [user, setUser] = useState({});
@@ -28,9 +29,9 @@ function UserProfile() {
     <>
       <div className="profile-form">
           <h1>Perfil de Usuario</h1>
-          <p>Nombre: {user?.username}</p>
-          <p>Correo electrónico: {user?.email}</p>
-          <button type="button" onClick={handleOpen}>Actualizar Perfil</button>
+          <p>Nombre: &nbsp;&nbsp;{user?.username}</p><br />
+          <p>Correo : &nbsp;&nbsp;{user?.email}</p><br /><br />
+          <button className="btnedit" type="button" onClick={handleOpen}> <EDIT onClick={() => handleClose()}  /> Editar Perfil </button>
       </div>
       <div className="btnProfile">
       </div>
